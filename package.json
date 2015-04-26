@@ -1,0 +1,27 @@
+{
+  "name"              : "secrets",
+  "version"           : "0.4.26",
+  "description"       : "",
+  "homepage"          : "http://zetapath.com",
+  "author"            : "Zetapath LTD.",
+  "dependencies": {
+    "coffee-script"   : "*"
+  },
+  "devDependencies" : {
+    "director"        : "*",
+    "gulp"            : "*",
+    "gulp-cjsx"       : "*",
+    "gulp-concat"     : "*",
+    "gulp-connect"    : "*",
+    "gulp-flatten"    : "*",
+    "gulp-header"     : "*",
+    "gulp-stylus"     : "*",
+    "gulp-uglify"     : "*",
+    "gulp-util"       : "*",
+    "gulp-yml"        : "*"
+  },
+  "scripts" : {
+    "start"           : "gulp",
+    "postinstall"     : "bower install"
+  }
+}

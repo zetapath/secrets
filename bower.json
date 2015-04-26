@@ -1,0 +1,11 @@
+{
+  "name"            : "secrets",
+  "version"         : "0.4.26",
+  "dependencies"    : {
+    "hamsa"         : "*",
+    "moment"        : "*",
+    "quojs"         : "*",
+    "react"         : "*",
+    "stylmethods"   : "*"
+  }
+}

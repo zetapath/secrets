@@ -1,0 +1,6 @@
+npm-debug.log
+
+bower_components
+dist/assets/css/*.css
+dist/assets/js/*.js
+node_modules
