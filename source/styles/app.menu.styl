@@ -1,0 +1,40 @@
+aside
+  z-index                                         : 2
+  width                                           : MENU_WIDTH
+  color                                           : WHITE
+  background-color                                : BACKGROUND
+
+  transform                                         translateX(-100%)
+
+  &.true
+    transform                                       translateX(0%)
+
+  > nav
+    margin                                        : (SPACE / 4) 0
+    > *
+      display-flex()
+      padding                                     : (SPACE / 2) SPACE
+      opacity                                     : 0.5
+      > strong
+        flex-grow                                 2
+
+      &.true, &.active
+        opacity                                   : 1
+
+  > div
+    display-flex()
+    flex-direction                                  column
+    justify-content                                 center
+    align-content                                   center
+    align-items                                     center
+    margin                                        : SPACE
+
+    > figure
+      width                                       : SIZE = UNIT
+      height                                      : SIZE
+      margin-bottom                               : (SPACE / 2)
+      border-radius                               : SIZE
+      background-color                            : BACKGROUND
+      background-size                             : cover
+      background-image                            : url("http://cdn.tapquo.com/photos/soyjavi.jpg")
+      box-shadow                                    0 0 0 3px BACKGROUND, 0 0 0 5px alpha(THEME, 75%)

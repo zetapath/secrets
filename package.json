@@ -8,7 +8,6 @@
     "coffee-script"   : "*"
   },
   "devDependencies" : {
-    "director"        : "*",
     "gulp"            : "*",
     "gulp-cjsx"       : "*",
     "gulp-concat"     : "*",

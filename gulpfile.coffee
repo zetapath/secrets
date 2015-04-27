@@ -13,12 +13,18 @@ pkg     = require "./package.json"
 
 # -- FILES ---------------------------------------------------------------------
 path =
-  dist      :   "./dist/assets"
-  cjsx      : [ "source/entities/*.coffee"
-                "source/components/app.*.cjsx"
-                "source/components/app.cjsx"]
-  styl      : [ "source/styles/*.styl"]
-  js        : [ "bower_components/react/react.min.js"
+  dist      :   "./dist"
+  cjsx      : [ "source/module.cjsx"
+                "source/components/*.cjsx"
+                "source/entities/*.coffee"
+                "source/app.cjsx"]
+  styl      : [ "bower_components/STYLmethods/vendor.styl"
+                "source/styles/__constants.styl"
+                "source/styles/reset.styl"
+                "source/styles/app.styl"
+                "source/styles/app.*.styl"]
+  js        : [ "bower_components/director/build/director.js"
+                "bower_components/react/react-with-addons.js"
                 "bower_components/hamsa/dist/hamsa.js"
                 "bower_components/moment/min/moment.min.js"
                 ]
@@ -39,13 +45,14 @@ gulp.task "webserver", ->
   connect.server
     port      : 8000
     livereload: true
+    root      : path.dist
 
 gulp.task "cjsx", ->
   gulp.src path.cjsx
     .pipe concat "#{pkg.name}.cjsx"
     .pipe cjsx().on "error", gutil.log
     .pipe header banner, pkg: pkg
-    .pipe gulp.dest "#{path.dist}/js"
+    .pipe gulp.dest "#{path.dist}/assets/js"
     .pipe uglify mangle: true
     .pipe connect.reload()
 
@@ -56,13 +63,13 @@ gulp.task "styl", ->
       compress: true
       errors  : true
     .pipe header banner, pkg: pkg
-    .pipe gulp.dest "#{path.dist}/css"
+    .pipe gulp.dest "#{path.dist}/assets/css"
     .pipe connect.reload()
 
 gulp.task "js", ->
   gulp.src path.js
     .pipe concat "#{pkg.name}.dependencies.js"
-    .pipe gulp.dest "#{path.dist}/js"
+    .pipe gulp.dest "#{path.dist}/assets/js"
     .pipe connect.reload()
 
 gulp.task "init", ["cjsx", "styl", "js"]

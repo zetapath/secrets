@@ -1,0 +1,33 @@
+body
+  overflow                                  : none
+  font-family                               : FONT_FAMILY
+  font-size                                 : FONT_SIZE
+  background-color                          : BACKGROUND
+
+  h1, h2, h3, h4, h5, h6, label, p, button, abbr, a
+    -webkit-font-smoothing: subpixel-antialiased
+    font-smoothing: subpixel-antialiased
+    -webkit-text-size-adjust: 100%
+    -ms-text-size-adjust: 100%
+    text-size-adjust: 100%
+
+  span
+    -webkit-font-smoothing: antialiased
+    font-smoothing: antialiased
+
+  article, aside
+    position                                : absolute
+    left                                    : 0
+    top                                     : 0
+    height                                  : 100%
+    transition                                transform ANIMATION_DURATION ANIMATION_EASE
+
+  article
+    width                                   : 100%
+    background-color                        : WHITE
+
+  a
+    color                                   : WHITE
+    opacity                                 : 0.9
+    &:active, &:focus
+      opacity                               : 1
