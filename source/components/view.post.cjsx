@@ -8,7 +8,7 @@ App.Post = React.createClass
 
   getDefaultProps: ->
     routes: [
-      label: "back", route: "/"
+      icon: "back", route: "/"
     ]
 
   # -- Events

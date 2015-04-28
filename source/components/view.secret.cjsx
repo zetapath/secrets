@@ -8,7 +8,7 @@ App.Secret = React.createClass
 
   getDefaultProps: ->
     routes: [
-      label: "back", icon: "1", route: "/"
+      icon: "back", route: "/"
     ]
 
   # -- Events

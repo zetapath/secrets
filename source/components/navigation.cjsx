@@ -10,8 +10,8 @@ App.Navigation = React.createClass
     routes     : []
 
   # -- Events
-  onClick: (event) ->
-    console.log "target", event.target
+  # onClick: (event) ->
+  #   console.log "target", event.target
 
   # -- Render
   render: ->
@@ -19,7 +19,7 @@ App.Navigation = React.createClass
     {
       for route, index in @props.routes
         <a href={"/#" + route.route} key={index} onClick={@onClick}>
-          <span className={"icon" + route.icon}></span>
+          <span className={"icon " + route.icon}></span>
           <strong>{route.label}</strong>
           <small>{route.count}</small>
         </a>

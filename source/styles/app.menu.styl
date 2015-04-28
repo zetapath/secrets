@@ -3,9 +3,7 @@ aside
   width                                           : MENU_WIDTH
   color                                           : WHITE
   background-color                                : BACKGROUND
-
   transform                                         translateX(-100%)
-
   &.true
     transform                                       translateX(0%)
 
@@ -17,9 +15,9 @@ aside
       opacity                                     : 0.5
       > strong
         flex-grow                                 2
-
       &.true, &.active
         opacity                                   : 1
+        color                                     : THEME
 
   > div
     display-flex()

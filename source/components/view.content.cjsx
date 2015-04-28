@@ -8,8 +8,8 @@ App.Content = React.createClass
 
   getDefaultProps: ->
     routes:
-      menu  : [ label: "menu", route: "/menu" ]
-      post  : [ label: "new", route: "/post" ]
+      menu  : [ icon: "menu", route: "/menu" ]
+      post  : [ icon: "new", route: "/post" ]
 
   # -- Lifecycle
   # componentWillMount: ->
@@ -45,7 +45,12 @@ App.Content = React.createClass
         subroutes={@props.routes.post} />
       {
         if @props.context is "discover"
-          <App.List ref="discover" elements={@_discoverSecrets()} />
+          <App.List ref="discover" dataSource={@_discoverSecrets()} renderRow="App.ItemSecret" search=true />
+        else if @props.context is "followers"
+          <App.List ref="followers" dataSource={@_discoverFollowers()} renderRow="App.ItemSecret" />
+        else if @props.context is "following"
+          <App.Loading />
+
       }
     </article>
 
@@ -53,5 +58,11 @@ App.Content = React.createClass
   _discoverSecrets: ->
     secrets = []
     for i in [1..10]
+      secrets.push name: "Name #{i}", description: "Description #{i}", id: i
+    secrets
+
+  _discoverFollowers: ->
+    secrets = []
+    for i in [1..3]
       secrets.push name: "Name #{i}", description: "Description #{i}", id: i
     secrets

@@ -1,17 +1,28 @@
 header
   display-flex()
+  z-index                             : 2
+  position                            : absolute
+  left                                : 0
+  right                               : 0
   height                              : HEADER_HEIGHT
-  padding                             : 0 5vw
+  padding                             : 0 2.5vw
   color                               : WHITE
-  background-color                    : rgba(0, 0, 0, 0.1)
+  background-color                    : alpha(THEME, 97.5%)
   &, > *
     line-height                       : HEADER_HEIGHT
-
+  > *
+    padding                            : 0 1.25vw
   > nav
     flex-grow                          0
     max-width                         : HEADER_HEIGHT
     text-align                        : center
+    > *
+      display                         : block
+      min-width                       : (HEADER_HEIGHT / 2)
+      min-height                      : HEADER_HEIGHT
+      background-color                : rgba(0,0,0,0.1)
   > h1
     flex-grow 1
-    text-align                        : center
+    text-align                        : left
+    font-size                         : FONT_SIZE_BIG
     text-transform                    : Capitalize
