@@ -1,0 +1,43 @@
+[data-dialog]
+  display-flex()
+  justify-content                     center
+  align-content                       center
+  align-items                         center
+  height                            : 50vh
+
+  width                               : 100%
+  text-align                          : center
+  color                               : WHITE
+  background-color                    : alpha(BACKGROUND, 97.5%)
+  transform                             translateY(100%)
+  &.true
+    transform                           translateY(0%)
+
+  > *
+    width                             : 85vw
+    h1
+      margin-bottom                   : (SPACE / 2)
+
+    img
+      margin                          : (2 * SPACE) 0 SPACE 0
+      max-width                       : 65vw
+
+    small
+      display                         : block
+      opacity                         : 0.5
+
+    button
+      margin                          : (2 * SPACE) 0 (SPACE / 2) 0
+      width                           : 100%
+      height                          : HEIGHT = (UNIT / 1.5)
+      font-size                       : FONT_SIZE_SMALL
+      font-weight                     : FONT_WEIGHT_BOLD
+      line-height                     : HEIGHT
+      color                           : WHITE
+      background-color                : transparent
+      border                          : solid 1px WHITE
+      border-radius                   : (SPACE / 4)
+
+    a
+      display                         : block
+      font-size                       : FONT_SIZE_TINY

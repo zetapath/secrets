@@ -7,6 +7,7 @@ App.Secrets = React.createClass
     menu      : false
     secret    : false
     post      : false
+    dialog    : false
     context   : "discover"
 
   # -- Lifecycle
@@ -18,8 +19,8 @@ App.Secrets = React.createClass
       '/following'  : [@hideMenu, => @content 'following']
       '/activity'   : [@hideMenu, => @content 'activity']
       '/post'       : @setState.bind @, post: true
-      '/secret/:id' : @setState.bind @, secret: true, id: '?'
-      '/'           : @setState.bind @, menu: false, secret: false, post: false, context: 'discover'
+      '/secret/:id' : @setState.bind @, dialog: true, id: '?'
+      '/'           : [@hideAll, => @content 'discover']
     router.init '/'
 
   # -- Events
@@ -27,6 +28,9 @@ App.Secrets = React.createClass
   # -- Private
   hideMenu: ->
     @setState menu: false
+
+  hideAll: ->
+    @setState menu: false, secret: false, post: false, dialog: false
 
   content: (value) ->
     @setState context: value
@@ -38,6 +42,7 @@ App.Secrets = React.createClass
       <App.Content context={@state.context} />
       <App.Secret active={@state.secret} id={@state.id}/>
       <App.Post active={@state.post}/>
+      <App.Dialog active={@state.dialog} />
     </div>
 
 React.render <App.Secrets />, document.body
