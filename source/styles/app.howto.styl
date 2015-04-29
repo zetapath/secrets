@@ -1,0 +1,92 @@
+#howto
+  background-color                    : THEME
+  &, > *, > * > *
+    transition                        all ANIMATION_DURATION ANIMATION_EASE
+  > *
+    position                          : relative
+    overflow                          : hidden
+
+  DELAY = (ANIMATION_DURATION / 1)
+  > .scene
+    flex-grow                           1
+    text-shadow                       : (SPACE / 4) (SPACE / 6) rgba(0,0,0,0.1)
+    text-align                        : center
+    color                             : WHITE
+    > h1
+      position                        : absolute
+      top                             : SPACE
+      left                            : 0
+      width                           : 100vw
+      transform                         translateY(-50vh)
+      transition-delay                  DELAY
+    > img
+      position                        : absolute
+      bottom                          : -20%
+      left                            : GAP = 5vw
+      width                           : (100vw -  (2 * GAP))
+      transform                         translateY(50vh)
+      transition-delay                  (2 * DELAY)
+
+  > .text
+    flex-grow 0
+    display-flex()
+    flex-direction                      column
+    justify-content                     center
+    align-content                       center
+    align-items                         center
+    padding                           : 0 SPACE
+    background-color                  : WHITE
+    text-align                        : center
+    > p
+      font-size                       : (1.1 * FONT_SIZE_NORMAL)
+      margin-bottom                   : SPACE
+      // transform                         translateY(50vh)
+    > a
+      display                         : inline-block
+      height                          : SIZE = (UNIT / 1.25)
+      width                           : auto
+      padding                         : 0 SPACE
+      font-size                       : FONT_SIZE_BIG
+      font-weight                     : FONT_WEIGHT_BOLD
+      line-height                     : SIZE
+      text-align                      : center
+      background-color                : THEME
+      border-radius                   : SIZE
+      &.loading
+        width                         : SIZE
+
+  // -- STEPS
+  &[data-step="0"]
+    > .scene
+      height                          : 0
+      > *
+        opacity                       : 0
+    > .text
+      height                          : 100vh
+      > p
+        display                       : none
+
+  &:not([data-step="0"])
+    SCENE_HEIGHT = 60vh
+    > .scene
+      height                          : SCENE_HEIGHT
+    > .text
+      height                          : (100vh - SCENE_HEIGHT)
+
+  &[data-step="1"] [data-step="1"]
+    transform                           translateY(0%)
+
+  &[data-step="2"]
+    background-color                    darken(THEME, 25%)
+    [data-step="2"]
+      transform                         translateY(0%)
+
+  &[data-step="3"] [data-step="3"]
+    transform                           translateY(0%)
+
+  &[data-step="4"]
+    SCENE_HEIGHT = 50vh
+    > .scene
+      height                          : 0
+    > .text
+      height                          : 100vh

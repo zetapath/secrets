@@ -25,7 +25,7 @@ App.Menu = React.createClass
 
   # -- Render
   render: ->
-    <aside onClick={@onClick} className={@props.active} data-menu>
+    <aside id="menu" onClick={@onClick} className={@props.active}>
       <div>
         <figure></figure>
         <strong>Name</strong>

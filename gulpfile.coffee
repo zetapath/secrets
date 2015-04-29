@@ -14,10 +14,10 @@ pkg     = require "./package.json"
 # -- FILES ---------------------------------------------------------------------
 path =
   dist      :   "./dist"
-  cjsx      : [ "source/module.cjsx"
+  cjsx      : [ "source/app.cjsx"
                 "source/components/*.cjsx"
                 "source/entities/*.coffee"
-                "source/app.cjsx"]
+                "source/app.init.cjsx"]
   styl      : [ "bower_components/STYLmethods/vendor.styl"
                 "source/styles/__constants.styl"
                 "source/styles/reset.styl"

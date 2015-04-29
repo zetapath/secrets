@@ -15,6 +15,6 @@ App.User = React.createClass
 
   # -- Render
   render: ->
-    <article data-user className={@props.active}>
+    <article id="user" className={@props.active}>
       <App.Header title="User Item" routes={@props.routes} />
     </article>

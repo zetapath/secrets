@@ -1,7 +1,5 @@
 "use strict"
 
-App = App or {}
-
 class App.Entity extends Hamsa
 
   @define

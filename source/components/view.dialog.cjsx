@@ -28,7 +28,7 @@ App.Dialog = React.createClass
 
   # -- Render
   render: ->
-    <div data-dialog className={@props.active}>
+    <div id="purchase" data-dialog className={@props.active}>
       <div>
         <h1>{@props.title} {@props.id}</h1>
         { <p>{@props.description}</p> if @props.description }

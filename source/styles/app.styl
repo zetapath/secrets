@@ -15,23 +15,17 @@ body
     -webkit-font-smoothing: antialiased
     font-smoothing: antialiased
 
-  article, aside, [data-dialog]
-    position                                : absolute
-    left                                    : 0
-    top                                     : 0
-    height                                  : 100%
-    transition                                transform ANIMATION_DURATION ANIMATION_EASE
-
-  article
-    width                                   : 100%
-    background-color                        : WHITE
-    &:not([data-content])
-      transform                               translateX(100%)
-      &.true
-        transform                             translateX(0%)
-
   a
     color                                   : WHITE
     opacity                                 : 0.9
     &:active, &:focus
       opacity                               : 1
+
+  h1
+    font-size                               : (1.75 * FONT_SIZE_NORMAL)
+  h2
+    font-size                               : (1.5 * FONT_SIZE_NORMAL)
+
+
+  // -- Classes
+  

@@ -45,7 +45,7 @@ App.Content = React.createClass
     search = context is "discover"
     on_click = if context is "discover" then "onSecret" else "onUser"
 
-    <article data-content>
+    <article id="content">
       <App.Header title={context} routes={@props.routes.menu} subroutes={@props.routes.post} />
       {
         if @state.loading
