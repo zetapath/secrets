@@ -5,6 +5,11 @@ App.Content = React.createClass
   # -- States & Properties
   getInitialState: ->
     discover  : []
+    activity  : []
+    followers : []
+    following : []
+    loading   : false
+    context   : undefined
 
   getDefaultProps: ->
     routes:
@@ -12,29 +17,25 @@ App.Content = React.createClass
       post  : [ icon: "new", route: "/post" ]
 
   # -- Lifecycle
-  # componentWillMount: ->
-  #   console.log "07-lifecycle -> componentWillMount"
-  #
-  # componentDidMount: ->
-  #   console.log "07-lifecycle -> componentDidMount"
-  #
-  # componentWillReceiveProps: (next_props) ->
-  #   console.log "07-lifecycle -> componentWillReceiveProps -> ", next_props
-  #
-  # componentWillUpdate: (next_props, next_states) ->
-  #   console.log "07-lifecycle -> componentWillUpdate -> ", next_props, next_states
-  #
-  # componentDidUpdate: (prev_props, prev_states) ->
-  #   @setState discover: @_discoverSecrets()
-  #   console.log "07-lifecycle -> componentDidUpdate -> ", prev_props, prev_states
-  # componentWillUnmount: ->
-  #   console.log "07-lifecycle -> componentWillUnmount"
-  #
-  # shouldComponentUpdate: (next_props, next_states) ->
-  #   console.log "07-lifecycle -> shouldComponentUpdate -> ", next_props, next_states
-  #   return true
+  componentWillReceiveProps: (next_props) ->
+    if @state[next_props.context].length is 0 and not @state.loading
+      @_fakeFetch next_props.context
+
+  shouldComponentUpdate: (next_props, next_states) ->
+    update = false
+    if next_props.context isnt @state.context
+      @setState context: next_props.context, loading: true
+      update = true
+    else if @state.loading is true and next_states.loading is false
+      update = true
+    update
 
   # -- Events
+  onSecret: (data, event) ->
+    console.log "onSecret", data, event
+
+  onUser: (data, event) ->
+    console.log "onUser", data, event
 
   # -- Render
   render: ->
@@ -44,25 +45,19 @@ App.Content = React.createClass
         routes={@props.routes.menu}
         subroutes={@props.routes.post} />
       {
-        if @props.context is "discover"
-          <App.List ref="discover" dataSource={@_discoverSecrets()} renderRow="App.ItemSecret" search=true />
-        else if @props.context is "followers"
-          <App.List ref="followers" dataSource={@_discoverFollowers()} renderRow="App.ItemSecret" />
-        else if @props.context is "following"
+        if @state.loading
           <App.Loading />
-
+        else if @props.context in ["discover", "followers", "following"]
+          <App.List ref={@props.context} dataSource={@state[@props.context]} renderRow="App.ItemSecret" search=true />
       }
     </article>
 
   # -- Private events
-  _discoverSecrets: ->
-    secrets = []
-    for i in [1..10]
-      secrets.push name: "Name #{i}", description: "Description #{i}", id: i
-    secrets
-
-  _discoverFollowers: ->
-    secrets = []
-    for i in [1..3]
-      secrets.push name: "Name #{i}", description: "Description #{i}", id: i
-    secrets
+  _fakeFetch: (context) ->
+    @setState loading: true
+    setTimeout =>
+      values = []
+      for i in (if context is "discover" then [1..10] else [1..3])
+        values.push name: "Name #{i}", description: "Description #{i}", id: i
+      @setState "#{context}": values, loading: false
+    , 2000

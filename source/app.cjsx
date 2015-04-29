@@ -8,31 +8,29 @@ App.Secrets = React.createClass
     secret    : false
     post      : false
     dialog    : false
-    context   : "discover"
+    context   : 'discover'
 
   # -- Lifecycle
   componentDidMount: ->
     router = Router
       '/menu'       : @setState.bind @, menu: true
-      '/profile'    : [@hideMenu, => @content 'profile']
-      '/followers'  : [@hideMenu, => @content 'followers']
-      '/following'  : [@hideMenu, => @content 'following']
-      '/activity'   : [@hideMenu, => @content 'activity']
+      '/profile'    : [@_hideMenu, => @_content 'profile']
+      '/followers'  : [@_hideMenu, => @_content 'followers']
+      '/following'  : [@_hideMenu, => @_content 'following']
+      '/activity'   : [@_hideMenu, => @_content 'activity']
       '/post'       : @setState.bind @, post: true
       '/secret/:id' : @setState.bind @, dialog: true, id: '?'
-      '/'           : [@hideAll, => @content 'discover']
-    router.init '/'
+      '/'           : [@_hideAll, => @_content 'discover']
+    router.init window.location.hash or "/"
 
-  # -- Events
-
-  # -- Private
-  hideMenu: ->
+  # -- Private Methods
+  _hideMenu: ->
     @setState menu: false
 
-  hideAll: ->
+  _hideAll: ->
     @setState menu: false, secret: false, post: false, dialog: false
 
-  content: (value) ->
+  _content: (value) ->
     @setState context: value
 
   # -- Render
