@@ -25,6 +25,10 @@ body
   article
     width                                   : 100%
     background-color                        : WHITE
+    &:not([data-content])
+      transform                               translateX(100%)
+      &.true
+        transform                             translateX(0%)
 
   a
     color                                   : WHITE

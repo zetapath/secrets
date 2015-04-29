@@ -26,29 +26,32 @@ App.Content = React.createClass
     if next_props.context isnt @state.context
       @setState context: next_props.context, loading: true
       update = true
+    # else if next_props.context is @state.context and @state[@state.context].length > 0
+    #   update = true
     else if @state.loading is true and next_states.loading is false
       update = true
     update
 
   # -- Events
   onSecret: (data, event) ->
-    console.log "onSecret", data, event
+    window.location = "/#/secret/#{data.id}"
 
   onUser: (data, event) ->
-    console.log "onUser", data, event
+    window.location = "/#/user/#{data.id}"
 
   # -- Render
   render: ->
+    context = @props.context
+    search = context is "discover"
+    on_click = if context is "discover" then "onSecret" else "onUser"
+
     <article data-content>
-      <App.Header
-        title={@props.context}
-        routes={@props.routes.menu}
-        subroutes={@props.routes.post} />
+      <App.Header title={context} routes={@props.routes.menu} subroutes={@props.routes.post} />
       {
         if @state.loading
           <App.Loading />
-        else if @props.context in ["discover", "followers", "following"]
-          <App.List ref={@props.context} dataSource={@state[@props.context]} renderRow="App.ItemSecret" search=true />
+        else if context in ["discover", "followers", "following"]
+          <App.List dataSource={@state[context]} search={search} onClick={@[on_click]} />
       }
     </article>
 

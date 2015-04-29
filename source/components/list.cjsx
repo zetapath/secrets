@@ -3,11 +3,13 @@
 App.List = React.createClass
 
   # -- States & Properties
+  propTypes:
+    onClick: React.PropTypes.func.isRequired
+
   getDefaultProps: ->
     dataSource  : []
     renderRow   : "App.ItemSecret"
     search      : false
-
 
   # -- Events
   onSearch: (event) ->
@@ -23,7 +25,7 @@ App.List = React.createClass
           <input ref="search" type="search" placeholder="search" onSearch={@onSearch} autofocus />
       }
       {
-        <App.ItemSecret model={item} /> for item, index in @props.dataSource
+        <App.ItemSecret model={item} onClick={@props.onClick} /> for item, index in @props.dataSource
       }
     </ul>
 

@@ -3,6 +3,9 @@
 App.ItemSecret = React.createClass
 
   # -- States & Properties
+  propTypes:
+    onClick: React.PropTypes.func.isRequired
+
   getDefaultProps: ->
     elements    : []
 
@@ -13,7 +16,7 @@ App.ItemSecret = React.createClass
 
   # -- Render
   render: ->
-    <li rel={@props.model.id} onClick={@onClick}>
+    <li rel={@props.model.id} onClick={@props.onClick.bind null, @props.model}>
       <figure></figure>
       <div>
         <strong>{@props.model.name}</strong>

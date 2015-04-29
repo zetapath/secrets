@@ -19,6 +19,6 @@ App.Dialog = React.createClass
         <small>Brooklyn, Ma 02130</small>
 
         <button>Get Directions</button>
-        <a href="/#/">Cancel and go back</a>
+        <a href="/#/">x</a>
       </div>
     </div>
