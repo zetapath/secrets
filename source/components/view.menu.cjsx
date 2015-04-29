@@ -10,15 +10,15 @@ App.Menu = React.createClass
   getDefaultProps: ->
     routes:
       content: [
-        label: "Discover", route: "/"
+        label: "Discover", route: "/content/discover"
       ,
-        label: "Activity", route: "/activity"
+        label: "Activity", route: "/content/activity"
       ,
-        label: "Followers", count: 12, route: "/followers"
+        label: "Followers", count: 12, route: "/content/followers"
       ,
-        label: "Following", route: "/following"
+        label: "Following", route: "/content/following"
       ,
-        label: "Profile", route: "/profile"
+        label: "Profile", route: "/content/profile"
       ]
 
   # -- Events

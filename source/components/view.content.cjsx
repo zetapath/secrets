@@ -14,7 +14,7 @@ App.Content = React.createClass
   getDefaultProps: ->
     routes:
       menu  : [ icon: "menu", route: "/menu" ]
-      post  : [ icon: "new", route: "/post" ]
+      post  : [ icon: "new", route: "/secret/new" ]
 
   # -- Lifecycle
   componentWillReceiveProps: (next_props) ->
@@ -34,7 +34,7 @@ App.Content = React.createClass
 
   # -- Events
   onSecret: (data, event) ->
-    window.location = "/#/secret/#{data.id}"
+    window.location = "/#/purchase/#{data.id}"
 
   onUser: (data, event) ->
     window.location = "/#/user/#{data.id}"
