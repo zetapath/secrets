@@ -4,6 +4,7 @@
   "dependencies"    : {
     "director"      : "*",
     "hamsa"         : "*",
+    "hope"          : "*",
     "moment"        : "*",
     "quojs"         : "*",
     "react"         : "*",
