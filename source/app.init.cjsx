@@ -6,6 +6,7 @@ App.Secrets = React.createClass
   getInitialState: ->
     session   : null
     howto     : false
+    step      : 0
 
     menu      : false
     secret    : false
@@ -25,6 +26,8 @@ App.Secrets = React.createClass
   componentDidMount: ->
     router = Router
       "/session/:id"  : (id) => @setState session: false, context: id
+      "/howto/:step"  : (step) => @setState step: step
+
       "/menu"         : @setState.bind @, menu: true
       "/content/:id"  : (id) => @setState menu: false, context: id
       "/secret/new"   : @setState.bind @, secret: true, id: undefined
@@ -33,6 +36,16 @@ App.Secrets = React.createClass
       "/user/:id"     : (id) => @setState user: true, id: id
       "/"             : @setState.bind @, menu: false, secret: false, user: false, purchase: false
     router.init window.location.hash or "/"
+
+  # -- Events
+  onStep: (event) ->
+    event.preventDefault()
+    step = parseInt(@state.step) + 1
+    if step > 4
+      @setState howto: false
+    else
+      window.location = "/#/howto/#{step}"
+
 
   # -- Render
   render: ->
@@ -47,7 +60,7 @@ App.Secrets = React.createClass
     else
       <div>
         <App.Session context={@state.context} />
-        <App.HowTo active={@state.howto} />
+        <App.HowTo active={@state.howto} step={@state.step} onClick={@onStep} />
       </div>
 
 React.render <App.Secrets />, document.body

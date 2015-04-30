@@ -6,45 +6,99 @@
     position                          : relative
     overflow                          : hidden
 
-  DELAY = (ANIMATION_DURATION / 1)
+  DELAY = (ANIMATION_DURATION / 2.5)
+  > * > *
+    position                          : absolute
   > .scene
     flex-grow                           1
     text-shadow                       : (SPACE / 4) (SPACE / 6) rgba(0,0,0,0.1)
     text-align                        : center
     color                             : WHITE
+    > *
+      transition-delay                  (2 * DELAY)
     > h1
-      position                        : absolute
+      z-index                         : 1
       top                             : SPACE
       left                            : 0
       width                           : 100vw
-      transform                         translateY(-50vh)
-      transition-delay                  DELAY
+      transform                         translateY(-100vh)
     > img
-      position                        : absolute
-      bottom                          : -20%
-      left                            : GAP = 5vw
-      width                           : (100vw -  (2 * GAP))
-      transform                         translateY(50vh)
-      transition-delay                  (2 * DELAY)
+      bottom                          : -5vw
+      &.fox
+        left                          : GAP = 2.5vw
+        bottom                        : -10%
+        width                         : (100vw -  (2 * GAP))
+
+      &.rabbit
+        z-index                       : 3
+        width                         : 30.5vw
+        left                          : 25vw
+        transition-delay                (4.5 * DELAY)
+      &.dog
+        z-index                       : 1
+        width                         : 52.5vw
+        left                          : -7.5vw
+        transition-delay                (3 * DELAY)
+      &.bear
+        z-index                       : 0
+        width                         : SIZE = 75vw
+        left                          : ((100vw - SIZE) / 2)
+      &.pig
+        z-index                       : 1
+        width                         : 57.5vw
+        right                         : -12.5vw
+        transition-delay                (3.5 * DELAY)
+      &.raccoon
+        z-index                       : 2
+        width                         : 52.5vw
+        right                         : 7.5vw
+        transition-delay                (4 * DELAY)
+
+    > img, > figure, > input
+      z-index                         : 0
+      transform                         translateY(100vh)
+    > figure
+      width                           : SIZE = (45vw)
+      height                          : SIZE
+      top                             : 20vh
+      left                            : (50vw - (SIZE / 2))
+      background-color                : WHITE
+      background-image                : url("/assets/img/avatar.jpg")
+      background-size                 : cover
+      border-radius                   : SIZE
+      box-shadow                        0 0 0 (SPACE / 2) alpha(WHITE, 50%)
+    > input
+      left                            : GAP = 20vw
+      bottom                          : (GAP / 1.25)
+      width                           : (100vw - (GAP * 2))
+      font-size                       : FONT_SIZE_BIG
+      line-height                     : (1.5 * FONT_SIZE_BIG)
+      background-color                : THEME
+      color                           : WHITE
+      border                          : none
+      border-bottom                   : solid (SPACE / 5) darken(THEME, 25%)
+      text-align                      : center
+      &:hover
+        border-bottom-color           : lighten(THEME, 25%)
 
   > .text
     flex-grow 0
-    display-flex()
-    flex-direction                      column
-    justify-content                     center
-    align-content                       center
-    align-items                         center
-    padding                           : 0 SPACE
     background-color                  : WHITE
     text-align                        : center
+    GAP = 5vw
+    > *
+      transition-delay                  DELAY
     > p
+      left                            : GAP
+      right                           : GAP
+      top                             : GAP
       font-size                       : (1.1 * FONT_SIZE_NORMAL)
-      margin-bottom                   : SPACE
-      // transform                         translateY(50vh)
+      transform                         translateY(-100vh)
     > a
-      display                         : inline-block
+      bottom                          : SPACE
+      left                            : GAP
+      right                           : GAP
       height                          : SIZE = (UNIT / 1.25)
-      width                           : auto
       padding                         : 0 SPACE
       font-size                       : FONT_SIZE_BIG
       font-weight                     : FONT_WEIGHT_BOLD
@@ -52,40 +106,31 @@
       text-align                      : center
       background-color                : THEME
       border-radius                   : SIZE
-      &.loading
-        width                         : SIZE
+      transform                         translateY(100vh)
 
   // -- STEPS
   &[data-step="0"]
     > .scene
       height                          : 0
-      > *
-        opacity                       : 0
     > .text
       height                          : 100vh
-      > p
-        display                       : none
+      > a
+        bottom                        : 45vh
 
   &:not([data-step="0"])
-    SCENE_HEIGHT = 60vh
+    SCENE_HEIGHT = 65vh
     > .scene
       height                          : SCENE_HEIGHT
     > .text
       height                          : (100vh - SCENE_HEIGHT)
 
-  &[data-step="1"] [data-step="1"]
-    transform                           translateY(0%)
-
-  &[data-step="2"]
-    background-color                    darken(THEME, 25%)
-    [data-step="2"]
-      transform                         translateY(0%)
-
+  &[data-step="0"] [data-step="0"]
+  &[data-step="1"] [data-step="1"],
+  &[data-step="2"] [data-step="2"],
   &[data-step="3"] [data-step="3"]
     transform                           translateY(0%)
 
   &[data-step="4"]
-    SCENE_HEIGHT = 50vh
     > .scene
       height                          : 0
     > .text
