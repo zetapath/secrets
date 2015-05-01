@@ -27,7 +27,7 @@ App.Menu = React.createClass
   render: ->
     <aside id="menu" onClick={@onClick} className={@props.active}>
       <div>
-        <figure></figure>
+        <figure style={backgroundImage: "url(#{@props.session.image})"}></figure>
         <strong>Name</strong>
       </div>
       <App.Navigation routes={@props.routes.content} />

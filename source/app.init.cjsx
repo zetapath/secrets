@@ -20,7 +20,7 @@ App.Secrets = React.createClass
     session = App.session()
     if session?
       App.token = session.token
-      @setState session: session, howto: true
+      @setState session: session, howto: false
     else
       window.location = "/#/session/login"
 
@@ -46,9 +46,9 @@ App.Secrets = React.createClass
   render: ->
     if @state.session and @state.howto is false
       <div>
-        <App.Menu active={@state.menu} onClick={@onNavigation}/>
-        <App.Content context={@state.context} />
-        <App.Secret active={@state.secret} id={@state.id} />
+        <App.Menu active={@state.menu} onClick={@onNavigation} session={@state.session}/>
+        <App.Content context={@state.context} session={@state.session}/>
+        <App.Secret active={@state.secret} id={@state.id}/>
         <App.User active={@state.user} id={@state.id}/>
         <App.Dialog active={@state.purchase} id={@state.id}/>
       </div>

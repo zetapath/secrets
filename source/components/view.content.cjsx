@@ -14,7 +14,11 @@ App.Content = React.createClass
   getDefaultProps: ->
     routes:
       menu  : [ icon: "menu", route: "/menu" ]
-      post  : [ icon: "new", route: "/secret/new" ]
+      post  : [
+        label: "Create a new secret", route: "/secret/new"
+      ,
+        label: "Edit my profile", route: "/content/profile"
+      ]
 
   # -- Lifecycle
   componentWillReceiveProps: (next_props) ->
@@ -46,7 +50,7 @@ App.Content = React.createClass
     on_click = if context is "discover" then "onSecret" else "onUser"
 
     <article id="content">
-      <App.Header title={context} routes={@props.routes.menu} subroutes={@props.routes.post} />
+      <App.Header title={context} routes={@props.routes.menu} session={@props.session} subroutes={@props.routes.post} />
       {
         if @state.loading
           <App.Loading />
