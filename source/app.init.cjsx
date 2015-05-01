@@ -18,18 +18,18 @@ App.Secrets = React.createClass
   # -- Lifecycle
   componentWillMount: ->
     session = App.session()
-    @setState session: session, howto: session?
-    App.entity.Session.observe (state) =>
-      @setState howto: true, session: App.session state
-    , ["add"]
+    if session?
+      App.token = session.token
+      @setState session: session, howto: true
+    else
+      window.location = "/#/session/login"
 
   componentDidMount: ->
     router = Router
       "/session/:id"  : (id) => @setState session: false, context: id
-      "/howto/:step"  : (step) => @setState step: step
-
+      "/howto/:step"  : (step) => @setState session: @state.session, howto: true, step: step
       "/menu"         : @setState.bind @, menu: true
-      "/content/:id"  : (id) => @setState menu: false, context: id
+      "/content/:id"  : (id) => @setState menu: false, context: id, howto: false
       "/secret/new"   : @setState.bind @, secret: true, id: undefined
       "/secret/:id"   : (id) => @setState secret: true, id: id
       "/purchase/:id" : (id) => @setState purchase: true, id: id
@@ -37,15 +37,10 @@ App.Secrets = React.createClass
       "/"             : @setState.bind @, menu: false, secret: false, user: false, purchase: false
     router.init window.location.hash or "/"
 
-  # -- Events
-  onStep: (event) ->
-    event.preventDefault()
-    step = parseInt(@state.step) + 1
-    if step > 4
-      @setState howto: false
-    else
-      window.location = "/#/howto/#{step}"
-
+    App.entity.Session.observe (state) =>
+      @setState howto: true, session: App.session state.object
+      App.token = state.object.token
+    , ["add"]
 
   # -- Render
   render: ->
@@ -60,7 +55,7 @@ App.Secrets = React.createClass
     else
       <div>
         <App.Session context={@state.context} />
-        <App.HowTo active={@state.howto} step={@state.step} onClick={@onStep} />
+        <App.HowTo active={@state.howto} step={@state.step} />
       </div>
 
 React.render <App.Secrets />, document.body

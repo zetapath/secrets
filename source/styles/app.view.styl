@@ -30,38 +30,66 @@ article
     color                                 : WHITE
 
     > h1
+      margin-top                          : -5vh
       font-size                           : (UNIT / 1.5)
+      text-shadow                         : (SPACE / 4) (SPACE / 6) rgba(0,0,0,0.1)
     > form
       width                               : WIDTH = 80vw
       > *
         display                           : block
-        margin                            : (SPACE / 2) 0
-        padding                           : (SPACE / 2) 0
-        text-indent                       : (SPACE / 2)
         width                             : WIDTH
         font-size                         : FONT_SIZE_NORMAL
-        color                             : WHITE
         border                            : none
-
       > input
-        background-color                  : alpha(WHITE, 25%)
-        box-shadow                          inset 0 -1px WHITE
-        transition                          all ANIMATION_DURATION ANIMATION_EASE
-        &:focus
-          box-shadow                        inset 0 -3px WHITE
-
+        margin                            : 0
+        padding                           : (SPACE / 2) 0
+        text-indent                       : (SPACE / 2)
       > button
-        border-radius                     : BORDER_RADIUS
-        &:not([disabled])
+        margin                            : (SPACE / 1.5) 0 (SPACE / 3) 0
+        height                            : (2.5 * SPACE)
+        color                             : THEME
+        &[disabled]
           background-color                : darken(THEME, 25%)
-
-
-    > a
-      font-size                           : FONT_SIZE_SMALL
+        &:not([disabled])
+          background-color                : WHITE
+      > a
+        font-size                         : FONT_SIZE_SMALL
 
     > small
+      z-index                             : 1
       position                            : absolute
       left                                : 0
       bottom                              : (SPACE / 2)
       width                               : 100%
       opacity                             : 0.75
+
+    > img
+      position                            : absolute
+      width                               : 100vw
+      bottom                              : -100vw
+      bottom                              : -35vw
+      // animation                             session-fox 5s ANIMATION_EASE infinite
+
+  &#session, &#howto
+    input
+      background-color                : THEME
+      color                           : WHITE
+      border                          : none
+      border-bottom                   : solid (SPACE / 8) alpha(WHITE, 50%)
+      text-align                      : center
+      transition                        all ANIMATION_DURATION ANIMATION_EASE
+      &::-webkit-input-placeholder
+        color                         : alpha(WHITE, 50%)
+      &:hover, &:focus
+        border-bottom-color           : WHITE
+
+
+@keyframes session-fox
+  0%
+    bottom                              : -100vw
+  30%
+    bottom                              : -100vw
+  40%
+    bottom                              : -35vw
+  85%
+    bottom                              : -35vw

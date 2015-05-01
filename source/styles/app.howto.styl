@@ -1,7 +1,7 @@
 #howto
   background-color                    : THEME
   &, > *, > * > *
-    transition                        all ANIMATION_DURATION ANIMATION_EASE
+    transition                          all ANIMATION_DURATION ANIMATION_EASE
   > *
     position                          : relative
     overflow                          : hidden
@@ -25,7 +25,7 @@
     > img
       bottom                          : -5vw
       &.fox
-        left                          : GAP = 2.5vw
+        left                          : GAP = -2.5vw
         bottom                        : -10%
         width                         : (100vw -  (2 * GAP))
 
@@ -63,23 +63,22 @@
       top                             : 20vh
       left                            : (50vw - (SIZE / 2))
       background-color                : WHITE
-      background-image                : url("/assets/img/avatar.jpg")
       background-size                 : cover
       border-radius                   : SIZE
       box-shadow                        0 0 0 (SPACE / 2) alpha(WHITE, 50%)
     > input
-      left                            : GAP = 20vw
-      bottom                          : (GAP / 1.25)
-      width                           : (100vw - (GAP * 2))
-      font-size                       : FONT_SIZE_BIG
-      line-height                     : (1.5 * FONT_SIZE_BIG)
-      background-color                : THEME
-      color                           : WHITE
-      border                          : none
-      border-bottom                   : solid (SPACE / 5) darken(THEME, 25%)
-      text-align                      : center
-      &:hover
-        border-bottom-color           : lighten(THEME, 25%)
+      transition-delay                  (3 * DELAY)
+      &:not([type="file"])
+        left                            : GAP = 27.5vw
+        bottom                          : (GAP / 1.5)
+        width                           : (100vw - (GAP * 2))
+        height                          : HEIGHT = (2 * SPACE)
+        font-size                       : FONT_SIZE_BIG
+        font-weight                     : FONT_WEIGHT_BOLD
+        line-height                     : HEIGHT
+
+      &[type="file"]
+        display                         : none
 
   > .text
     flex-grow 0
@@ -92,7 +91,7 @@
       left                            : GAP
       right                           : GAP
       top                             : GAP
-      font-size                       : (1.1 * FONT_SIZE_NORMAL)
+      font-size                       : FONT_SIZE_NORMAL
       transform                         translateY(-100vh)
     > a
       bottom                          : SPACE
@@ -124,7 +123,7 @@
     > .text
       height                          : (100vh - SCENE_HEIGHT)
 
-  &[data-step="0"] [data-step="0"]
+  &[data-step="0"] [data-step="0"],
   &[data-step="1"] [data-step="1"],
   &[data-step="2"] [data-step="2"],
   &[data-step="3"] [data-step="3"]

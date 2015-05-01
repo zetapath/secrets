@@ -3,13 +3,30 @@
 window.App = App =
   version   : "0.4.30"
 
-  api       : "http://178.62.129.192:1338/api"
+  host      : "http://178.62.129.192:1338/"
+
+  token     : ""
 
   entity    : {}
 
-  proxy     : (method, api, parameters) -> @
+  proxy     : (type, method, parameters) ->
+    promise = new Hope.Promise()
+    $$.ajax
+      url         : "#{App.host}api/#{method}"
+      type        : type
+      data        : parameters
+      contentType : "application/x-www-form-urlencoded"
+      dataType    : 'json'
+      headers     : "Authorization": App.token or null
+      success: (response, xhr) ->
+        promise.done null, response
+      error: (xhr, error) =>
+        error = code: error.status, message: error.response
+        console.error "__.proxy [ERROR #{error.code}]: #{error.message}"
+        promise.done error, null
+    promise
 
-  multipart : (type, url, parameters, callbacks = {}) ->
+  multipart : (method, parameters, callbacks = {}) ->
     promise = new Hope.Promise()
     formData = new FormData()
     formData.append(name, value) for name, value of parameters
@@ -22,7 +39,7 @@ window.App = App =
     if callbacks.error    then xhr.addEventListener "error", callbacks.error, false
     if callbacks.abort    then xhr.addEventListener "abort", callbacks.abort, false
 
-    xhr.open "POST", "#{@api}#{url}"
+    xhr.open "POST", "#{App.host}api/#{method}"
     xhr.send formData
     promise
 
