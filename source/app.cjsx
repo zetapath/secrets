@@ -26,7 +26,7 @@ window.App = App =
         promise.done error, null
     promise
 
-  multipart : (method, parameters, callbacks = {}) ->
+  multipart : (type, method, parameters, callbacks = {}) ->
     promise = new Hope.Promise()
     formData = new FormData()
     formData.append(name, value) for name, value of parameters
@@ -40,6 +40,7 @@ window.App = App =
     if callbacks.abort    then xhr.addEventListener "abort", callbacks.abort, false
 
     xhr.open "POST", "#{App.host}api/#{method}"
+    xhr.setRequestHeader "Authorization", App.token
     xhr.send formData
     promise
 

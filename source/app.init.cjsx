@@ -55,7 +55,7 @@ App.Secrets = React.createClass
     else
       <div>
         <App.Session context={@state.context} />
-        <App.HowTo active={@state.howto} step={@state.step} />
+        <App.HowTo active={@state.howto} step={@state.step} session={@state.session} />
       </div>
 
 React.render <App.Secrets />, document.body

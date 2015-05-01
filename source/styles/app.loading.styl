@@ -9,7 +9,6 @@
     width                           : SIZE = (UNIT / 1.25)
     height                          : SIZE
     border-radius                   : SIZE
-
     &::before, &::after
       content                       : ""
       position                      : absolute
@@ -20,17 +19,16 @@
       background-color              : darken(WHITE, 25%)
     SPEED = 1.5s
     &::before
-      animation dialog-loading SPEED 0 infinite
+      animation loading SPEED 0 infinite
     &::after
-      animation dialog-loading SPEED (SPEED / 2) infinite
+      animation loading SPEED (SPEED / 2) infinite
+
+
+  // &.button > div
+  //   position:  absolute
+  //   &::before, &::after
+  //     background-color              : darken(WHITE, 25%)
+
 
   article &
     margin-top                      : HEADER_HEIGHT
-
-
-@keyframes dialog-loading
-  0%
-    transform scale(0.0)
-  100%
-    transform scale(1.0)
-    opacity: 0

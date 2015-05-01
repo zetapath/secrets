@@ -9,6 +9,6 @@ class App.entity.Session extends Hamsa
     username      : type: String
     name          : type: String
     bio           : type: String
-    image         : type: String, default: "./assets/image/avatar.jpg"
-    # updated_at    : type: Date
-    # created_at    : type: Date, default: new Date()
+    image         : type: String
+    updated_at    : type: Date
+    created_at    : type: Date, default: new Date()

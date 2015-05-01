@@ -8,9 +8,11 @@ App.Loading = React.createClass
 
   # -- Render
   render: ->
-    <div data-loading>
-      <div></div>
+    <div data-loading className={@props.type}>
+      <div></div><div></div><div></div>
     </div>
+
+    # loader-inner ball-scale-multiple
 
 
 module?.exports = App.Loading

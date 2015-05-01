@@ -30,5 +30,27 @@ body
   button
     border-radius                           : UNIT
     font-weight                             : FONT_WEIGHT_BOLD
-    transition                                all ANIMATION_DURATION ANIMATION_EASE
-  // -- Classes
+
+  button, a.button
+    overflow                                : hidden
+    transition                                all ANIMATION_DURATION (ANIMATION_DURATION / 2) ANIMATION_EASE
+    > abbr
+      transition                              all (ANIMATION_DURATION / 2) ANIMATION_EASE
+
+    &.loading
+      left                                  : GAP = 42vw !important
+      right                                 : GAP
+      background-color                      : lighten(BACKGROUND, 50%) !important
+      animation                               ghost ANIMATION_DURATION (2 * ANIMATION_DURATION) ANIMATION_EASE alternate infinite
+
+      > abbr
+        opacity                             : 0
+
+
+@keyframes ghost
+  0%
+    transform scale(1)
+    opacity: 1
+  100%
+    transform scale(0.25)
+    opacity: 0

@@ -12,16 +12,22 @@ App.HowTo = React.createClass
     step          : 0
 
   getInitialState: ->
-    image         : "/assets/img/avatar.jpg"
+    image         : @props.session?.image
     username      : false
 
   # -- Events
   onSaveProfile: (event) ->
     event.preventDefault()
-    window.location = "/#/howto/#{parseInt(@props.step) + 1}"
-    setTimeout =>
-      window.location = "/#/content/discover"
-    , 2000
+    button = $$(@refs.btnSaveProfile.getDOMNode()).toggleClass "loading"
+    # return
+    parameters =
+      username : @refs.username.getDOMNode().value.trim()
+    App.proxy("PUT", "profile", parameters).then (error, response) =>
+      App.session response unless error
+      button.removeClass "loading"
+      window.location = "/#/howto/#{parseInt(@props.step) + 1}"
+      setTimeout (-> window.location = "/#/content/discover"), 2000
+
   onImage: (event) ->
     event.preventDefault()
     @refs.file.getDOMNode().click()
@@ -47,6 +53,7 @@ App.HowTo = React.createClass
         file  : file_url
         id    : App.session().id
         entity: "user"
+      console.log parameters
       App.multipart("POST", "image", parameters, callbacks).then (error, file) =>
         console.log "POST/image", error, file
 
@@ -69,7 +76,7 @@ App.HowTo = React.createClass
 
         <figure ref="image" data-step="3" onClick={@onImage} style={backgroundImage: "url(#{@state.image})"}></figure>
         <input ref="file" type="file" onChange={@onFileChange} />
-        <input ref="username" data-step="3" type="text" placeholder="username" />
+        <input ref="username" data-step="3" type="text" placeholder="username" value={@props.session?.username}/>
       </section>
       <section className="text">
         <p data-step="1">
@@ -85,6 +92,7 @@ App.HowTo = React.createClass
         <a data-step="0" href="#/howto/1">Let is start...</a>
         <a data-step="1" href="#/howto/2">Okay, understand</a>
         <a data-step="2" href="#/howto/3">Cool, show me more</a>
-        <a data-step="3" href="#" onClick={@onSaveProfile}>Save my profile and start</a>
+        <a ref="btnSaveProfile" data-step="3" href="#" onClick={@onSaveProfile} className="button">
+          <abbr>Save my profile and start</abbr></a>
       </section>
     </article>
