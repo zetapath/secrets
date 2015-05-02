@@ -15,18 +15,14 @@ aside
       opacity                                     : 0.5
       > strong
         flex-grow                                 2
+        font-weight                               : FONT_WEIGHT_NORMAL
       &.true, &.active
         opacity                                   : 1
         color                                     : THEME
 
   > div
-    display-flex()
-    flex-direction                                  column
-    justify-content                                 center
-    align-content                                   center
-    align-items                                     center
-    margin                                        : SPACE
-
+    padding                                       : SPACE
+    background-color                              : darken(BACKGROUND, 25%)
     > figure
       width                                       : SIZE = UNIT
       height                                      : SIZE
@@ -35,3 +31,5 @@ aside
       background-color                            : BACKGROUND
       background-size                             : cover
       box-shadow                                    0 0 0 3px BACKGROUND, 0 0 0 5px alpha(THEME, 75%)
+    > strong
+      font-size                                   : FONT_SIZE_BIG

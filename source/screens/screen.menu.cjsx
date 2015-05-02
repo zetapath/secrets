@@ -6,6 +6,7 @@ App.Menu = React.createClass
   # -- States & Properties
   propTypes:
     routes        : React.PropTypes.object
+    session       : React.PropTypes.object.required
 
   getDefaultProps: ->
     routes:
@@ -14,21 +15,19 @@ App.Menu = React.createClass
       ,
         label: "Activity", route: "/content/activity"
       ,
-        label: "Followers", count: 12, route: "/content/followers"
+        label: "Followers", count: @props?.session?.followers.length, route: "/content/followers"
       ,
         label: "Following", route: "/content/following"
       ,
         label: "Profile", route: "/content/profile"
       ]
 
-  # -- Events
-
   # -- Render
   render: ->
     <aside id="menu" onClick={@onClick} className={@props.active}>
-      <div>
+      <div data-flex="vertical center">
         <figure style={backgroundImage: "url(#{@props.session.image})"}></figure>
-        <strong>Name</strong>
+        <strong>{@props.session.username}</strong>
       </div>
       <App.Navigation routes={@props.routes.content} />
     </aside>

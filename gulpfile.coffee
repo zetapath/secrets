@@ -16,6 +16,7 @@ path =
   dist      :   "./dist"
   cjsx      : [ "source/app.cjsx"
                 "source/components/*.cjsx"
+                "source/screens/*.cjsx"
                 "source/entities/*.coffee"
                 "source/app.init.cjsx"]
   styl      : [ "bower_components/STYLmethods/vendor.styl"
