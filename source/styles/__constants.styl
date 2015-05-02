@@ -42,3 +42,7 @@ ANIMATION_DELAY             = (ANIMATION_DURATION / 5)
   100%
     transform scale(1.0)
     opacity: 0
+
+delayChild(child, increment)
+  &:nth-child({child})
+    transition-delay ((child + increment) * ANIMATION_DELAY)
