@@ -11,15 +11,13 @@ article
 
   &:first-of-type
     z-index                               : 0
-    > header
+    > header, > ul, > section
       transform                             translateY(-100vh)
     > ul, > section
-      transform                             translateY(100vh)
-      opacity                             : 0
       transition-delay                      (ANIMATION_DURATION / 2)
-    &.true > *
-      opacity                             : 1
-      transform                             translateY(0)
+    &.true
+      > header, > ul, > section
+        transform                           translateY(0)
 
   &:not(:first-of-type)
     transform                               translateX(100%)
@@ -28,3 +26,4 @@ article
 
   > section
     height                                : 100vh
+    transition                              transform ANIMATION_DURATION ANIMATION_EASE

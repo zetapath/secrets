@@ -32,10 +32,8 @@ App.Content = React.createClass
   shouldComponentUpdate: (next_props, next_states) ->
     update = false
     if next_props.context isnt @state.context
-      @setState context: next_props.context, loading: true
+      @setState context: next_props.context
       update = true
-    # else if next_props.context is @state.context and @state[@state.context].length > 0
-    #   update = true
     else if @state.loading is true and next_states.loading is false
       update = true
     update
@@ -49,25 +47,45 @@ App.Content = React.createClass
 
   # -- Render
   render: ->
-    context = @props.context
-    search = context is "discover"
-    on_click = if context is "discover" then "onSecret" else "onUser"
-
     <article className={@state.active} id="content">
-      <App.Header title={context} routes={@props.routes.menu} session={@props.session} expanded=false subroutes={@props.routes.post} />
+      <App.Header title={@props.context} routes={@props.routes.menu} session={@props.session} expanded=false subroutes={@props.routes.post} />
       { <App.Loading /> if @state.loading }
       {
-        if context in ["discover", "followers", "following"]
-          <App.List dataSource={@state[context]} search={search} onClick={@[on_click]} />
+        if @props.context in ["discover", "followers", "following"]
+          <App.ListScroll
+            dataSource={@state[@props.context]}
+            itemHeight={64}
+            itemFactory={@_getItemRenderer()}/>
       }
     </article>
 
+  renderSecretItem: (data) ->
+    <div data-flex="horizontal center" onClick={@onSecret.bind @, data} className="secret">
+      <figure></figure>
+      <div data-flex="vertical" data-flex-grow="max">
+        <strong>{data.name}</strong>
+        <small>{data.description}</small>
+      </div>
+      <small>{data.id} meters</small>
+    </div>
+
+  renderUserItem: (data) ->
+    <div data-flex="horizontal center" onClick={@onUser.bind @, data} className="user">
+      <figure></figure>
+      <strong data-flex-grow="max">{data.name}</strong>
+    </div>
+
   # -- Private events
+  _getItemRenderer: ->
+    renderer = @renderSecretItem if @props.context is "discover"
+    renderer = @renderUserItem if @props.context in ["followers", "following"]
+    renderer
+
   _fakeFetch: (context) ->
-    @setState loading: true
+    @setState loading: true, active: false, "#{context}": []
     setTimeout =>
       values = []
-      for i in (if context is "discover" then [1..10] else [1..3])
+      for i in (if context is "discover" then [1..100] else [1..3])
         values.push name: "Name #{i}", description: "Description #{i}", id: i
-      @setState "#{context}": values, loading: false
-    , 2000
+      @setState "#{context}": values, loading: false, active: true
+    , 1500
