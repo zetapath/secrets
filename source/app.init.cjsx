@@ -20,7 +20,7 @@ App.Secrets = React.createClass
     session = App.session()
     if session?
       App.token = session.token
-      @setState session: session, howto: false
+      @setState session: session, howto: true
     else
       window.location = "/#/session/login"
 

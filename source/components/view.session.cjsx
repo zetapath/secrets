@@ -22,22 +22,24 @@ App.Session = React.createClass
 
   onSign: (event) ->
     event.preventDefault()
+    button = $$(@refs.button.getDOMNode()).addClass "loading"
     App.proxy("POST", @props.context, @_getFormValues()).then (error, response) =>
-      return new App.entity.Session response unless error
+      if error
+        button.removeClass "loading"
+      else
+        new App.entity.Session response unless error
 
   # -- Render
   render: ->
-    <article id="session" className={@props.active}>
+
+    <article id="session" className={@props.active} data-flex="vertical center">
       <h1>Secrets</h1>
-      <form>
-        <input ref="mail" type="text" placeholder="mail" onKeyDown={@onKeyDown} />
-        <input ref="password" type="password" placeholder="password" onKeyDown={@onKeyDown} />
-        {
-          if @props.context is "login"
-            <button onClick={@onSign} disabled={@state.disabled}>Sign In</button>
-          else
-            <button onClick={@onSign} disabled={@state.disabled}>Sign Up</button>
-        }
+      <form data-flex="vertical center">
+        <input ref="mail" type="text" placeholder="mail" onKeyDown={@onKeyDown} className="transparent" />
+        <input ref="password" type="password" placeholder="password" onKeyDown={@onKeyDown} className="transparent" />
+        <button ref="button" onClick={@onSign} disabled={@state.disabled} className="radius white">
+          <abbr>{ if @props.context is "login" then "Sign In" else "Sign Up"}</abbr>
+        </button>
       </form>
       {
         if @props.context is "login"

@@ -1,0 +1,54 @@
+button, .button
+  display                                 : block
+  height                                  : BUTTON_HEIGHT
+  width                                   : auto
+  font-size                               : FONT_SIZE_BIG
+  font-weight                             : FONT_WEIGHT_BOLD
+  line-height                             : BUTTON_HEIGHT
+  text-align                              : center
+  border                                  : none
+  overflow                                : hidden
+  transition                                all ANIMATION_DURATION ANIMATION_EASE
+  > abbr
+    transition                              all (ANIMATION_DURATION / 2) ANIMATION_EASE
+
+  // -- class ------------------------------------------------------------------
+  &.radius
+    border-radius                         : UNIT
+  &.white
+    color                                 : THEME
+    &:not([disabled])
+      background-color                    : WHITE
+    &[disabled]
+      background-color                    : darken(THEME, 25%)
+    &.loading::after
+      background-color                    : THEME
+  // &.transparent
+  &.theme
+    background-color                      : THEME
+    &.loading::after
+      background-color                    : WHITE
+  // &.disabled, &[disabled]
+  &.loading
+    position                              : relative
+    width                                 : BUTTON_HEIGHT !important
+    > abbr
+      opacity                             : 0
+    &::after
+      content                             : ""
+      position                            : absolute
+      display                             : block
+      left                                : 0
+      top                                 : 0
+      width                               : BUTTON_HEIGHT
+      height                              : BUTTON_HEIGHT
+      transform                             scale(0.0)
+      border-radius                       : BUTTON_HEIGHT
+      animation                             LOADING (1.5 * ANIMATION_DURATION) ANIMATION_DURATION ANIMATION_EASE  infinite
+
+@keyframes LOADING
+  0%
+    transform scale(0.0)
+  100%
+    transform scale(1.0)
+    opacity: 0.1

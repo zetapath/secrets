@@ -14,19 +14,32 @@ App.HowTo = React.createClass
   getInitialState: ->
     image         : @props.session?.image
     username      : false
+    file          : undefined
 
   # -- Events
   onSaveProfile: (event) ->
     event.preventDefault()
-    button = $$(@refs.btnSaveProfile.getDOMNode()).toggleClass "loading"
-    # return
-    parameters =
-      username : @refs.username.getDOMNode().value.trim()
-    App.proxy("PUT", "profile", parameters).then (error, response) =>
-      App.session response unless error
-      button.removeClass "loading"
-      window.location = "/#/howto/#{parseInt(@props.step) + 1}"
-      setTimeout (-> window.location = "/#/content/discover"), 2000
+    button = $$(@refs.btnSaveProfile.getDOMNode()).addClass "loading"
+
+    tasks = []
+    # -- Avatar
+    if @state.file
+      tasks.push =>
+        App.multipart "POST", "image",
+          file  : @state.file
+          id    : App.session().id
+          entity: "user"
+    # -- Username
+    tasks.push =>
+      App.proxy "PUT", "profile", username: @refs.username.getDOMNode().value.trim()
+    # -- Update
+    Hope.chain(tasks).then (error, value) =>
+      if error
+        button.removeClass "loading"
+      unless error
+        App.session value
+        window.location = "/#/howto/#{parseInt(@props.step) + 1}"
+        setTimeout (-> window.location = "/#/content/discover"), 2000
 
   onImage: (event) ->
     event.preventDefault()
@@ -35,27 +48,13 @@ App.HowTo = React.createClass
   onFileChange: (event) ->
     event.stopPropagation()
     event.preventDefault()
+    @setState file: undefined
     file_url = event.target.files[0]
     if file_url.type.match /image.*/
       file_reader = new FileReader()
       file_reader.readAsDataURL file_url
-      file_reader.onloadend = (event) => @setState image: event.target.result
-
-      callbacks =
-        progress: (progress) =>
-          console.log progress
-        error: =>
-          alert "upload error!!"
-        abort: =>
-          alert "upload aborted"
-
-      parameters =
-        file  : file_url
-        id    : App.session().id
-        entity: "user"
-      console.log parameters
-      App.multipart("POST", "image", parameters, callbacks).then (error, file) =>
-        console.log "POST/image", error, file
+      file_reader.onloadend = (event) =>
+        @setState image: event.target.result, file: file_url
 
   # -- Render
   render: ->
@@ -76,7 +75,7 @@ App.HowTo = React.createClass
 
         <figure ref="image" data-step="3" onClick={@onImage} style={backgroundImage: "url(#{@state.image})"}></figure>
         <input ref="file" type="file" onChange={@onFileChange} />
-        <input ref="username" data-step="3" type="text" placeholder="username" value={@props.session?.username}/>
+        <input ref="username" data-step="3" type="text" placeholder="username" value={@props.session?.username} className="transparent"/>
       </section>
       <section className="text">
         <p data-step="1">
@@ -89,10 +88,10 @@ App.HowTo = React.createClass
           Fill out your profile with a cool picture and choose a username that best identifies you.
         </p>
 
-        <a data-step="0" href="#/howto/1">Let is start...</a>
-        <a data-step="1" href="#/howto/2">Okay, understand</a>
-        <a data-step="2" href="#/howto/3">Cool, show me more</a>
-        <a ref="btnSaveProfile" data-step="3" href="#" onClick={@onSaveProfile} className="button">
+        <a data-step="0" href="#/howto/1" className="button theme radius">Let is start...</a>
+        <a data-step="1" href="#/howto/2" className="button theme radius">Okay, understand</a>
+        <a data-step="2" href="#/howto/3" className="button theme radius">Cool, show me more</a>
+        <a ref="btnSaveProfile" data-step="3" href="#" onClick={@onSaveProfile} className="button theme radius">
           <abbr>Save my profile and start</abbr></a>
       </section>
     </article>

@@ -20,7 +20,7 @@ path =
                 "source/app.init.cjsx"]
   styl      : [ "bower_components/STYLmethods/vendor.styl"
                 "source/styles/__constants.styl"
-                "source/styles/reset.styl"
+                "source/styles/normalize.styl"
                 "source/styles/app.styl"
                 "source/styles/app.*.styl"]
   js        : [ "bower_components/director/build/director.js"

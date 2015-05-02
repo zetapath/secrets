@@ -28,7 +28,6 @@
         left                          : GAP = -2.5vw
         bottom                        : -10%
         width                         : (100vw -  (2 * GAP))
-
       &.rabbit
         z-index                       : 3
         width                         : 30.5vw
@@ -67,18 +66,18 @@
       border-radius                   : SIZE
       box-shadow                        0 0 0 (SPACE / 2) alpha(WHITE, 50%)
     > input
-      transition-delay                  (3 * DELAY)
+      text-align                      : center
       &:not([type="file"])
-        left                            : GAP = 27.5vw
-        bottom                          : (GAP / 1.5)
-        width                           : (100vw - (GAP * 2))
-        height                          : HEIGHT = (2 * SPACE)
-        font-size                       : FONT_SIZE_BIG
-        font-weight                     : FONT_WEIGHT_BOLD
-        line-height                     : HEIGHT
+        left                          : GAP = 27.5vw
+        bottom                        : (GAP / 1.5)
+        width                         : (100vw - (GAP * 2))
+        height                        : HEIGHT = (2 * SPACE)
+        font-size                     : FONT_SIZE_BIG
+        font-weight                   : FONT_WEIGHT_BOLD
+        line-height                   : HEIGHT
 
       &[type="file"]
-        display                         : none
+        display                       : none
 
   > .text
     flex-grow 0
@@ -97,15 +96,12 @@
       bottom                          : SPACE
       left                            : GAP
       right                           : GAP
-      height                          : SIZE = (UNIT / 1.25)
-      padding                         : 0 SPACE
-      font-size                       : FONT_SIZE_BIG
-      font-weight                     : FONT_WEIGHT_BOLD
-      line-height                     : SIZE
-      text-align                      : center
-      background-color                : THEME
-      border-radius                   : SIZE
       transform                         translateY(100vh)
+    > .button
+      &.loading
+        width                         : auto !important
+        left                          : GAP = (50vw - (BUTTON_HEIGHT * 2.1))
+        right                         : GAP
 
   // -- STEPS
   &[data-step="0"]
