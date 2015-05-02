@@ -1,6 +1,6 @@
 "use strict"
 
-App.Dialog = React.createClass
+App.Purchase = React.createClass
 
   # -- States & Properties
   propTypes:
@@ -18,7 +18,7 @@ App.Dialog = React.createClass
     id            : undefined
     title         : "title"
     description   : "description"
-    image         : "./assets/img/animal.png"
+    image         : "./assets/img/pushpin.png"
     info          : "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
     button        : "button"
     closable      : true
@@ -34,7 +34,7 @@ App.Dialog = React.createClass
         { <p>{@props.description}</p> if @props.description }
         <img src={@props.image} />
         { <small>{@props.info}</small> if @props.info }
-        <button onClick={@props.onClick?.bind null}>{@props.button}</button>
+        <button onClick={@props.onClick?.bind null} className="radius transparent">{@props.button}</button>
         { <a href="/#/">x</a> if @props.closable }
       </div>
     </div>
