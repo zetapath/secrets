@@ -23,12 +23,19 @@ button, .button
       background-color                    : darken(THEME, 25%)
     &.loading::after
       background-color                    : THEME
-  // &.transparent
+  &.transparent
+    background-color                      : transparent
+    // border                                : solid 1px WHITE
+    box-shadow                              0 0 0 2px WHITE
   &.theme
+    color                                 : WHITE
     background-color                      : THEME
     &.loading::after
       background-color                    : WHITE
   // &.disabled, &[disabled]
+  &.secondary
+    background-color                      : lighten(BACKGROUND, 50%)
+    color                                 : WHITE
   &.loading
     position                              : relative
     width                                 : BUTTON_HEIGHT !important
@@ -45,10 +52,3 @@ button, .button
       transform                             scale(0.0)
       border-radius                       : BUTTON_HEIGHT
       animation                             LOADING (1.5 * ANIMATION_DURATION) ANIMATION_DURATION ANIMATION_EASE  infinite
-
-@keyframes LOADING
-  0%
-    transform scale(0.0)
-  100%
-    transform scale(1.0)
-    opacity: 0.1

@@ -39,7 +39,7 @@ App.HowTo = React.createClass
       unless error
         App.session value
         window.location = "/#/howto/#{parseInt(@props.step) + 1}"
-        setTimeout (-> window.location = "/#/content/discover"), 2000
+        setTimeout (-> window.location = "/#/content/discover"), 450
 
   onImage: (event) ->
     event.preventDefault()

@@ -1,29 +1,21 @@
 body
-  overflow                                  : none
   font-family                               : FONT_FAMILY
   font-size                                 : FONT_SIZE
   background-color                          : BACKGROUND
-
-
   a
     color                                   : WHITE
-    opacity                                 : 0.9
-    &:active, &:focus
-      opacity                               : 1
-
   h1
     font-size                               : (1.75 * FONT_SIZE_NORMAL)
   h2
     font-size                               : (1.5 * FONT_SIZE_NORMAL)
 
 // -- ANIMATIONS ---------------------------------------------------------------
-@keyframes ghost
+@keyframes LOADING
   0%
-    transform scale(1)
-    opacity: 1
+    transform scale(0.0)
   100%
-    transform scale(0.25)
-    opacity: 0
+    transform scale(1.0)
+    opacity: 0.1
 
 // -- FLEX ---------------------------------------------------------------------
 [data-flex]

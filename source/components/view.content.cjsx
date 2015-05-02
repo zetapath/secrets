@@ -10,9 +10,10 @@ App.Content = React.createClass
     following : []
     loading   : false
     context   : undefined
+    active    : false
 
   getDefaultProps: ->
-    routes:
+    routes  :
       menu  : [ icon: "menu", route: "/menu" ]
       post  : [
         label: "Create a new secret", route: "/secret/new"
@@ -21,6 +22,9 @@ App.Content = React.createClass
       ]
 
   # -- Lifecycle
+  componentDidMount: ->
+    setTimeout (=> @setState active: true), 450
+
   componentWillReceiveProps: (next_props) ->
     if @state[next_props.context].length is 0 and not @state.loading
       @_fakeFetch next_props.context
@@ -49,12 +53,11 @@ App.Content = React.createClass
     search = context is "discover"
     on_click = if context is "discover" then "onSecret" else "onUser"
 
-    <article id="content">
-      <App.Header title={context} routes={@props.routes.menu} session={@props.session} subroutes={@props.routes.post} />
+    <article className={@state.active} id="content">
+      <App.Header title={context} routes={@props.routes.menu} session={@props.session} expanded=false subroutes={@props.routes.post} />
+      { <App.Loading /> if @state.loading }
       {
-        if @state.loading
-          <App.Loading />
-        else if context in ["discover", "followers", "following"]
+        if context in ["discover", "followers", "following"]
           <App.List dataSource={@state[context]} search={search} onClick={@[on_click]} />
       }
     </article>

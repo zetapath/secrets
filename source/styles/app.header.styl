@@ -8,9 +8,8 @@ header
   padding                             : 0 2.5vw
   color                               : WHITE
   background-color                    : alpha(THEME, 95%)
-
-  overflow : hidden
-  transition                            height ANIMATION_DURATION ANIMATION_EASE
+  overflow                            : hidden
+  transition                            all ANIMATION_DURATION ANIMATION_EASE
   &.maximize
     height                            : (3 * HEADER_HEIGHT)
   &, > *
@@ -66,5 +65,5 @@ header
     width                             : SIZE = (HEADER_HEIGHT / 1.6)
     height                            : SIZE
     border-radius                     : (SIZE / 2)
-    margin-top                        : (SPACE / 1.5)
+    margin-top                        : (SPACE / 1.6)
     box-shadow                        : 0 0 0 (SPACE / 6) alpha(WHITE, 75%)

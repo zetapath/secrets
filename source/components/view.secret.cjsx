@@ -16,7 +16,7 @@ App.Secret = React.createClass
 
   # -- Render
   render: ->
-    title = if @props.id then "Secret" #else "New secret"
+    title = if @props.id then "Secret" else "New secret"
 
     <article id="secret" className={@props.active}>
       <App.Header title={title} routes={@props.routes} />
@@ -44,9 +44,9 @@ App.Secret = React.createClass
             </ul>
         }
 
-        <nav>
-          <button><abbr>Save secret</abbr></button>
-          <button><abbr>Add to favorite</abbr></button>
+        <nav data-flex="horizontal center grow">
+          <button className="radius theme"><abbr>Save secret</abbr></button>
+          <button className="radius secondary"><abbr>Add to favorite</abbr></button>
         </nav>
       </section>
     </article>

@@ -7,15 +7,13 @@ ul
   overflow-x                      : hidden
   overflow-y                      : scroll
   -webkit-overflow-scrolling      : touch
+  transition                        all ANIMATION_DURATION ANIMATION_EASE
   > :first-child
     margin-top                    : HEADER_HEIGHT
-
   > input
     width                         : 100%
     height                        : HEIGHT = (UNIT / 1.5)
     font-size                     : FONT_SIZE_NORMAL
     font-weight                   : FONT_WEIGHT_NORMAL
     line-height                   : HEIGHT
-    appearance                      none
-    border                        : none
-    border-bottom                 : solid 1px darken(WHITE, 2.5%)
+    box-shadow                      inset 0 -1px darken(WHITE, 5%) !important
