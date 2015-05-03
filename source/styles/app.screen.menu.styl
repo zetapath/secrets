@@ -1,4 +1,4 @@
-aside
+aside#menu
   z-index                                         : 2
   width                                           : MENU_WIDTH
   color                                           : WHITE
@@ -6,7 +6,22 @@ aside
   transform                                         translateX(-100%)
   &.true
     transform                                       translateX(0%)
-
+  > div
+    text-align                                    : center
+    padding                                       : (2 * SPACE) SPACE
+    background-color                              : BACKGROUND = lighten(BACKGROUND, 5%)
+    figure
+      width                                       : SIZE = UNIT
+      height                                      : SIZE
+      margin-bottom                               : (SPACE / 2)
+      border-radius                               : SIZE
+      background-color                            : BACKGROUND
+      background-size                             : cover
+      box-shadow                                    0 0 0 3px BACKGROUND, 0 0 0 5px alpha(THEME, 75%)
+    h2
+      color                                       : THEME
+    small
+      opacity                                     : 0.4
   > nav
     margin                                        : (SPACE / 4) 0
     > *
@@ -19,17 +34,3 @@ aside
       &.true, &.active
         opacity                                   : 1
         color                                     : THEME
-
-  > div
-    padding                                       : SPACE
-    background-color                              : darken(BACKGROUND, 25%)
-    > figure
-      width                                       : SIZE = UNIT
-      height                                      : SIZE
-      margin-bottom                               : (SPACE / 2)
-      border-radius                               : SIZE
-      background-color                            : BACKGROUND
-      background-size                             : cover
-      box-shadow                                    0 0 0 3px BACKGROUND, 0 0 0 5px alpha(THEME, 75%)
-    > strong
-      font-size                                   : FONT_SIZE_BIG

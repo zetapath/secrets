@@ -25,9 +25,19 @@ App.Menu = React.createClass
   # -- Render
   render: ->
     <aside id="menu" onClick={@onClick} className={@props.active}>
-      <div data-flex="vertical center">
-        <figure style={backgroundImage: "url(#{@props.session.image})"}></figure>
-        <strong>{@props.session.username}</strong>
+      <div data-flex="horizontal grow center">
+        <div>
+          <h2>{@props.session.secrets.length or 0}</h2>
+          <small>secrets</small>
+        </div>
+        <div data-flex="vertical center">
+          <figure style={backgroundImage: "url(#{@props.session.image})"}></figure>
+          <h2>{@props.session.username}</h2>
+        </div>
+        <div>
+          <h2>{@props.session.purchases?.length or 0}</h2>
+          <small>discovers</small>
+        </div>
       </div>
       <App.Navigation routes={@props.routes.content} />
     </aside>
