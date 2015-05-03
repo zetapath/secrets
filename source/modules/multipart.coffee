@@ -17,6 +17,6 @@ module.exports = (type, method, parameters, callbacks = {}) ->
   if callbacks.abort    then xhr.addEventListener "abort", callbacks.abort, false
 
   xhr.open "POST", "#{host}api/#{method}"
-  xhr.setRequestHeader "Authorization", session().token
+  xhr.setRequestHeader "Authorization", session()?.token or null
   xhr.send formData
   promise

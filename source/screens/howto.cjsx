@@ -1,6 +1,8 @@
 "use strict"
 
 multipart = require "../modules/multipart"
+request   = require "../modules/request"
+session   = require "../modules/session"
 
 module.exports = React.createClass
 
@@ -8,10 +10,12 @@ module.exports = React.createClass
   propTypes:
     active        : React.PropTypes.boolean
     step          : React.PropTypes.number.required
+    session       : React.PropTypes.object.required
 
   getDefaultProps: ->
     active        : false
     step          : 0
+    session       : undefined
 
   getInitialState: ->
     image         : @props.session?.image
@@ -29,17 +33,18 @@ module.exports = React.createClass
       tasks.push =>
         multipart "POST", "image",
           file  : @state.file
-          id    : App.session().id
+          id    : @props.session.id
           entity: "user"
     # -- Username
     tasks.push =>
-      App.proxy "PUT", "profile", username: @refs.username.getDOMNode().value.trim()
+      request "PUT", "profile", username: @refs.username.getDOMNode().value.trim()
     # -- Update
     Hope.chain(tasks).then (error, value) =>
       if error
         button.removeClass "loading"
       unless error
-        App.session value
+        session value
+        @props.session[key] = data for key, data of value
         window.location = "/#/howto/#{parseInt(@props.step) + 1}"
         setTimeout (-> window.location = "/#/content/discover"), 450
 

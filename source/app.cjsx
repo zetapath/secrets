@@ -1,7 +1,7 @@
 "use strict"
 
-# -- Entities
-EntitySession   = require "./entities/session"
+# -- Models
+ModelSession    = require "./models/session"
 # -- Modules
 session         = require "./modules/session"
 # -- Screens
@@ -29,9 +29,10 @@ App = React.createClass
 
   # -- Lifecycle
   componentWillMount: ->
-    session = session()
-    if session?
-      @setState session: session, howto: false
+    data = session()
+    if data?
+      new ModelSession data
+      @setState howto: false, session: session data
     else
       window.location = "/#/session/login"
 
@@ -48,23 +49,24 @@ App = React.createClass
       "/"             : @setState.bind @, menu: false, secret: false, user: false, purchase: false
     router.init window.location.hash or "/"
 
-    EntitySession.observe (state) =>
-      @setState howto: true, session: session state.object
-    , ["add"]
+  # -- Events
+  onSessionSuccess: (data) ->
+    session data
+    @setState howto: true, session: new ModelSession data
 
   # -- Render
   render: ->
     if @state.session and @state.howto is false
       <app>
-        <ScreenMenu active={@state.menu} onClick={@onNavigation} session={@state.session}/>
-        <ScreenContent context={@state.context} session={@state.session}/>
+        <ScreenMenu active={@state.menu} onClick={@onNavigation}/>
+        <ScreenContent context={@state.context}/>
         <ScreenSecret active={@state.secret} id={@state.id}/>
         <ScreenUser active={@state.user} id={@state.id}/>
         <ScreenPurchase active={@state.purchase} id={@state.id}/>
       </app>
     else
       <app>
-        <ScreenSession context={@state.context} />
+        <ScreenSession context={@state.context} onSuccess={@onSessionSuccess} />
         <ScreenHowTo active={@state.howto} step={@state.step} session={@state.session} />
       </app>
 

@@ -1,6 +1,7 @@
 "use strict"
 
-EntitySession = require "../entities/session"
+ModelSession  = require "../models/session"
+request       = require "../modules/request"
 
 module.exports = React.createClass
 
@@ -25,20 +26,19 @@ module.exports = React.createClass
   onSign: (event) ->
     event.preventDefault()
     button = $$(@refs.button.getDOMNode()).addClass "loading"
-    App.proxy("POST", @props.context, @_getFormValues()).then (error, response) =>
+    request("POST", @props.context, @_getFormValues()).then (error, response) =>
       if error
         button.removeClass "loading"
       else
-        new EntitySession response unless error
+        @props.onSuccess.call @, response
 
   # -- Render
   render: ->
-
     <article id="session" className={@props.active} data-flex="vertical center">
       <h1>Secrets</h1>
       <form data-flex="vertical center">
-        <input ref="mail" type="text" placeholder="mail" onKeyDown={@onKeyDown} className="transparent" />
-        <input ref="password" type="password" placeholder="password" onKeyDown={@onKeyDown} className="transparent" />
+        <input ref="mail" type="text" placeholder="mail" onKeyDown={@onKeyDown} className="transparent"/>
+        <input ref="password" type="password" placeholder="password" onKeyDown={@onKeyDown} className="transparent"/>
         <button ref="button" onClick={@onSign} disabled={@state.disabled} className="radius white">
           <abbr>{ if @props.context is "login" then "Sign In" else "Sign Up"}</abbr>
         </button>

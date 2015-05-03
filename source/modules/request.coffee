@@ -11,11 +11,11 @@ module.exports = (type, method, parameters) ->
     data        : parameters
     contentType : "application/x-www-form-urlencoded"
     dataType    : 'json'
-    headers     : "Authorization": session().token or null
+    headers     : "Authorization": session()?.token or null
     success: (response, xhr) ->
       promise.done null, response
     error: (xhr, error) =>
       error = code: error.status, message: error.response
-      console.error "__.proxy [ERROR #{error.code}]: #{error.message}"
+      console.error "request [ERROR #{error.code}]: #{error.message}"
       promise.done error, null
   promise

@@ -1,8 +1,9 @@
 "use strict"
 
-Header      = require "../components/header"
-Loading     = require "../components/loading"
-ListScroll  = require "../components/list.scroll"
+ModelSession  = require "../models/session"
+Header        = require "../components/header"
+Loading       = require "../components/loading"
+ListScroll    = require "../components/list.scroll"
 
 module.exports = React.createClass
 
@@ -15,6 +16,7 @@ module.exports = React.createClass
     loading   : false
     context   : undefined
     active    : false
+    session   : ModelSession.find()[0]
 
   getDefaultProps: ->
     routes  :
@@ -28,6 +30,7 @@ module.exports = React.createClass
   # -- Lifecycle
   componentDidMount: ->
     setTimeout (=> @setState active: true), 450
+    @state.session.observe (state) => @setState session: state.object
 
   componentWillReceiveProps: (next_props) ->
     if @state[next_props.context].length is 0 and not @state.loading
@@ -52,7 +55,7 @@ module.exports = React.createClass
   # -- Render
   render: ->
     <article className={@state.active} id="content">
-      <Header title={@props.context} routes={@props.routes.menu} session={@props.session} subroutes={@props.routes.post} />
+      <Header title={@props.context} routes={@props.routes.menu} session={@state.session} subroutes={@props.routes.post} />
       { <Loading /> if @state.loading }
       {
         if @props.context in ["discover", "followers", "following"]

@@ -1,13 +1,13 @@
 "use strict"
 
-Navigation = require "../components/navigation"
+ModelSession  = require "../models/session"
+Navigation    = require "../components/navigation"
 
 module.exports = React.createClass
 
   # -- States & Properties
   propTypes:
     routes        : React.PropTypes.object
-    session       : React.PropTypes.object.required
 
   getDefaultProps: ->
     routes:
@@ -23,20 +23,30 @@ module.exports = React.createClass
         label: "Profile", route: "/content/profile"
       ]
 
+  getInitialState: ->
+    session : ModelSession.find()[0]
+
+  componentDidMount: ->
+    @state.session.observe (state) => @setState session: state.object
+    # @TODO: Test session change values.
+    # setTimeout =>
+    #   @state.session.image = "http://cdn.tapquo.com/photos/soyjavi.jpg"
+    # , 2000
+
   # -- Render
   render: ->
     <aside id="menu" onClick={@onClick} className={@props.active}>
       <div data-flex="horizontal grow center">
         <div>
-          <h2>{@props.session.secrets.length or 0}</h2>
+          <h2>{@state.session.secrets?.length or 0}</h2>
           <small>secrets</small>
         </div>
         <div data-flex="vertical center">
-          <figure style={backgroundImage: "url(#{@props.session.image})"}></figure>
-          <h2>{@props.session.username}</h2>
+          <figure style={backgroundImage: "url(#{@state.session.image})"}></figure>
+          <h2>{@state.session.username}</h2>
         </div>
         <div>
-          <h2>{@props.session.purchases?.length or 0}</h2>
+          <h2>{@state.session.purchases?.length or 0}</h2>
           <small>discovers</small>
         </div>
       </div>
