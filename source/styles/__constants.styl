@@ -36,13 +36,13 @@ ANIMATION_DURATION          = 450ms
 ANIMATION_EASE              = cubic-bezier(.55,0,.1,1)
 ANIMATION_DELAY             = (ANIMATION_DURATION / 5)
 
+delayChild(child, increment)
+  &:nth-child({child})
+    transition-delay ((child + increment) * ANIMATION_DELAY)
+
 @keyframes LOADING
   0%
     transform scale(0.0)
   100%
     transform scale(1.0)
     opacity: 0
-
-delayChild(child, increment)
-  &:nth-child({child})
-    transition-delay ((child + increment) * ANIMATION_DELAY)
