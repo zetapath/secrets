@@ -1,6 +1,6 @@
 "use strict"
 
-class App.entity.Session extends Hamsa
+module.exports = class EntitySession extends Hamsa
 
   @define
     id            : type: String

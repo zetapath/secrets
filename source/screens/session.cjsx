@@ -1,6 +1,8 @@
 "use strict"
 
-App.Session = React.createClass
+EntitySession = require "../entities/session"
+
+module.exports = React.createClass
 
   # -- States & Properties
   propTypes:
@@ -27,7 +29,7 @@ App.Session = React.createClass
       if error
         button.removeClass "loading"
       else
-        new App.entity.Session response unless error
+        new EntitySession response unless error
 
   # -- Render
   render: ->

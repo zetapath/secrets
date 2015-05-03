@@ -1,6 +1,8 @@
 "use strict"
 
-App.User = React.createClass
+Header      = require "../components/header"
+
+module.exports = React.createClass
 
   # -- States & Properties
   propTypes:
@@ -16,5 +18,5 @@ App.User = React.createClass
   # -- Render
   render: ->
     <article id="user" className={@props.active}>
-      <App.Header title="User Item" routes={@props.routes} />
+      <Header title="User Item" routes={@props.routes} />
     </article>

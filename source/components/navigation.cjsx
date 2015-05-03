@@ -1,6 +1,6 @@
 "use strict"
 
-App.Navigation = React.createClass
+module.exports = React.createClass
 
   # -- States & Properties
   propTypes:
@@ -25,5 +25,3 @@ App.Navigation = React.createClass
         </a>
     }
     </nav>
-
-module?.exports = App.Navigation

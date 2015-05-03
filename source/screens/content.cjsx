@@ -1,6 +1,10 @@
 "use strict"
 
-App.Content = React.createClass
+Header      = require "../components/header"
+Loading     = require "../components/loading"
+ListScroll  = require "../components/list.scroll"
+
+module.exports = React.createClass
 
   # -- States & Properties
   getInitialState: ->
@@ -48,11 +52,11 @@ App.Content = React.createClass
   # -- Render
   render: ->
     <article className={@state.active} id="content">
-      <App.Header title={@props.context} routes={@props.routes.menu} session={@props.session} subroutes={@props.routes.post} />
-      { <App.Loading /> if @state.loading }
+      <Header title={@props.context} routes={@props.routes.menu} session={@props.session} subroutes={@props.routes.post} />
+      { <Loading /> if @state.loading }
       {
         if @props.context in ["discover", "followers", "following"]
-          <App.ListScroll
+          <ListScroll
             dataSource={@state[@props.context]}
             itemHeight={64}
             itemFactory={@_getItemRenderer()}/>

@@ -1,6 +1,8 @@
 "use strict"
 
-App.HowTo = React.createClass
+multipart = require "../modules/multipart"
+
+module.exports = React.createClass
 
   # -- States & Properties
   propTypes:
@@ -25,7 +27,7 @@ App.HowTo = React.createClass
     # -- Avatar
     if @state.file
       tasks.push =>
-        App.multipart "POST", "image",
+        multipart "POST", "image",
           file  : @state.file
           id    : App.session().id
           entity: "user"

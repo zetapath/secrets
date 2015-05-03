@@ -1,6 +1,6 @@
 "use strict"
 
-App.ListScroll = React.createClass
+module.exports = React.createClass
 
   # -- States & Properties
   propTypes:
@@ -64,9 +64,6 @@ App.ListScroll = React.createClass
       style.top = "#{y}px"
       style.left = "#{x}px"
     style
-
-module?.exports = App.ListInfinite
-
 
 ###
 Taken from emberjs/list-view

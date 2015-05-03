@@ -1,6 +1,6 @@
 "use strict"
 
-App.Map = React.createClass
+module.exports = React.createClass
 
   # -- States & Properties
 
@@ -15,6 +15,3 @@ App.Map = React.createClass
     </map>
 
     # loader-inner ball-scale-multiple
-
-
-module?.exports = App.Loading

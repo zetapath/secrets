@@ -1,52 +1,71 @@
 "use strict"
 
-window.App = App =
-  version   : "0.4.30"
+# -- Entities
+EntitySession   = require "./entities/session"
+# -- Modules
+session         = require "./modules/session"
+# -- Screens
+ScreenMenu      = require "./screens/menu"
+ScreenContent   = require "./screens/content"
+ScreenSecret    = require "./screens/secret"
+ScreenUser      = require "./screens/user"
+ScreenPurchase  = require "./screens/purchase"
+ScreenSession   = require "./screens/session"
+ScreenHowTo     = require "./screens/howto"
 
-  host      : "http://178.62.129.192:1338/"
+App = React.createClass
 
-  token     : ""
+  # -- States & Properties
+  getInitialState: ->
+    session   : null
+    howto     : false
+    step      : 0
+    menu      : false
+    secret    : false
+    purchase  : false
+    user      : false
+    id        : null
+    context   : "discover"
 
-  entity    : {}
-
-  proxy     : (type, method, parameters) ->
-    promise = new Hope.Promise()
-    $$.ajax
-      url         : "#{App.host}api/#{method}"
-      type        : type
-      data        : parameters
-      contentType : "application/x-www-form-urlencoded"
-      dataType    : 'json'
-      headers     : "Authorization": App.token or null
-      success: (response, xhr) ->
-        promise.done null, response
-      error: (xhr, error) =>
-        error = code: error.status, message: error.response
-        console.error "__.proxy [ERROR #{error.code}]: #{error.message}"
-        promise.done error, null
-    promise
-
-  multipart : (type, method, parameters, callbacks = {}) ->
-    promise = new Hope.Promise()
-    formData = new FormData()
-    formData.append(name, value) for name, value of parameters
-    xhr = new XMLHttpRequest()
-    xhr.responseType = "json"
-    onLoadComplete = -> promise.done null, @response
-    xhr.addEventListener "load", onLoadComplete, false
-
-    if callbacks.progress then xhr.upload.addEventListener "progress", callbacks.progress, false
-    if callbacks.error    then xhr.addEventListener "error", callbacks.error, false
-    if callbacks.abort    then xhr.addEventListener "abort", callbacks.abort, false
-
-    xhr.open "POST", "#{App.host}api/#{method}"
-    xhr.setRequestHeader "Authorization", App.token
-    xhr.send formData
-    promise
-
-  session   : (value) ->
-    if value?
-      window.localStorage.setItem "secrets", JSON.stringify value
-      value
+  # -- Lifecycle
+  componentWillMount: ->
+    session = session()
+    if session?
+      @setState session: session, howto: false
     else
-      JSON.parse window.localStorage.getItem "secrets"
+      window.location = "/#/session/login"
+
+  componentDidMount: ->
+    router = Router
+      "/session/:id"  : (id) => @setState session: false, context: id
+      "/howto/:step"  : (step) => @setState session: @state.session, howto: true, step: step
+      "/menu"         : @setState.bind @, menu: true
+      "/content/:id"  : (id) => @setState menu: false, context: id, howto: false
+      "/secret/new"   : @setState.bind @, secret: true, id: undefined
+      "/secret/:id"   : (id) => @setState secret: true, id: id
+      "/purchase/:id" : (id) => @setState purchase: true, id: id
+      "/user/:id"     : (id) => @setState user: true, id: id
+      "/"             : @setState.bind @, menu: false, secret: false, user: false, purchase: false
+    router.init window.location.hash or "/"
+
+    EntitySession.observe (state) =>
+      @setState howto: true, session: session state.object
+    , ["add"]
+
+  # -- Render
+  render: ->
+    if @state.session and @state.howto is false
+      <app>
+        <ScreenMenu active={@state.menu} onClick={@onNavigation} session={@state.session}/>
+        <ScreenContent context={@state.context} session={@state.session}/>
+        <ScreenSecret active={@state.secret} id={@state.id}/>
+        <ScreenUser active={@state.user} id={@state.id}/>
+        <ScreenPurchase active={@state.purchase} id={@state.id}/>
+      </app>
+    else
+      <app>
+        <ScreenSession context={@state.context} />
+        <ScreenHowTo active={@state.howto} step={@state.step} session={@state.session} />
+      </app>
+
+React.render <App />, document.body

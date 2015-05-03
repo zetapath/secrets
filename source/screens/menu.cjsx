@@ -1,7 +1,8 @@
 "use strict"
 
+Navigation = require "../components/navigation"
 
-App.Menu = React.createClass
+module.exports = React.createClass
 
   # -- States & Properties
   propTypes:
@@ -39,5 +40,5 @@ App.Menu = React.createClass
           <small>discovers</small>
         </div>
       </div>
-      <App.Navigation routes={@props.routes.content} />
+      <Navigation routes={@props.routes.content} />
     </aside>

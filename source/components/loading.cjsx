@@ -1,6 +1,6 @@
 "use strict"
 
-App.Loading = React.createClass
+module.exports = React.createClass
 
   # -- States & Properties
 
@@ -11,5 +11,3 @@ App.Loading = React.createClass
     <div data-loading data-flex="vertical center">
       <div></div><div></div><div></div>
     </div>
-
-module?.exports = App.Loading

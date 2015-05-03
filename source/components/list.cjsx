@@ -1,6 +1,6 @@
 "use strict"
 
-App.List = React.createClass
+module.exports = React.createClass
 
   # -- States & Properties
   propTypes:
@@ -28,6 +28,3 @@ App.List = React.createClass
         <App.ItemSecret model={item} onClick={@props.onClick} /> for item, index in @props.dataSource
       }
     </ul>
-
-
-module?.exports = App.List

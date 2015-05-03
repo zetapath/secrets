@@ -1,6 +1,8 @@
 "use strict"
 
-App.Header = React.createClass
+Navigation = require './navigation'
+
+module.exports = React.createClass
 
   # -- States & Properties
   propTypes:
@@ -30,8 +32,8 @@ App.Header = React.createClass
   # -- Render
   render: ->
     <header ref="header" data-header>
-      { <App.Navigation routes={@props.routes}/> if @props.routes }
+      { <Navigation routes={@props.routes}/> if @props.routes }
       { <h1>{@props.title}</h1> if @props.title }
       { <img onClick={@onProfile} src={@props.session.image} /> if @props.session }
-      { <App.Navigation routes={@props.subroutes}/> if @props.subroutes }
+      { <Navigation routes={@props.subroutes}/> if @props.subroutes }
     </header>

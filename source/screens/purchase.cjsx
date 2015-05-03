@@ -1,6 +1,6 @@
 "use strict"
 
-App.Purchase = React.createClass
+module.exports = React.createClass
 
   # -- States & Properties
   propTypes:

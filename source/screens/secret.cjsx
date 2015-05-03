@@ -1,6 +1,9 @@
 "use strict"
 
-App.Secret = React.createClass
+Header      = require "../components/header"
+Map         = require "../components/map"
+
+module.exports = React.createClass
 
   # -- States & Properties
   propTypes:
@@ -13,19 +16,20 @@ App.Secret = React.createClass
     ]
 
   # -- Events
+  onUser: (data) ->
 
   # -- Render
   render: ->
     title = if @props.id then "Secret" else "New secret"
 
     <article id="secret" className={@props.active}>
-      <App.Header title={title} routes={@props.routes} />
-      <section>
-        <div>
-          <h1>Nombre de local</h1>
-          <small>tipo</small>
+      <Header title={title} routes={@props.routes} />
+      <section >
+        <div data-flex="vertical center">
+          <h1>Name of secret</h1>
+          <small>type</small>
         </div>
-        <App.Map />
+        <Map />
         <div className="user">
           <figure className="avatar"></figure>
           <div>
@@ -33,7 +37,6 @@ App.Secret = React.createClass
             <small>123 checkins</small>
           </div>
         </div>
-
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit...
         </p>
@@ -43,7 +46,6 @@ App.Secret = React.createClass
             <ul>
             </ul>
         }
-
         <nav data-flex="horizontal center grow">
           <button className="radius theme"><abbr>Save secret</abbr></button>
           <button className="radius secondary"><abbr>Add to favorite</abbr></button>
