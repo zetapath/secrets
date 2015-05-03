@@ -4,13 +4,14 @@ header
   position                            : absolute
   left                                : 0
   right                               : 0
-  height                              : HEADER_HEIGHT
   padding                             : 0 2.5vw
   color                               : WHITE
   background-color                    : alpha(THEME, 95%)
   overflow                            : hidden
   transition                            all ANIMATION_DURATION ANIMATION_EASE
-  &.maximize
+  &:not(.expanded)
+    height                            : HEADER_HEIGHT
+  &.expanded
     height                            : (3 * HEADER_HEIGHT)
   &, > *
     line-height                       : HEADER_HEIGHT

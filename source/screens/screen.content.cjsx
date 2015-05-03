@@ -48,7 +48,7 @@ App.Content = React.createClass
   # -- Render
   render: ->
     <article className={@state.active} id="content">
-      <App.Header title={@props.context} routes={@props.routes.menu} session={@props.session} expanded=false subroutes={@props.routes.post} />
+      <App.Header title={@props.context} routes={@props.routes.menu} session={@props.session} subroutes={@props.routes.post} />
       { <App.Loading /> if @state.loading }
       {
         if @props.context in ["discover", "followers", "following"]
