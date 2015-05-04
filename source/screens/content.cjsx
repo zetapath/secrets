@@ -4,6 +4,7 @@ ModelSession  = require "../models/session"
 Header        = require "../components/header"
 Loading       = require "../components/loading"
 ListScroll    = require "../components/list.scroll"
+FormProfile   = require "../components/form.profile"
 
 module.exports = React.createClass
 
@@ -33,8 +34,10 @@ module.exports = React.createClass
     @state.session.observe (state) => @setState session: state.object
 
   componentWillReceiveProps: (next_props) ->
-    if @state[next_props.context].length is 0 and not @state.loading
+    if @state[next_props.context]?.length is 0 and not @state.loading
       @_fakeFetch next_props.context
+    if next_props.context is "profile"
+      @setState active: true
 
   shouldComponentUpdate: (next_props, next_states) ->
     update = false
@@ -63,6 +66,8 @@ module.exports = React.createClass
             dataSource={@state[@props.context]}
             itemHeight={64}
             itemFactory={@_getItemRenderer()}/>
+        else if @props.context is "profile"
+          <FormProfile />
       }
     </article>
 

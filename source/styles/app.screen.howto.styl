@@ -53,31 +53,23 @@
         right                         : 7.5vw
         transition-delay                (4 * DELAY)
 
-    > img, > figure, > input
+    > img, > [data-upload-image], > input
       z-index                         : 0
       transform                         translateY(100vh)
-    > figure
-      width                           : SIZE = (45vw)
-      height                          : SIZE
+    > [data-upload-image]
+      margin                          : 0
       top                             : 20vh
-      left                            : (50vw - (SIZE / 2))
-      background-color                : WHITE
-      background-size                 : cover
-      border-radius                   : SIZE
+      left                            : (50vw - (UPLOAD_IMAGE_USER / 2))
       box-shadow                        0 0 0 (SPACE / 2) alpha(WHITE, 50%)
     > input
+      left                            : GAP = 27.5vw
+      bottom                          : (GAP / 1.5)
+      width                           : (100vw - (GAP * 2))
+      height                          : HEIGHT = (2 * SPACE)
+      font-size                       : FONT_SIZE_BIG
+      font-weight                     : FONT_WEIGHT_BOLD
+      line-height                     : HEIGHT
       text-align                      : center
-      &:not([type="file"])
-        left                          : GAP = 27.5vw
-        bottom                        : (GAP / 1.5)
-        width                         : (100vw - (GAP * 2))
-        height                        : HEIGHT = (2 * SPACE)
-        font-size                     : FONT_SIZE_BIG
-        font-weight                   : FONT_WEIGHT_BOLD
-        line-height                   : HEIGHT
-
-      &[type="file"]
-        display                       : none
 
   > .text
     flex-grow 0

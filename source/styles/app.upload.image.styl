@@ -1,0 +1,29 @@
+[data-upload-image]
+  position                        : relative
+  display                         : block
+  margin                          : (SPACE / 2) auto SPACE auto
+  width                           : UPLOAD_IMAGE_USER
+  height                          : UPLOAD_IMAGE_USER
+  background-color                : WHITE
+  background-size                 : cover
+  background-position             : 50% 50%
+  border-radius                   : UPLOAD_IMAGE_USER
+  box-shadow                        0 0 0 (SPACE / 2) alpha(BACKGROUND, 5%)
+  transition                        all ANIMATION_DURATION ANIMATION_EASE
+  > input
+    display                       : none
+  > [data-loading]
+    position                      : absolute
+    left                          : 0
+    bottom                        : 0
+    > div
+      width                       : UPLOAD_IMAGE_USER
+      height                      : UPLOAD_IMAGE_USER
+      &::after
+        left                      : 0
+        width                     : UPLOAD_IMAGE_USER
+        height                    : UPLOAD_IMAGE_USER
+        border-radius             : UPLOAD_IMAGE_USER
+        background-color          : WHITE
+      &:nth-child(n+1)
+        margin-top                : -(UPLOAD_IMAGE_USER)

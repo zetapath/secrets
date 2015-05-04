@@ -1,8 +1,9 @@
 "use strict"
 
-multipart = require "../modules/multipart"
-request   = require "../modules/request"
-session   = require "../modules/session"
+multipart   = require "../modules/multipart"
+request     = require "../modules/request"
+session     = require "../modules/session"
+UploadImage = require "../components/upload.image"
 
 module.exports = React.createClass
 
@@ -23,23 +24,17 @@ module.exports = React.createClass
     file          : undefined
 
   # -- Events
+  onUploadSuccess: (url) ->
+    data = session() or {}
+    data.image = url
+    session data
+
   onSaveProfile: (event) ->
     event.preventDefault()
     button = $$(@refs.btnSaveProfile.getDOMNode()).addClass "loading"
 
-    tasks = []
-    # -- Avatar
-    if @state.file
-      tasks.push =>
-        multipart "POST", "image",
-          file  : @state.file
-          id    : @props.session.id
-          entity: "user"
-    # -- Username
-    tasks.push =>
-      request "PUT", "profile", username: @refs.username.getDOMNode().value.trim()
-    # -- Update
-    Hope.chain(tasks).then (error, value) =>
+    parameters = username: @refs.username.getDOMNode().value.trim()
+    request("PUT", "profile", parameters).then (error, value) =>
       if error
         button.removeClass "loading"
       unless error
@@ -47,21 +42,6 @@ module.exports = React.createClass
         @props.session[key] = data for key, data of value
         window.location = "/#/howto/#{parseInt(@props.step) + 1}"
         setTimeout (-> window.location = "/#/content/discover"), 450
-
-  onImage: (event) ->
-    event.preventDefault()
-    @refs.file.getDOMNode().click()
-
-  onFileChange: (event) ->
-    event.stopPropagation()
-    event.preventDefault()
-    @setState file: undefined
-    file_url = event.target.files[0]
-    if file_url.type.match /image.*/
-      file_reader = new FileReader()
-      file_reader.readAsDataURL file_url
-      file_reader.onloadend = (event) =>
-        @setState image: event.target.result, file: file_url
 
   # -- Render
   render: ->
@@ -80,8 +60,7 @@ module.exports = React.createClass
         <img data-step="2" src="./assets/img/raccoon.png" className="raccoon" />
         <img data-step="2" src="./assets/img/pig.png" className="pig" />
 
-        <figure ref="image" data-step="3" onClick={@onImage} style={backgroundImage: "url(#{@state.image})"}></figure>
-        <input ref="file" type="file" onChange={@onFileChange} />
+        <UploadImage step="3" url={@state.image} entity="user" id={@props.session.id} onSuccess={@onUploadSuccess} />
         <input ref="username" data-step="3" type="text" placeholder="username" value={@props.session?.username} className="transparent"/>
       </section>
       <section className="text">

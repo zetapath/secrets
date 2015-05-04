@@ -1,7 +1,7 @@
 "use strict"
 
 module.exports = (value) ->
-  if value?
+  if value or value is null
     window.localStorage.setItem "secrets", JSON.stringify value
     value
   else

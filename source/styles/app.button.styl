@@ -11,7 +11,8 @@ button, .button
   transition                                all ANIMATION_DURATION ANIMATION_EASE
   > abbr
     transition                              all (ANIMATION_DURATION / 2) ANIMATION_EASE
-
+  &, > abbr
+    text-transform                          capitalize
   // -- class ------------------------------------------------------------------
   &.radius
     border-radius                         : UNIT
@@ -32,7 +33,6 @@ button, .button
     background-color                      : THEME
     &.loading::after
       background-color                    : WHITE
-  // &.disabled, &[disabled]
   &.secondary
     background-color                      : lighten(BACKGROUND, 50%)
     color                                 : WHITE

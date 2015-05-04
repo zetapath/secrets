@@ -1,7 +1,5 @@
 [data-loading]
   z-index                           : 2
-  height                            : 100vh
-  width                             : 100vw
   > div
     width                           : SIZE = (1.5 * UNIT)
     height                          : SIZE
@@ -27,3 +25,11 @@
 
   article &
     margin-top                      : HEADER_HEIGHT
+
+  // -- Classes
+  &.absolute
+    height                          : 100vh
+    width                           : 100vw
+
+  &.relative
+    position                        : relative
