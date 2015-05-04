@@ -34,6 +34,6 @@ module.exports = React.createClass
     <header ref="header" data-header>
       { <Navigation routes={@props.routes}/> if @props.routes }
       { <h1>{@props.title}</h1> if @props.title }
-      { <img onClick={@onProfile} src={@props.session.image} /> if @props.session }
+      { <figure onClick={@onProfile} style={backgroundImage: "url(#{@props.session.image})"}/> if @props.session }
       { <Navigation routes={@props.subroutes}/> if @props.subroutes }
     </header>
