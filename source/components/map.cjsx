@@ -3,16 +3,26 @@
 module.exports = React.createClass
 
   # -- States & Properties
-  propTypes:
-    latitude  : React.PropTypes.number
-    longitude : React.PropTypes.number
+  # propTypes:
 
   getDefaultProps: ->
-    latitude  : undefined
-    longitude : undefined
+    center    : []
+    marker    : []
+    zoom      : 10
 
   getInitialState: ->
     loading   : false
+
+  componentDidUpdate: ->
+    map = new google.maps.Map @getDOMNode(),
+      center          : new google.maps.LatLng @props.center[0], @props.center[1]
+      zoom            : @props.zoom
+      mobile          : true
+      sensor          : false
+      disableDefaultUI: true
+    marker = new google.maps.Marker
+      map             : map
+      position        : new google.maps.LatLng @props.marker[0], @props.marker[1]
 
   # -- Events
 
@@ -23,8 +33,4 @@ module.exports = React.createClass
 
   # -- Render
   render: ->
-    <map data-map onClick={@onClick} data-flex="vertical center">
-    {
-      <p>{@props.latitude} - {@props.longitude}</p>
-    }
-    </map>
+    <map data-map onClick={@onClick} />

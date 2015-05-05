@@ -1,10 +1,10 @@
 "use strict"
 
-ModelSession  = require "../models/session"
-session       = require "../modules/session"
-request       = require "../modules/request"
-multipart     = require "../modules/request"
-UploadImage   = require "./upload.image"
+ModelSession    = require "../models/session"
+session         = require "../modules/session"
+request         = require "../modules/request"
+multipart       = require "../modules/request"
+UploadImage     = require "./upload.image"
 Map           = require "./map"
 
 module.exports = React.createClass
@@ -59,7 +59,10 @@ module.exports = React.createClass
   render: ->
     <form id="secret">
       <UploadImage entity="secret" onFile={@onImageFile} />
-      <Map latitude={@state.latitude} longitude={@state.longitude} />
+      <Map
+        zoom={15}
+        center={[@state.latitude, @state.longitude]}
+        marker={[@state.latitude, @state.longitude]} />
       <input type="text" ref="latitude" value={@state.latitude} hidden required/>
       <input type="text" ref="longitude" value={@state.longitude} hidden required/>
       <input type="text" ref="type" value="0" hidden required/>
