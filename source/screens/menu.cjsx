@@ -28,10 +28,6 @@ module.exports = React.createClass
 
   componentDidMount: ->
     @state.session.observe (state) => @setState session: state.object
-    # @TODO: Test session change values.
-    # setTimeout =>
-    #   @state.session.image = "http://cdn.tapquo.com/photos/soyjavi.jpg"
-    # , 2000
 
   # -- Render
   render: ->

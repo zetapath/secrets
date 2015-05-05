@@ -13,9 +13,7 @@ module.exports = React.createClass
 
   # -- Lifecycle
   componentDidUpdate: (nextProps) ->
-    @state.session.observe (state) =>
-      console.log "componentDidUpdate.observe", state.object
-      @setState session: state.object
+    @state.session.observe (state) => @setState session: state.object
 
   # -- Events
   onUploadSuccess: (url) ->

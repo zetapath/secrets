@@ -18,6 +18,7 @@ module.exports = React.createClass
     context   : undefined
     active    : false
     session   : ModelSession.find()[0]
+    image     : ModelSession.find()[0]?.image
 
   getDefaultProps: ->
     routes  :
@@ -30,8 +31,8 @@ module.exports = React.createClass
 
   # -- Lifecycle
   componentDidMount: ->
+    @state.session.observe (state) => @setState image: state.object.image
     setTimeout (=> @setState active: true), 450
-    @state.session.observe (state) => @setState session: state.object
 
   componentWillReceiveProps: (next_props) ->
     if @state[next_props.context]?.length is 0 and not @state.loading
@@ -45,6 +46,8 @@ module.exports = React.createClass
       @setState context: next_props.context
       update = true
     else if @state.loading is true and next_states.loading is false
+      update = true
+    else if @state.image isnt next_states.image
       update = true
     update
 
