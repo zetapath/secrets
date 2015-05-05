@@ -7,14 +7,16 @@ module.exports = React.createClass
 
   # -- States & Properties
   propTypes:
-    url     : React.PropTypes.string.required
-    entity  : React.PropTypes.string.required
-    id      : React.PropTypes.string.required
-    step    : React.PropTypes.string
+    url       : React.PropTypes.string
+    entity    : React.PropTypes.string.required
+    id        : React.PropTypes.string
+    step      : React.PropTypes.string
+    onSuccess : React.PropTypes.function
+    onFile    : React.PropTypes.function
 
   getInitialState: ->
-    url     : @props.url
-    loading : false
+    url       : @props.url
+    loading   : false
 
   # -- Events
   onClick: (event) ->
@@ -30,11 +32,15 @@ module.exports = React.createClass
       file_reader = new FileReader()
       file_reader.readAsDataURL file_url
       file_reader.onloadend = (event) => @setState url: event.target.result
-      parameters = file: file_url, entity: @props.entity, id: @props.id
-      multipart("POST", "image", parameters).then (error, response) =>
-        unless error
-          @setState loading: false
-          @props.onSuccess.call @, response
+      if @props.onSuccess
+        parameters = file: file_url, entity: @props.entity, id: @props.id
+        multipart("POST", "image", parameters).then (error, response) =>
+          unless error
+            @setState loading: false
+            @props.onSuccess.call @, response
+      else
+        @props.onFile.call @, file_url if @props.onFile
+        @setState loading: false
 
   # -- Render
   render: ->

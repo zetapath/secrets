@@ -19,7 +19,7 @@ module.exports = React.createClass
     disabled: true
 
   # -- Events
-  onKeyDown: (event) ->
+  onKeyUp: (event) ->
     values = @_getFormValues()
     @setState disabled: not(values.mail and values.password)
 
@@ -37,8 +37,8 @@ module.exports = React.createClass
     <article id="session" className={@props.active} data-flex="vertical center">
       <h1>Secrets</h1>
       <form data-flex="vertical center">
-        <input ref="mail" type="text" placeholder="mail" onKeyDown={@onKeyDown} className="transparent"/>
-        <input ref="password" type="password" placeholder="password" onKeyDown={@onKeyDown} className="transparent"/>
+        <input ref="mail" type="text" placeholder="mail" onKeyUp={@onKeyUp} className="transparent"/>
+        <input ref="password" type="password" placeholder="password" onKeyUp={@onKeyUp} className="transparent"/>
         <button ref="button" onClick={@onSign} disabled={@state.disabled} className="radius white">
           <abbr>{ if @props.context is "login" then "Sign In" else "Sign Up"}</abbr>
         </button>

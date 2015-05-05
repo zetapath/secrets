@@ -1,0 +1,9 @@
+map
+  display                           : block
+  width                             : 100vw
+  background-color                  : lighten(BACKGROUND, 50%)
+  transition                          all ANIMATION_DURATION ANIMATION_EASE
+  &:not(.expanded)
+    height                          : 15vh
+  &.expanded
+    height                          : 40vh

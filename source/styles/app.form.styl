@@ -26,3 +26,23 @@ form
           margin-left               : SPACE
         &.loading
           flex-grow                   0
+
+  &#secret
+    > textarea
+      height                        : 20vh
+      font-size                     : FONT_SIZE_SMALL
+      color                         : lighten(COLOR, 25%)
+      border-bottom-color             transparent
+
+    > input, > textarea
+      text-indent                   : (SPACE / 4)
+    > nav
+      position                      : relative
+      margin                        : 0 SPACE
+      button
+        position                    : absolute
+        left                        : 0%
+        width                       : 100%
+        &.loading
+          left                      : 50%
+          margin-left               : -(BUTTON_HEIGHT / 2)

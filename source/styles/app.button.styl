@@ -30,7 +30,10 @@ button, .button
     box-shadow                              0 0 0 2px WHITE
   &.theme
     color                                 : WHITE
-    background-color                      : THEME
+    &:not([disabled])
+      background-color                    : THEME
+    &[disabled]
+      background-color                    : lighten(BACKGROUND, 75%)
     &.loading::after
       background-color                    : WHITE
   &.secondary
