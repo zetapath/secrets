@@ -23,9 +23,10 @@ module.exports = React.createClass
     event.preventDefault()
     values = {}
     values[key] = input.getDOMNode().value.trim() for key, input of @refs
-    button = $$(@refs.btn_save.getDOMNode()).addClass "loading"
+    button = @refs.btn_save.getDOMNode()
+    button.classList.add "loading"
     request("PUT", "profile", values).then (error, response) ->
-      button.removeClass "loading"
+      button.classList.remove "loading"
       session response unless error
 
   onLogout: (event) ->
