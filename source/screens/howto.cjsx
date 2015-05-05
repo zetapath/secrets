@@ -60,7 +60,7 @@ module.exports = React.createClass
         <img data-step="2" src="./assets/img/raccoon.png" className="raccoon" />
         <img data-step="2" src="./assets/img/pig.png" className="pig" />
 
-        <UploadImage step="3" url={@state.image} entity="user" id={@props.session.id} onSuccess={@onUploadSuccess} />
+        <UploadImage step="3" url={@state.image} entity="user" id={@props.session?.id} onSuccess={@onUploadSuccess} />
         <input ref="username" data-step="3" type="text" placeholder="username" value={@props.session?.username} className="transparent"/>
       </section>
       <section className="text">
