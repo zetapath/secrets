@@ -14,7 +14,7 @@ module.exports = React.createClass
       content: [
         label: "Discover", route: "/content/discover"
       ,
-        label: "Activity", route: "/content/activity"
+        label: "Timeline", route: "/content/timeline"
       ,
         label: "Followers", count: @props?.session?.followers.length, route: "/content/followers"
       ,
@@ -33,18 +33,18 @@ module.exports = React.createClass
   render: ->
     <aside id="menu" onClick={@onClick} className={@props.active}>
       <div data-flex="horizontal grow center">
-        <div>
+        <a href="/#/content/secrets">
           <h2>{@state.session.secrets?.length or 0}</h2>
           <small>secrets</small>
-        </div>
+        </a>
         <div data-flex="vertical center">
           <figure style={backgroundImage: "url(#{@state.session.image})"}></figure>
           <h2>{@state.session.username}</h2>
         </div>
-        <div>
+        <a href="/#/content/purchases">
           <h2>{@state.session.purchases?.length or 0}</h2>
-          <small>discovers</small>
-        </div>
+          <small>purchases</small>
+        </a>
       </div>
       <Navigation routes={@props.routes.content} />
     </aside>
