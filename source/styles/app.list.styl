@@ -16,6 +16,10 @@ ul
         background-size                     : cover
         border-radius                       : UNIT
       > div > small
+        display                             : block
+        overflow                            : hidden
+        white-space                         : nowrap
+        text-overflow                       : ellipsis
         opacity                             : 0.5
       > small
         color                               : THEME
@@ -23,6 +27,9 @@ ul
       // -- Classes
       &.secret
         margin-top                          : (SPACE / 1.5)
+        figure
+          min-width                         : SIZE = (UNIT / 2.75)
+
       &.user, &.activity
         margin-top                          : (SPACE / 1.8)
         > figure

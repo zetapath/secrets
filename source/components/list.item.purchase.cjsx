@@ -4,8 +4,8 @@ module.exports = (data) ->
   <a href="/#/purchase/#{data.id}" data-flex="horizontal center" className="secret">
     <figure></figure>
     <div data-flex="vertical" data-flex-grow="max">
-      <strong>{data.name}</strong>
-      <small>{data.description}</small>
+      <strong>{data.title}</strong>
+      <small>{data.text}</small>
     </div>
-    <small>{data.id} meters</small>
+    <small>?? m</small>
   </a>

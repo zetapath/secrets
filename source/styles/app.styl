@@ -11,6 +11,11 @@ body
   h2
     font-size                               : (1.5 * FONT_SIZE_NORMAL)
 
+  .scroll
+    overflow-x                : hidden
+    overflow-y                : scroll
+    -webkit-overflow-scrolling: touch
+
 // -- ANIMATIONS ---------------------------------------------------------------
 @keyframes LOADING
   0%
@@ -29,11 +34,6 @@ body
     bottom                    : 0
     width                     : 100%
     overflow                  : hidden
-
-  .scroll
-    overflow-x                : hidden
-    overflow-y                : scroll
-    -webkit-overflow-scrolling: touch
 
 // -- Direction
 [data-flex^="horizontal"]
