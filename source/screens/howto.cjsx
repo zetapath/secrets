@@ -31,12 +31,13 @@ module.exports = React.createClass
 
   onSaveProfile: (event) ->
     event.preventDefault()
-    button = $$(@refs.btnSaveProfile.getDOMNode()).addClass "loading"
+    button = @refs.btnSaveProfile.getDOMNode().classList
+    button.add "loading"
 
     parameters = username: @refs.username.getDOMNode().value.trim()
     request("PUT", "profile", parameters).then (error, value) =>
       if error
-        button.removeClass "loading"
+        button.remove "loading"
       unless error
         session value
         @props.session[key] = data for key, data of value

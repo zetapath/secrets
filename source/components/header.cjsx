@@ -22,12 +22,12 @@ module.exports = React.createClass
 
   # -- Lifecycle
   componentDidUpdate: (nextProps) ->
-    $$(@refs.header.getDOMNode()).removeClass "expanded"
+    @refs.header.getDOMNode().classList.remove "expanded"
 
   # -- Events
   onProfile: (event) ->
     event.preventDefault()
-    $$(@refs.header.getDOMNode()).toggleClass "expanded"
+    @refs.header.getDOMNode().classList.toggle "expanded"
 
   # -- Render
   render: ->

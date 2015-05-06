@@ -25,10 +25,11 @@ module.exports = React.createClass
 
   onSign: (event) ->
     event.preventDefault()
-    button = $$(@refs.button.getDOMNode()).addClass "loading"
+    button = @refs.button.getDOMNode().classList
+    button.add "loading"
     request("POST", @props.context, @_getFormValues()).then (error, response) =>
       if error
-        button.removeClass "loading"
+        button.remove "loading"
       else
         @props.onSuccess.call @, response
 

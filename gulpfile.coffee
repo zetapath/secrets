@@ -30,7 +30,8 @@ path =
                     "bower_components/hamsa/dist/hamsa.js"
                     "bower_components/hope/hope.js"
                     "bower_components/moment/min/moment.min.js"
-                    "bower_components/quojs/quo.standalone.js"]
+                    "bower_components/quojs/quo.js"
+                    "bower_components/quojs/quo.ajax.js"]
 # -- BANNER --------------------------------------------------------------------
 banner = [
   "/**"
