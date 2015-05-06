@@ -16,10 +16,10 @@ module.exports = React.createClass
 
   # -- States & Properties
   getInitialState: ->
-    discover    : []
     secrets     : []
     purchases   : []
-    activity    : []
+    discover    : []
+    timeline    : []
     followers   : []
     following   : []
     loading     : true
@@ -48,7 +48,6 @@ module.exports = React.createClass
 
   componentWillReceiveProps: (next_props) ->
     context = next_props.context
-    # @TODO: Cache requests
     if context in ["secrets", "purchases", "timeline", "followers", "following"]
       @_fetch context
     else if context is "discover" and @state.geoposition
@@ -91,11 +90,14 @@ module.exports = React.createClass
     return ItemUser if @props.context in ["followers", "following"]
 
   _fetch: (context, parameters) ->
-    @setState loading: true, active: false, "#{context}": []
-    method = if context is "discover" then "secrets" else context
-    request("GET", method, parameters).then (error, response) =>
-      console.log "GET/#{method}", error, response
-      @setState "#{context}": response, loading: false, active: true
+    if @state["#{context}"].length > 0
+      @setState loading: false, active: true
+    else
+      @setState loading: true, active: false, "#{context}": []
+      method = if context is "discover" then "secrets" else context
+      request("GET", method, parameters).then (error, response) =>
+        console.log "GET/#{method}", error, response
+        @setState "#{context}": response, loading: false, active: true
 
   _discover: (latitude, longitude, radius = 5000) ->
     @_fetch "discover",
