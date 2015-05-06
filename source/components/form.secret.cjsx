@@ -1,11 +1,12 @@
 "use strict"
 
 ModelSession    = require "../models/session"
+GeoPosition     = require "../models/geoposition"
 session         = require "../modules/session"
 request         = require "../modules/request"
 multipart       = require "../modules/request"
 UploadImage     = require "./upload.image"
-Map           = require "./map"
+Map             = require "./map"
 
 module.exports = React.createClass
 
@@ -17,25 +18,16 @@ module.exports = React.createClass
 
   # # -- Lifecycle
   componentDidMount: ->
-    navigator.geolocation.getCurrentPosition @onGPS, @onUnableGPS
+    GeoPosition.observe (state) =>
+      @setState latitude: state.object.coords[0], longitude: state.object.coords[1]
+    , ["update"]
 
   # # -- Events
-  onGPS: (data) ->
-    @setState latitude: data.coords.latitude, longitude: data.coords.longitude
-    do @_validateValues
-
-  onUnableGPS: (error) ->
-    console.log "onUnableGPS", error
-    do @_validateValues
-
   onImageFile: (data) ->
     @setState image: data
     setTimeout =>
       do @_validateValues
     , 100
-
-  onImageSuccess: (data) ->
-    window.location = "/#/"
 
   onKeyUp: (event) ->
     do @_validateValues
@@ -53,6 +45,7 @@ module.exports = React.createClass
         parameters = file: @state.image, entity: "secret", id: response.id
         console.log parameters
         multipart("POST", "image", parameters).then (error, response) =>
+          console.log "POST/image", error, response
           window.location = "/#/" unless error
 
   # -- Render

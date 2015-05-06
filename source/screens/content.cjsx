@@ -1,24 +1,32 @@
 "use strict"
 
-ModelSession  = require "../models/session"
+Session       = require "../models/session"
+GeoPosition   = require "../models/geoposition"
 Header        = require "../components/header"
 Loading       = require "../components/loading"
 ListScroll    = require "../components/list.scroll"
+ItemActivity  = require "../components/list.item.activity"
+ItemPurchase  = require "../components/list.item.purchase"
+ItemSecret    = require "../components/list.item.secret"
+ItemUser      = require "../components/list.item.user"
 FormProfile   = require "../components/form.profile"
+request       = require "../modules/request"
 
 module.exports = React.createClass
 
   # -- States & Properties
   getInitialState: ->
-    discover  : []
-    activity  : []
-    followers : []
-    following : []
-    loading   : false
-    context   : undefined
-    active    : false
-    session   : ModelSession.find()[0]
-    image     : ModelSession.find()[0]?.image
+    discover    : []
+    secrets     : []
+    purchases   : []
+    activity    : []
+    followers   : []
+    following   : []
+    loading     : true
+    active      : false
+    session     : Session.find()[0]
+    image       : Session.find()[0]?.image
+    geoposition : undefined
 
   getDefaultProps: ->
     routes  :
@@ -32,12 +40,20 @@ module.exports = React.createClass
   # -- Lifecycle
   componentDidMount: ->
     @state.session.observe (state) => @setState image: state.object.image
-    setTimeout (=> @setState active: true), 450
+    GeoPosition.get().then (error, position) =>
+      @_discover position.coords.latitude, position.coords.longitude unless error
+    GeoPosition.observe (state) =>
+      @setState geoposition: state.object.coords
+    , ["update"]
 
   componentWillReceiveProps: (next_props) ->
-    if @state[next_props.context]?.length is 0 and not @state.loading
-      @_fakeFetch next_props.context
-    if next_props.context is "profile"
+    context = next_props.context
+    # @TODO: Cache requests
+    if context in ["secrets", "purchases", "timeline", "followers", "following"]
+      @_fetch context
+    else if context is "discover" and @state.geoposition
+      @_discover @state.geoposition[0], @state.geoposition[1]
+    else if context is "profile"
       @setState active: true
 
   shouldComponentUpdate: (next_props, next_states) ->
@@ -51,20 +67,13 @@ module.exports = React.createClass
       update = true
     update
 
-  # -- Events
-  onSecret: (data, event) ->
-    window.location = "/#/purchase/#{data.id}"
-
-  onUser: (data, event) ->
-    window.location = "/#/user/#{data.id}"
-
   # -- Render
   render: ->
     <article className={@state.active} id="content">
       <Header title={@props.context} routes={@props.routes.menu} session={@state.session} subroutes={@props.routes.post} />
       { <Loading /> if @state.loading }
       {
-        if @props.context in ["discover", "followers", "following"]
+        if @props.context in ["secrets", "purchases", "timeline", "discover", "followers", "following"]
           <ListScroll
             dataSource={@state[@props.context]}
             itemHeight={64}
@@ -74,33 +83,22 @@ module.exports = React.createClass
       }
     </article>
 
-  renderSecretItem: (data) ->
-    <div data-flex="horizontal center" onClick={@onSecret.bind @, data} className="secret">
-      <figure></figure>
-      <div data-flex="vertical" data-flex-grow="max">
-        <strong>{data.name}</strong>
-        <small>{data.description}</small>
-      </div>
-      <small>{data.id} meters</small>
-    </div>
-
-  renderUserItem: (data) ->
-    <div data-flex="horizontal center" onClick={@onUser.bind @, data} className="user">
-      <figure></figure>
-      <strong data-flex-grow="max">{data.name}</strong>
-    </div>
-
   # -- Private events
   _getItemRenderer: ->
-    renderer = @renderSecretItem if @props.context is "discover"
-    renderer = @renderUserItem if @props.context in ["followers", "following"]
-    renderer
+    return ItemPurchase if @props.context is "discover"
+    return ItemActivity if @props.context is "timeline"
+    return ItemSecret if @props.context in ["secrets", "purchases"]
+    return ItemUser if @props.context in ["followers", "following"]
 
-  _fakeFetch: (context) ->
+  _fetch: (context, parameters) ->
     @setState loading: true, active: false, "#{context}": []
-    setTimeout =>
-      values = []
-      for i in (if context is "discover" then [1..100] else [1..3])
-        values.push name: "Name #{i}", description: "Description #{i}", id: i
-      @setState "#{context}": values, loading: false, active: true
-    , 1500
+    method = if context is "discover" then "secrets" else context
+    request("GET", method, parameters).then (error, response) =>
+      console.log "GET/#{method}", error, response
+      @setState "#{context}": response, loading: false, active: true
+
+  _discover: (latitude, longitude, radius = 5000) ->
+    @_fetch "discover",
+      latitude  : latitude
+      longitude : longitude
+      radius    : radius
