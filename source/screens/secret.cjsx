@@ -60,7 +60,7 @@ module.exports = React.createClass
             <small>Tips</small>
             <ul>
             {
-              for tip in @state.date.tips or []
+              for tip in (@state.data.tips or [])
                 <li>{tip.id}</li>
             }
             </ul>
