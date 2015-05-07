@@ -2,6 +2,7 @@
 
 Session       = require "../models/session"
 GeoPosition   = require "../models/geoposition"
+Secret        = require "../models/secret"
 Header        = require "../components/header"
 Loading       = require "../components/loading"
 ListScroll    = require "../components/list.scroll"
@@ -93,10 +94,15 @@ module.exports = React.createClass
     if @state["#{context}"].length > 0
       @setState loading: false, active: true
     else
+      Model = @_getModel context
       @setState loading: true, active: false, "#{context}": []
       method = if context is "discover" then "secrets" else context
       request("GET", method, parameters).then (error, response) =>
         console.log "GET/#{method}", error, response
+        if Model?
+          Model.destroyAll()
+          new Model item for item in response or []
+
         @setState "#{context}": response, loading: false, active: true
 
   _discover: (latitude, longitude, radius = 5000) ->
@@ -104,3 +110,6 @@ module.exports = React.createClass
       latitude  : latitude
       longitude : longitude
       radius    : radius
+
+  _getModel: (context) ->
+    return Secret if context in ["secrets", "purchases"]
