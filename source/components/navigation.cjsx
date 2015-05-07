@@ -10,15 +10,18 @@ module.exports = React.createClass
     routes     : []
 
   # -- Events
-  # onClick: (event) ->
-  #   console.log "target", event.target
+  onBack: (event) ->
+    event.preventDefault()
+    event.stopPropagation()
+    window.history.back()
 
   # -- Render
   render: ->
     <nav>
     {
       for route, index in @props.routes
-        <a href={"/#" + route.route} key={index} onClick={@onClick}>
+        method = if route.back is true then @onBack
+        <a href={"/#" + route.route} key={index} onClick={method}>
           <span className={"icon " + route.icon}></span>
           <strong>{route.label}</strong>
           <small>{route.count}</small>

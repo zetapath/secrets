@@ -15,7 +15,7 @@ module.exports = React.createClass
 
   getDefaultProps: ->
     routes: [
-      icon: "back", route: "/"
+      icon: "back", back: true
     ]
 
   getInitialState: ->
@@ -27,10 +27,9 @@ module.exports = React.createClass
     id = next_props.id or @props.id
     if id?
       secret = Secret.find (entity) -> entity.id is id
-      @setState data: secret[0] if secret.length > 0
-      request("GET", "secret/#{id}").then (error, response) =>
-        console.log "GET/secret/#{id}", error, response
-        @setState data: response
+      if secret.length > 0
+        @setState data: secret[0]
+        request("GET", "secret/#{id}").then (error, response) => @setState data: response
 
   # -- Events
   onUser: (event) ->

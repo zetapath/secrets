@@ -41,9 +41,9 @@ App = React.createClass
       "/session/:id"  : (id) => @setState session: false, context: id
       "/howto/:step"  : (step) => @setState session: @state.session, howto: true, step: step
       "/menu"         : @setState.bind @, menu: true
-      "/content/:id"  : (id) => @setState menu: false, context: id, howto: false
+      "/content/:id"  : (id) => @setState menu: false, context: id, howto: false, secret: false, user: false
       "/secret/new"   : @setState.bind @, secret: true, id: undefined
-      "/secret/:id"   : (id) => @setState secret: true, id: id
+      "/secret/:id"   : (id) => @setState secret: true, id: id, user: false
       "/purchase/:id" : (id) => @setState purchase: true, id: id
       "/user/:id"     : (id) => @setState user: true, id: id
       "/"             : @setState.bind @, menu: false, secret: false, user: false, purchase: false

@@ -10,7 +10,7 @@ module.exports = React.createClass
 
   getDefaultProps: ->
     routes: [
-      icon: "back", route: "/"
+      icon: "back", back: true
     ]
 
   # -- Events
