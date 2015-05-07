@@ -1,9 +1,10 @@
 "use strict"
 
-multipart   = require "../modules/multipart"
-request     = require "../modules/request"
-session     = require "../modules/session"
-UploadImage = require "../components/upload.image"
+ModelSession  = require "../models/session"
+multipart     = require "../modules/multipart"
+request       = require "../modules/request"
+session       = require "../modules/session"
+UploadImage   = require "../components/upload.image"
 
 module.exports = React.createClass
 
@@ -16,18 +17,14 @@ module.exports = React.createClass
   getDefaultProps: ->
     active        : false
     step          : 0
-    session       : undefined
+    session       : {}
 
   getInitialState: ->
-    image         : @props.session?.image
     username      : false
     file          : undefined
 
   # -- Events
-  onUploadSuccess: (url) ->
-    data = session() or {}
-    data.image = url
-    session data
+  onSuccessUpload: (url) -> @
 
   onSaveProfile: (event) ->
     event.preventDefault()
@@ -35,17 +32,19 @@ module.exports = React.createClass
     button.add "loading"
 
     parameters = username: @refs.username.getDOMNode().value.trim()
-    request("PUT", "profile", parameters).then (error, value) =>
+    request("PUT", "profile", parameters).then (error, response) =>
       if error
         button.remove "loading"
       unless error
-        session value
-        @props.session[key] = data for key, data of value
+        session response
+        @props.session.username = response.username
+        @props.session.image = response.image
         window.location = "/#/howto/#{parseInt(@props.step) + 1}"
         setTimeout (-> window.location = "/#/content/discover"), 450
 
   # -- Render
   render: ->
+    image = @props.session?.image or "./assets/img/avatar.jpg"
     <article id="howto" className={@props.active} data-step={@props.step}>
       <section className="scene">
         <h1 data-step="1">Welcome to Secrets</h1>
@@ -61,7 +60,7 @@ module.exports = React.createClass
         <img data-step="2" src="./assets/img/raccoon.png" className="raccoon" />
         <img data-step="2" src="./assets/img/pig.png" className="pig" />
 
-        <UploadImage step="3" url={@state.image} entity="user" id={@props.session?.id} onSuccess={@onUploadSuccess} />
+        <UploadImage step="3" url={image} entity="user" id={@props.session?.id} onSuccess={@onSuccessUpload}/>
         <input ref="username" data-step="3" type="text" placeholder="username" value={@props.session?.username} className="transparent"/>
       </section>
       <section className="text">

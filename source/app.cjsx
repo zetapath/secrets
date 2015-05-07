@@ -31,8 +31,8 @@ App = React.createClass
   componentWillMount: ->
     data = session()
     if data?
-      new ModelSession data
-      @setState howto: false, session: session data
+      session data
+      @setState howto: false, session: new ModelSession data
     else
       window.location = "/#/session/login"
 
