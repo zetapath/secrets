@@ -10,11 +10,6 @@ module.exports = React.createClass
     active        : React.PropTypes.boolean
     context       : React.PropTypes.string
 
-  getDefaultProps: ->
-    routes: [
-      icon: "back", route: "/"
-    ]
-
   getInitialState: ->
     disabled: true
 

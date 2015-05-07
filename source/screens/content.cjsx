@@ -41,6 +41,7 @@ module.exports = React.createClass
   # -- Lifecycle
   componentDidMount: ->
     @state.session.observe (state) => @setState image: state.object.image
+    # console.info "[content] componentDidMount() -> state.context", @state.context
     GeoPosition.get().then (error, position) =>
       @_discover position.coords.latitude, position.coords.longitude unless error
     GeoPosition.observe (state) =>

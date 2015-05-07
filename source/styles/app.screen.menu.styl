@@ -10,6 +10,7 @@ aside#menu
     text-align                                    : center
     padding                                       : (2 * SPACE) SPACE
     background-color                              : BACKGROUND = lighten(BACKGROUND, 5%)
+    border-bottom                                 : solid (SPACE / 10) alpha(THEME, 5%)
     figure
       width                                       : SIZE = UNIT
       height                                      : SIZE
@@ -27,11 +28,16 @@ aside#menu
     margin                                        : (SPACE / 4) 0
     > *
       display-flex()
-      padding                                     : (SPACE / 2) SPACE
-      opacity                                     : 0.5
+      padding                                     : (SPACE / 1.5) SPACE
+      > .icon
+        margin-right                              : (SPACE / 1.5)
+        font-size                                 : SIZE = (1.4 * FONT_SIZE_NORMAL)
+        color                                     : THEME
       > strong
-        flex-grow                                 2
+        flex-grow                                   2
         font-weight                               : FONT_WEIGHT_NORMAL
+        opacity                                   : 0.75
+
       &.true, &.active
         opacity                                   : 1
         color                                     : THEME

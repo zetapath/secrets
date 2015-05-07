@@ -12,15 +12,15 @@ module.exports = React.createClass
   getDefaultProps: ->
     routes:
       content: [
-        label: "Discover", route: "/content/discover"
+        icon: "search", label: "Discover", route: "/content/discover"
       ,
-        label: "Timeline", route: "/content/timeline"
+        icon: "timeline", label: "Timeline", route: "/content/timeline"
       ,
-        label: "Followers", count: @props?.session?.followers.length, route: "/content/followers"
+        icon: "followers", label: "Followers", count: @props?.session?.followers.length, route: "/content/followers"
       ,
-        label: "Following", route: "/content/following"
+        icon: "following", label: "Following", route: "/content/following"
       ,
-        label: "Profile", route: "/content/profile"
+        icon: "profile", label: "Profile", route: "/content/profile"
       ]
 
   getInitialState: ->

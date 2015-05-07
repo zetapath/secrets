@@ -36,11 +36,15 @@ header
       display                         : block
 
     &:not(:last-child)
-      max-width                         : HEADER_HEIGHT
+      max-width                       : HEADER_HEIGHT
       > *
-        min-width                       : (HEADER_HEIGHT / 2)
-        min-height                      : HEADER_HEIGHT
-        background-color                : rgba(0,0,0,0.1)
+        min-width                     : (HEADER_HEIGHT / 2)
+        min-height                    : HEADER_HEIGHT
+        text-align: bottom
+        > .icon
+          font-size                   : (1.4 * FONT_SIZE_NORMAL)
+          line-height                 : HEADER_HEIGHT
+          color                       : rgba(0,0,0,0.25)
 
     &:last-child
       position                        : absolute
