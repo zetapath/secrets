@@ -1,6 +1,6 @@
 "use strict"
 
-module.exports = class EntityGeoposition extends Hamsa
+module.exports = class GeoPosition extends Hamsa
 
   @define
     coords        : type: Number, default: [0, 0]

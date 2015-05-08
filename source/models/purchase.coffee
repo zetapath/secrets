@@ -1,6 +1,6 @@
 "use strict"
 
-module.exports = class Secret extends Hamsa
+module.exports = class Purchase extends Hamsa
 
   @define
     id            : type: String
