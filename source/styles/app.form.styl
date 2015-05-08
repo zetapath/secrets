@@ -28,21 +28,56 @@ form
           flex-grow                   0
 
   &#secret
+    > .types
+      height                        : SIZE = 19vw
+      margin-top                    : -(SIZE)
+      // background-color              : alpha(THEME, 25%)
+      > *
+        // position                    : relative
+        width                       : 20vw
+        height                      : SIZE
+        background-size             : 80%
+        background-position         : 50% 10vw
+        // opacity                     : 0.75
+        transition                    all ANIMATION_DURATION ANIMATION_EASE
+        display-flex()
+        justify-content center
+        align-content center
+        align-items flex-end
+
+        &, > abbr
+          transition                    all ANIMATION_DURATION ANIMATION_EASE
+        > abbr
+          height                    : SPACE
+          font-size                 : FONT_SIZE_TINY
+          font-weight               : FONT_WEIGHT_BOLD
+          line-height               : SPACE
+          text-align                : center
+          color                     : WHITE
+          background-color          : alpha(THEME, 50%)
+          padding                   : 0 (SPACE / 4) (SPACE / 10) (SPACE / 4)
+          border-radius             : (SPACE / 2)
+          transform                   translateY(200%)
+        // -- Classes
+        &:not(.active)
+          -webkit-filter            : grayscale(100%)
+          filter                    : grayscale(100%)
+        &.active
+          opacity                   : 1
+          height                    : 20vw
+          background-position       : 50% 2.5vw
+          > abbr
+            transform                   translateY(-30%)
+
     > textarea
       height                        : (1.45 * UNIT)
       font-size                     : FONT_SIZE_SMALL
       color                         : lighten(COLOR, 25%)
       border-bottom-color             transparent
-
     > input, > textarea
       text-indent                   : (SPACE / 4)
-    > nav
-      position                      : relative
-      margin                        : 0 SPACE
-      button
-        position                    : absolute
-        left                        : 0%
-        width                       : 100%
-        &.loading
-          left                      : 50%
-          margin-left               : -(BUTTON_HEIGHT / 2)
+    > button
+      width                         : 90vw
+      margin-left                   : 5vw
+      &.loading
+        margin-left                 : (50vw - (BUTTON_HEIGHT  / 2))
