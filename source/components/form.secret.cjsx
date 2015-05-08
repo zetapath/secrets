@@ -14,15 +14,17 @@ module.exports = React.createClass
   getInitialState: ->
     disabled  : true
     image     : undefined
-    posted    : false
     type      : 1
 
-  # # -- Lifecycle
+  # -- Lifecycle
   componentDidMount: ->
     GeoPosition.observe (state) =>
-      console.log "getPosition", state.object
       @setState latitude: state.object.coords[0], longitude: state.object.coords[1]
     , ["update"]
+
+  componentWillReceiveProps: (next_props) ->
+    position = GeoPosition.current()
+    @setState latitude: position.coords[0], longitude: position.coords[1]
 
   # # -- Events
   onImageFile: (data) ->
