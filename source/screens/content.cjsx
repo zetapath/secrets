@@ -1,8 +1,5 @@
 "use strict"
 
-Session       = require "../models/session"
-GeoPosition   = require "../models/geoposition"
-Secret        = require "../models/secret"
 Header        = require "../components/header"
 Loading       = require "../components/loading"
 ListScroll    = require "../components/list.scroll"
@@ -11,6 +8,10 @@ ItemPurchase  = require "../components/list.item.purchase"
 ItemSecret    = require "../components/list.item.secret"
 ItemUser      = require "../components/list.item.user"
 FormProfile   = require "../components/form.profile"
+Session       = require "../models/session"
+GeoPosition   = require "../models/geoposition"
+Secret        = require "../models/secret"
+Purchase      = require "../models/purchase"
 request       = require "../modules/request"
 
 module.exports = React.createClass
@@ -41,7 +42,6 @@ module.exports = React.createClass
   # -- Lifecycle
   componentDidMount: ->
     @state.session.observe (state) => @setState image: state.object.image
-    # console.info "[content] componentDidMount() -> state.context", @state.context
     GeoPosition.get().then (error, position) =>
       @_discover position.coords.latitude, position.coords.longitude unless error
     GeoPosition.observe (state) =>
@@ -114,3 +114,4 @@ module.exports = React.createClass
 
   _getModel: (context) ->
     return Secret if context in ["secrets", "purchases"]
+    return Purchase if context is "discover"
