@@ -4,45 +4,54 @@ module.exports = React.createClass
 
   # -- States & Properties
   propTypes:
-    center    : React.PropTypes.array
-    marker    : React.PropTypes.array
-    zoom      : React.PropTypes.number
+    center      : React.PropTypes.array
+    marker      : React.PropTypes.array
+    zoom        : React.PropTypes.number
+    expandable  : React.PropTypes.boolean
+
 
   getDefaultProps: ->
-    center    : []
-    marker    : []
-    zoom      : 10
+    zoom        : 10
+    expandable  : false
+    center      : undefined
+    marker      : undefined
+    sensor      : false
 
   getInitialState: ->
-    loading   : false
-    gmap       : undefined
+    gmap        : undefined
 
   # -- Lifecycle
-  # componentDidMount: ->
-  #   console.log "componentDidMount"
+  componentDidMount: ->
+    center = @props.center or [43.256963, -2.923441]
+    @setState gmap: new google.maps.Map @getDOMNode(),
+      center          : new google.maps.LatLng center
+      zoom            : if @props.center then @props.zoom else 1
+      mobile          : true
+      sensor          : false
+      disableDefaultUI: true
+    @createMarker @props.marker
 
-  # componentDidUpdate: ->
-  #   gmap =  new google.maps.Map @getDOMNode(),
-  #     center          : new google.maps.LatLng @props.center[0], @props.center[1]
-  #     zoom            : @props.zoom
-  #     mobile          : true
-  #     sensor          : false
-  #     disableDefaultUI: true
-  #
-  #   marker = new google.maps.Marker
-  #     map             : gmap
-  #     position        : new google.maps.LatLng @props.marker[0], @props.marker[1]
-
-  # shouldComponentUpdate: (next_props, next_states) ->
-  #   if @state.gmap then false else true
+  componentWillReceiveProps: (next_props) ->
+    center = next_props.center or @props.center
+    if center?
+      @state.gmap?.setCenter new google.maps.LatLng center[0], center[1]
+      @state.gmap?.setZoom @props.zoom
+      @createMarker next_props.marker or @props.marker
 
   # -- Events
-  onClick: (event) ->
+  onExpand: (event) ->
     event.stopPropagation()
     @getDOMNode().classList.toggle "expanded"
 
   # -- Render
   render: ->
-    <map data-map onClick={@onClick} data-flex="horizontal center">
-      <span>{@props.center[0]}</span> - <span>{@props.center[1]}</span>
+    <map data-map onClick={@onExpand if @props.expandable}>
+      {@props.center}
     </map>
+
+  # -- Private
+  createMarker: (coords) ->
+    if coords
+      new google.maps.Marker
+        map             : @state.gmap
+        position        : new google.maps.LatLng coords[0], coords[1]

@@ -12,7 +12,8 @@ module.exports = class GeoPosition extends Hamsa
   @get: ->
     promise = new Hope.Promise()
     navigator.geolocation.getCurrentPosition (position) =>
-      @current().coords = [position.coords.latitude, position.coords.longitude]
+      current = @current()
+      current.coords = [position.coords.latitude, position.coords.longitude]
       promise.done null, position
     , (error) ->
       promise.done error

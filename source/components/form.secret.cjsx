@@ -12,21 +12,18 @@ module.exports = React.createClass
 
   # -- States & Properties
   getInitialState: ->
-    disabled  : true
-    image     : undefined
-    type      : 1
+    disabled    : true
+    image       : undefined
+    type        : 1
+    geoposition : undefined
 
   # -- Lifecycle
   componentDidMount: ->
-    GeoPosition.observe (state) =>
-      @setState latitude: state.object.coords[0], longitude: state.object.coords[1]
+    GeoPosition.current().observe (state) =>
+      @setState geoposition: state.object.coords
     , ["update"]
 
-  componentWillReceiveProps: (next_props) ->
-    position = GeoPosition.current()
-    @setState latitude: position.coords[0], longitude: position.coords[1]
-
-  # # -- Events
+  # -- Events
   onImageFile: (data) ->
     @setState image: data
     setTimeout =>
@@ -51,16 +48,14 @@ module.exports = React.createClass
     button.classList.add "loading"
     values = @_validateValues()
     request("POST", "secret", values).then (error, response) =>
-      button.classList.remove "loading"
       unless error
         parameters = file: @state.image, entity: "secret", id: response.id
         multipart("POST", "image", parameters).then (error, response) =>
           console.log "POST/image", error, response
           unless error
-            # window.location = "/#/"
-            window.history.back()
+            button.classList.remove "loading"
+            window.location = "/#/content/secrets"
             @setState title: undefined, text: undefined, image: undefined
-
 
   # -- Render
   render: ->
@@ -80,10 +75,10 @@ module.exports = React.createClass
       </nav>
       <Map
         zoom={15}
-        center={[@state.latitude, @state.longitude]}
-        marker={[@state.latitude, @state.longitude]} />
-      <input type="text" ref="latitude" value={@state.latitude} hidden required/>
-      <input type="text" ref="longitude" value={@state.longitude} hidden required/>
+        {center=@state.geoposition if @state.geoposition}
+        {marker=@state.geoposition if @state.geoposition} />
+      <input type="text" ref="latitude" value={@state.geoposition?[0]} hidden required/>
+      <input type="text" ref="longitude" value={@state.geoposition?[1]} hidden required/>
       <input type="text" ref="type" value={@state.type} hidden required/>
       <input type="text" ref="title" placeholder="Title" className="white" onKeyUp={@onKeyUp} value={@state.title} required/>
       <textarea ref="text" placeholder="Describe it" className="white" onKeyUp={@onKeyUp} required>{@state.text}</textarea>

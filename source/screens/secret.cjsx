@@ -48,7 +48,7 @@ module.exports = React.createClass
               <h1>{@state.data.title}</h1>
               <small>{C.TYPE_LITERAL[@state.data.type]}</small>
             </div>
-            <Map center={@state.data.position} />
+            <Map center={@state.data.position} marker={@state.data.position} />
             <div className="user" onClick={@onUser}>
               <figure className="avatar" style={backgroundImage: "url(#{@state.data.user?.image})"}></figure>
               <div>
