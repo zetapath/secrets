@@ -5,6 +5,7 @@ Map         = require "../components/map"
 FormSecret  = require "../components/form.secret"
 Secret      = require "../models/secret"
 request     = require "../modules/request"
+C           = require "../modules/constants"
 
 module.exports = React.createClass
 
@@ -45,7 +46,7 @@ module.exports = React.createClass
           <section className="scroll">
             <div data-flex="vertical center" style={backgroundImage: "url(#{@state.data.image})"}>
               <h1>{@state.data.title}</h1>
-              <small>{@state.data.type}</small>
+              <small>{C.TYPE_LITERAL[@state.data.type]}</small>
             </div>
             <Map center={@state.data.position} />
             <div className="user" onClick={@onUser}>
