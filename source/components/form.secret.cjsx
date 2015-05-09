@@ -54,15 +54,18 @@ module.exports = React.createClass
       button.classList.remove "loading"
       unless error
         parameters = file: @state.image, entity: "secret", id: response.id
-        console.log parameters
         multipart("POST", "image", parameters).then (error, response) =>
           console.log "POST/image", error, response
-          window.location = "/#/" unless error
+          unless error
+            # window.location = "/#/"
+            window.history.back()
+            @setState title: undefined, text: undefined, image: undefined
+
 
   # -- Render
   render: ->
     <form id="secret" className="scroll">
-      <UploadImage entity="secret" onFile={@onImageFile} />
+      <UploadImage entity="secret" onFile={@onImageFile} url={undefined}/>
       <nav ref="types" className="types" data-flex="horizontal grow">
         <figure className="type-01 active" value="1" onClick={@onType}>
           <abbr>stay</abbr></figure>
@@ -82,8 +85,8 @@ module.exports = React.createClass
       <input type="text" ref="latitude" value={@state.latitude} hidden required/>
       <input type="text" ref="longitude" value={@state.longitude} hidden required/>
       <input type="text" ref="type" value={@state.type} hidden required/>
-      <input type="text" ref="title" placeholder="Title" className="white" onKeyUp={@onKeyUp} required/>
-      <textarea ref="text" placeholder="Describe it" className="white" onKeyUp={@onKeyUp} required></textarea>
+      <input type="text" ref="title" placeholder="Title" className="white" onKeyUp={@onKeyUp} value={@state.title} required/>
+      <textarea ref="text" placeholder="Describe it" className="white" onKeyUp={@onKeyUp} required>{@state.text}</textarea>
       <button ref="button" className="radius theme lo-ading" onClick={@onSave} disabled={@state.disabled}>
         <abbr>Share my secret</abbr>
       </button>

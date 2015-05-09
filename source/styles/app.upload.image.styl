@@ -14,7 +14,7 @@ sizeLoading(amount)
 [data-upload-image]
   position                        : relative
   display                         : block
-  background-color                : WHITE
+  background-color                : lighten(BACKGROUND, 80%)
   background-size                 : cover
   background-position             : 50% 50%
   transition                        all ANIMATION_DURATION ANIMATION_EASE
@@ -33,11 +33,27 @@ sizeLoading(amount)
     height                        : UPLOAD_IMAGE_USER
     border-radius                 : UPLOAD_IMAGE_USER
     box-shadow                      0 0 0 (SPACE / 2) alpha(BACKGROUND, 5%)
+    &.upload:after
+      margin                      : (-(UNIT) / 2) 0 0 (-(UNIT) / 2)
 
   &.secret
     width                         : 100vw
     height                        : SIZE = 90vw
-    background-color              : lighten(BACKGROUND, 75%)
     > [data-loading]
-      left                        : 10vw
+      left                        : 5vw
       sizeLoading                   SIZE
+    &.upload:after
+      margin                      : (-(UNIT) / 4) 0 0 (-(UNIT) / 2)
+
+  &.upload
+    &:after
+      content                     : "\e607"
+      position                    : absolute
+      left                        : 50%
+      top                         : 50%
+      width                       : UNIT
+      height                      : UNIT
+      font-size                   : UNIT
+      font-family                 : "icomoon"
+      text-shadow                 : none
+      color                       : alpha(WHITE, 50%)

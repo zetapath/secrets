@@ -26,9 +26,10 @@ module.exports = React.createClass
   onFileChange: (event) ->
     event.stopPropagation()
     event.preventDefault()
-    @setState file: undefined, loading: true
+    @setState file: undefined
     file_url = event.target.files[0]
-    if file_url.type.match /image.*/
+    if file_url?.type.match /image.*/
+      @setState loading: true
       file_reader = new FileReader()
       file_reader.readAsDataURL file_url
       file_reader.onloadend = (event) => @setState url: event.target.result
@@ -44,12 +45,17 @@ module.exports = React.createClass
 
   # -- Render
   render: ->
+    classProperty = @props.entity
+    if @state.url
+      styleProperty = backgroundImage: "url(#{@state.url})"
+    if not @state.url and not @state.loading
+      classProperty += " upload"
     <figure data-upload-image
         ref="image"
-        className={@props.entity}
-        onClick={@onClick}
-        style={backgroundImage: "url(#{@state.url})"}
-        data-step={@props.step}>
+        className={classProperty}
+        style={styleProperty}
+        data-step={@props.step}
+        onClick={@onClick}>
       <input ref="file" type="file" onChange={@onFileChange} />
       { <Loading type="relative" /> if @state.loading }
     </figure>

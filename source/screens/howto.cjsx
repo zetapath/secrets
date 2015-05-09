@@ -44,7 +44,7 @@ module.exports = React.createClass
 
   # -- Render
   render: ->
-    image = @props.session?.image or "./assets/img/avatar.jpg"
+    image = @props.session?.image
     <article id="howto" className={@props.active} data-step={@props.step}>
       <section className="scene">
         <h1 data-step="1">Welcome to Secrets</h1>
