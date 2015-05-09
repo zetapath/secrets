@@ -13,6 +13,7 @@ GeoPosition   = require "../models/geoposition"
 Secret        = require "../models/secret"
 Purchase      = require "../models/purchase"
 request       = require "../modules/request"
+C             = require "../modules/constants"
 
 module.exports = React.createClass
 
@@ -77,7 +78,7 @@ module.exports = React.createClass
         if @props.context in ["secrets", "purchases", "timeline", "discover", "followers", "following"]
           <ListScroll
             dataSource={@state[@props.context]}
-            itemHeight={64}
+            itemHeight={C.LI_HEIGHT}
             itemFactory={@_getItemRenderer()}/>
         else if @props.context is "profile"
           <FormProfile />

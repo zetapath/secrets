@@ -4,39 +4,47 @@ ul
     list-style                              : none
     padding                                 : 0 (SPACE / 1.25)
     box-shadow                                inset 0 -1px darken(WHITE, 5%)
-    height                                  : 64px
+    height                                  : LI_HEIGHT
     display                                 : block
     > *
       color                                 : COLOR
       > figure
         width                               : SIZE = (UNIT / 2.75)
         height                              : SIZE
-        margin-right                        : (SPACE / 1.25)
-        background-color                    : darken(WHITE, 10%)
-        background-size                     : cover
+        margin-right                        : (SPACE / 1.5)
+        background-color                    : darken(WHITE, 7.5%) !important
+        background-size                     : cover !important
         border-radius                       : UNIT
-      > div > small
-        display                             : block
-        overflow                            : hidden
-        white-space                         : nowrap
-        text-overflow                       : ellipsis
-        opacity                             : 0.5
+      > div
+        > *
+          display                             : block
+          overflow                            : hidden
+          white-space                         : nowrap
+          text-overflow                       : ellipsis
+        > small
+          opacity                             : 0.5
       > small
         color                               : THEME
+        text-align                          : right
 
       // -- Classes
-      &.secret
-        margin-top                          : (SPACE / 1.5)
-        figure
-          min-width                         : SIZE = (UNIT / 2.75)
-
-      &.user, &.activity
+      &.purchase, &.user, &.activity
         margin-top                          : (SPACE / 1.8)
         > figure
-          width                             : SIZE = (UNIT / 1.5)
-          height                            : SIZE
+          width                             : LI_AVATAR_SIZE
+          height                            : LI_AVATAR_SIZE
+          min-width                         : LI_AVATAR_SIZE
+          background-position               : 50% -25%
 
-
+      &.secret
+        margin-top                          : (SPACE / 1.25)
+        > small
+          width                             : SIZE = (UNIT / 1.4)
+          min-width                         : SIZE
+          font-weight                       : FONT_WEIGHT_BOLD
+      &.purchase
+        > div > strong
+          color                             : THEME
 
 [data-list-scroll]
   position                                  : absolute
