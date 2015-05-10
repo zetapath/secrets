@@ -1,6 +1,6 @@
 "use strict"
 
-host    = require "./host"
+C       = require "./constants"
 session = require "./session"
 
 module.exports = (type, method, parameters, callbacks = {}) ->
@@ -16,7 +16,7 @@ module.exports = (type, method, parameters, callbacks = {}) ->
   if callbacks.error    then xhr.addEventListener "error", callbacks.error, false
   if callbacks.abort    then xhr.addEventListener "abort", callbacks.abort, false
 
-  xhr.open "POST", "#{host}api/#{method}"
+  xhr.open "POST", "#{C.HOST}api/#{method}"
   xhr.setRequestHeader "Authorization", session()?.token or null
   xhr.send formData
   promise

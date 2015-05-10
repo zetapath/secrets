@@ -1,12 +1,12 @@
 "use strict"
 
-host    = require "./host"
+C       = require "./constants"
 session = require "./session"
 
 module.exports = (type, method, parameters) ->
   promise = new Hope.Promise()
   $$.ajax
-    url         : "#{host}api/#{method}"
+    url         : "#{C.HOST}api/#{method}"
     type        : type
     data        : parameters
     contentType : "application/x-www-form-urlencoded"
