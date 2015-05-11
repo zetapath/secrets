@@ -1,6 +1,13 @@
 "use strict"
 
+GeoPosition = require "../models/geoposition"
+
 module.exports = (lat1, lon1, lat2, lon2) ->
+  unless lat2?
+    gps = GeoPosition.current()
+    lat2 = gps.coords[0]
+    lon2 = gps.coords[1]
+
   dLat = degreesToRadians(lat2 - lat1)
   dLon = degreesToRadians(lon2 - lon1)
 
