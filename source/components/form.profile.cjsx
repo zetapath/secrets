@@ -1,8 +1,9 @@
 "use strict"
 
+UploadImage = require "./upload.image"
 Session     = require "../models/session"
 request     = require "../modules/request"
-UploadImage = require "./upload.image"
+storage     = require "../modules/storage"
 
 module.exports = React.createClass
 
@@ -33,7 +34,7 @@ module.exports = React.createClass
 
   onLogout: (event) ->
     event.preventDefault()
-    session null
+    storage null
     window.location.reload()
 
   # -- Render

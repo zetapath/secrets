@@ -30,12 +30,12 @@ module.exports = React.createClass
     button = @refs.btnSaveProfile.getDOMNode().classList
     button.add "loading"
 
-    Hope.shield([ ->
+    Hope.shield([ =>
       parameters = username: @refs.username.getDOMNode().value.trim()
       request "PUT", "profile", parameters
     , (error, response) ->
       Session.update()
-    ]).then (error, response) ->
+    ]).then (error, response) =>
       button.remove "loading"
       unless error
         window.location = "/#/howto/#{parseInt(@props.step) + 1}"

@@ -27,9 +27,14 @@ module.exports = React.createClass
       else
         @props.onSuccess.call @, response
 
+  componentDidMount: ->
+    setTimeout =>
+      @setState active: true
+    , 450
+
   # -- Render
   render: ->
-    <article id="session" className={@props.active} data-flex="vertical center">
+    <article id="session" className={@state.active} data-flex="vertical center">
       <h1>Secrets</h1>
       <form data-flex="vertical center">
         <input ref="mail" type="text" placeholder="mail" onKeyUp={@onKeyUp} className="transparent"/>
