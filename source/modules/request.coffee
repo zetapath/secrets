@@ -13,7 +13,10 @@ module.exports = (type, method, parameters) ->
     dataType    : 'json'
     headers     : "Authorization": session()?.token or null
     success: (response, xhr) ->
-      promise.done null, response
+      if xhr.response.trim() is ""
+        promise.done error = true
+      else
+        promise.done null, response
     error: (xhr, error) =>
       error = code: error.status, message: error.response
       console.error "request [ERROR #{error.code}]: #{error.message}"
