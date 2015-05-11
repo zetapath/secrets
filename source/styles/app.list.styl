@@ -8,21 +8,31 @@ ul
     display                                 : block
     > *
       color                                 : COLOR
-      > figure
-        width                               : SIZE = (UNIT / 2.75)
-        height                              : SIZE
-        margin-right                        : (SPACE / 1.5)
+      figure
         background-color                    : darken(WHITE, 7.5%) !important
         background-size                     : cover !important
         border-radius                       : UNIT
+      > figure
+        position                            : relative
+        width                               : SIZE = (UNIT / 2.75)
+        height                              : SIZE
+        margin-right                        : (SPACE / 1.5)
+        box-shadow                          : 0 0 0 (SPACE / 10) darken(WHITE, 10%)
+        > figure
+          position                          : absolute
+          bottom                            : 0
+          right                             : -(SPACE / 5)
+          width                             : SIZE = (UNIT / 2.5)
+          height                            : SIZE
+          box-shadow                        : 0 0 0 (SPACE / 10) THEME
       > div
         > *
-          display                             : block
-          overflow                            : hidden
-          white-space                         : nowrap
-          text-overflow                       : ellipsis
+          display                           : block
+          overflow                          : hidden
+          white-space                       : nowrap
+          text-overflow                     : ellipsis
         > small
-          opacity                             : 0.5
+          opacity                           : 0.5
       > small
         color                               : THEME
         text-align                          : right
