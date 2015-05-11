@@ -27,9 +27,9 @@ module.exports = React.createClass
   componentWillReceiveProps: (next_props) ->
     id = next_props.id or @props.id
     if id?
-      secret = Secret.find (entity) -> entity.id is id
-      if secret.length > 0
-        @setState data: secret[0]
+      secret = Secret.findBy("id", id)[0]
+      if secret
+        @setState data: secret
         request("GET", "secret/#{id}").then (error, response) => @setState data: response
 
   # -- Events
@@ -56,14 +56,18 @@ module.exports = React.createClass
                 <small><strong>{@state.data.user?.secrets.length}</strong> secrets</small>
               </div>
             </div>
-            <p>{@state.data.text}</p>
-            <small>Tips</small>
-            <ul>
-            {
-              for tip in (@state.data.tips or [])
-                <li>{tip.id}</li>
-            }
-            </ul>
+            <div>
+              <p>{@state.data.text}</p>
+            </div>
+            <div>
+              <small>Tips</small>
+              <ul>
+              {
+                for tip in (@state.data.tips or [])
+                  <li>{tip.id}</li>
+              }
+              </ul>
+            </div>
           </section>
         else
           <section>

@@ -26,8 +26,9 @@ button, .button
       background-color                    : THEME
   &.transparent
     background-color                      : transparent
-    // border                                : solid 1px WHITE
     box-shadow                              0 0 0 2px WHITE
+    &.loading::after
+      background-color                    : WHITE
   &.theme
     color                                 : WHITE
     &:not([disabled])
@@ -42,6 +43,7 @@ button, .button
   &.loading
     position                              : relative
     width                                 : BUTTON_HEIGHT !important
+    // max-width                             : BUTTON_HEIGHT
     > abbr
       opacity                             : 0
     &::after

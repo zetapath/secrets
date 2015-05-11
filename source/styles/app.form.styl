@@ -44,9 +44,6 @@ form
         justify-content center
         align-content center
         align-items flex-end
-
-        &, > abbr
-          transition                    all ANIMATION_DURATION ANIMATION_EASE
         > abbr
           height                    : SPACE
           font-size                 : FONT_SIZE_TINY
@@ -58,6 +55,7 @@ form
           padding                   : 0 (SPACE / 4) (SPACE / 10) (SPACE / 4)
           border-radius             : (SPACE / 2)
           transform                   translateY(200%)
+          transition                    all (ANIMATION_DURATION/2) (ANIMATION_DURATION/2) ANIMATION_EASE
         // -- Classes
         &:not(.active)
           -webkit-filter            : grayscale(100%)

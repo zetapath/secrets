@@ -1,5 +1,6 @@
 "use strict"
 
+# -- Components
 Header        = require "../components/header"
 Loading       = require "../components/loading"
 ListScroll    = require "../components/list.scroll"
@@ -8,10 +9,13 @@ ItemPurchase  = require "../components/list.item.purchase"
 ItemSecret    = require "../components/list.item.secret"
 ItemUser      = require "../components/list.item.user"
 FormProfile   = require "../components/form.profile"
+# -- Models
 Session       = require "../models/session"
 GeoPosition   = require "../models/geoposition"
 Secret        = require "../models/secret"
 Purchase      = require "../models/purchase"
+User          = require "../models/user"
+# -- Modules
 request       = require "../modules/request"
 C             = require "../modules/constants"
 
@@ -102,9 +106,12 @@ module.exports = React.createClass
       request("GET", method, parameters).then (error, response) =>
         console.log "GET/#{method}", error, response
         if Model?
-          Model.destroyAll()
-          new Model item for item in response or []
-
+          for item in response or []
+            item_cached = Model.findBy("id", item.id)[0]
+            if item_cached
+              item_cached[field] = item[field] for field of item_cached.fields()
+            else
+              new Model item
         @setState "#{context}": response, loading: false, active: true
 
   _discover: (latitude, longitude, radius = 5000) ->
@@ -116,3 +123,4 @@ module.exports = React.createClass
   _getModel: (context) ->
     return Secret if context in ["secrets", "purchases"]
     return Purchase if context is "discover"
+    return User if context in ["following", "followers"]
