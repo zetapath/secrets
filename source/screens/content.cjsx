@@ -46,13 +46,13 @@ module.exports = React.createClass
   # -- Lifecycle
   componentDidMount: ->
     Session.observe (state) =>
-      @setState session: state.object
+      @setState session: state.object if state.object instanceof Session
     , ["add", "update"]
     GeoPosition.get().then (error, position) =>
       @_discover position.coords.latitude, position.coords.longitude unless error
-    GeoPosition.observe (state) =>
-      @setState geoposition: state.object.coords
-    , ["update"]
+      GeoPosition.observe (state) =>
+        @setState geoposition: state.object.coords if state.object instanceof GeoPosition
+      , ["update"]
 
   componentWillReceiveProps: (next_props) ->
     context = next_props.context

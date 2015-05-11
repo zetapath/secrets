@@ -12,7 +12,7 @@ module.exports = React.createClass
   # -- Lifecycle
   componentDidMount: ->
     Session.observe (state) =>
-      @setState session: state.object
+      @setState session: state.object if state.object instanceof Session
     , ["add", "update"]
 
   # -- Render

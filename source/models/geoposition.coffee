@@ -3,7 +3,7 @@
 module.exports = class GeoPosition extends Hamsa
 
   @define
-    coords        : type: Number, default: [0, 0]
+    coords        : type: Array, default: [0, 0]
     created_at    : type: Date, default: new Date()
 
   @current: ->
