@@ -1,7 +1,7 @@
 "use strict"
 
+storage = require "../modules/storage"
 C       = require "./constants"
-session = require "./session"
 
 module.exports = (type, method, parameters) ->
   promise = new Hope.Promise()
@@ -11,7 +11,7 @@ module.exports = (type, method, parameters) ->
     data        : parameters
     contentType : "application/x-www-form-urlencoded"
     dataType    : 'json'
-    headers     : "Authorization": session()?.token or null
+    headers     : "Authorization": storage()?.token or null
     success: (response, xhr) ->
       if xhr.response.trim() is ""
         promise.done error = true

@@ -1,9 +1,9 @@
 "use strict"
 
 Header      = require "../components/header"
+Session     = require "../models/session"
 User        = require "../models/user"
 request     = require "../modules/request"
-session     = require "../modules/session"
 
 module.exports = React.createClass
 
@@ -26,15 +26,19 @@ module.exports = React.createClass
     if id?
       user = User.findBy("id", id)[0]
       if user
-        @setState data: user, network: if id in session().following then "unfollow" else "follow"
+        following = Session.instance().following
+        @setState data: user, network: if id in following then "unfollow" else "follow"
 
   # -- Events
   onNetwork: (event) ->
     button = @refs.button.getDOMNode().classList
     button.add "loading"
-    request("POST", "network/#{@state.network}", user: @props.id).then (error, response) =>
+    Hope.shield([ ->
+      request "POST", "network/#{@state.network}", user: @props.id
+    , ->
+      Session.update()
+    ]).then (error, response) ->
       button.remove "loading"
-      console.log "POST/network/#{@state.network}", error, response
 
   # -- Render
   render: ->
@@ -42,7 +46,7 @@ module.exports = React.createClass
       <Header title={@state.data.username} routes={@props.routes} />
       <section>
         <div>
-        <figure style={backgroundImage: "url(#{@state.data.image})"}/>
+          <figure style={backgroundImage: "url(#{@state.data.image})"}/>
           <p>{@state.data.bio}</p>
           <nav>
             <button ref="button" onClick={@onNetwork} data-action={@state.network} className="theme radius">

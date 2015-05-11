@@ -14,7 +14,7 @@ aside#menu
     figure
       width                                       : SIZE = UNIT
       height                                      : SIZE
-      margin-bottom                               : (SPACE / 2)
+      margin                                      : SPACE 0 (SPACE / 2) 0
       border-radius                               : SIZE
       background-color                            : BACKGROUND
       background-size                             : cover
@@ -22,13 +22,16 @@ aside#menu
       box-shadow                                    0 0 0 3px BACKGROUND, 0 0 0 5px alpha(THEME, 75%)
     h2
       color                                       : THEME
+      line-height                                 : 100%
     small
       opacity                                     : 0.4
+      line-height                                 : 100%
   > nav
     margin                                        : (SPACE / 4) 0
     > *
       display-flex()
       padding                                     : (SPACE / 1.5) SPACE
+      text-transform                              : Capitalize
       > .icon
         margin-right                              : (SPACE / 1.5)
         font-size                                 : SIZE = (1.4 * FONT_SIZE_NORMAL)

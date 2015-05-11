@@ -1,10 +1,9 @@
 "use strict"
 
-ModelSession  = require "../models/session"
+UploadImage   = require "../components/upload.image"
+Session       = require "../models/session"
 multipart     = require "../modules/multipart"
 request       = require "../modules/request"
-session       = require "../modules/session"
-UploadImage   = require "../components/upload.image"
 
 module.exports = React.createClass
 
@@ -31,14 +30,14 @@ module.exports = React.createClass
     button = @refs.btnSaveProfile.getDOMNode().classList
     button.add "loading"
 
-    parameters = username: @refs.username.getDOMNode().value.trim()
-    request("PUT", "profile", parameters).then (error, response) =>
-      if error
-        button.remove "loading"
+    Hope.shield([ ->
+      parameters = username: @refs.username.getDOMNode().value.trim()
+      request "PUT", "profile", parameters
+    , (error, response) ->
+      Session.update()
+    ]).then (error, response) ->
+      button.remove "loading"
       unless error
-        session response
-        @props.session.username = response.username
-        @props.session.image = response.image
         window.location = "/#/howto/#{parseInt(@props.step) + 1}"
         setTimeout (-> window.location = "/#/content/discover"), 450
 

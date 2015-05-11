@@ -1,8 +1,6 @@
 "use strict"
 
-ModelSession    = require "../models/session"
 GeoPosition     = require "../models/geoposition"
-session         = require "../modules/session"
 request         = require "../modules/request"
 multipart       = require "../modules/multipart"
 UploadImage     = require "./upload.image"

@@ -1,7 +1,7 @@
 "use strict"
 
+storage = require "../modules/storage"
 C       = require "./constants"
-session = require "./session"
 
 module.exports = (type, method, parameters, callbacks = {}) ->
   promise = new Hope.Promise()
@@ -17,6 +17,6 @@ module.exports = (type, method, parameters, callbacks = {}) ->
   if callbacks.abort    then xhr.addEventListener "abort", callbacks.abort, false
 
   xhr.open "POST", "#{C.HOST}api/#{method}"
-  xhr.setRequestHeader "Authorization", session()?.token or null
+  xhr.setRequestHeader "Authorization", storage()?.token or null
   xhr.send formData
   promise

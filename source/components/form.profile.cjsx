@@ -1,19 +1,18 @@
 "use strict"
 
-ModelSession  = require "../models/session"
-session       = require "../modules/session"
-request       = require "../modules/request"
-UploadImage   = require "./upload.image"
+Session     = require "../models/session"
+request     = require "../modules/request"
+UploadImage = require "./upload.image"
 
 module.exports = React.createClass
 
   # -- States & Properties
   getInitialState: ->
-    session : ModelSession.find()[0]
+    session : Session.instance()
 
   # -- Lifecycle
   componentDidUpdate: (nextProps) ->
-    @state.session.observe (state) => @setState session: state.object
+    Session.observe (state) => @setState session: state.object
 
   # -- Events
   onUploadSuccess: (url) ->
@@ -21,13 +20,16 @@ module.exports = React.createClass
 
   onSave: (event) ->
     event.preventDefault()
-    values = {}
-    values[key] = input.getDOMNode().value.trim() for key, input of @refs
     button = @refs.btn_save.getDOMNode()
     button.classList.add "loading"
-    request("PUT", "profile", values).then (error, response) ->
+    Hope.shield([ ->
+      values = {}
+      values[key] = input.getDOMNode().value.trim() for key, input of @refs
+      request "PUT", "profile", values
+    , (error, response) ->
+      Session.refresh()
+    ]).then (error, response) ->
       button.classList.remove "loading"
-      session response unless error
 
   onLogout: (event) ->
     event.preventDefault()

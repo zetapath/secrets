@@ -1,9 +1,9 @@
 "use strict"
 
 # -- Models
-ModelSession    = require "./models/session"
+Session         = require "./models/session"
 # -- Modules
-session         = require "./modules/session"
+storage         = require "./modules/storage"
 # -- Screens
 ScreenMenu      = require "./screens/menu"
 ScreenContent   = require "./screens/content"
@@ -29,10 +29,9 @@ App = React.createClass
 
   # -- Lifecycle
   componentWillMount: ->
-    data = session()
+    data = storage()
     if data?
-      session data
-      @setState howto: false, session: new ModelSession data
+      @setState howto: false, session: new Session data
     else
       window.location = "/#/session/login"
 
@@ -51,8 +50,8 @@ App = React.createClass
 
   # -- Events
   onSessionSuccess: (data) ->
-    session data
-    @setState howto: true, session: new ModelSession data
+    storage data
+    @setState howto: true, session: new Session data
 
   # -- Render
   render: ->

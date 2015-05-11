@@ -1,6 +1,5 @@
 "use strict"
 
-ModelSession  = require "../models/session"
 request       = require "../modules/request"
 
 module.exports = React.createClass

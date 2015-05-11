@@ -1,50 +1,48 @@
 "use strict"
 
-ModelSession  = require "../models/session"
-Navigation    = require "../components/navigation"
+Navigation  = require "../components/navigation"
+Session     = require "../models/session"
 
 module.exports = React.createClass
 
   # -- States & Properties
-  propTypes:
-    routes        : React.PropTypes.object
-
-  getDefaultProps: ->
-    routes:
-      content: [
-        icon: "search", label: "Discover", route: "/content/discover"
-      ,
-        icon: "timeline", label: "Timeline", route: "/content/timeline"
-      ,
-        icon: "followers", label: "Followers", count: @props?.session?.followers.length, route: "/content/followers"
-      ,
-        icon: "following", label: "Following", route: "/content/following"
-      ,
-        icon: "profile", label: "Profile", route: "/content/profile"
-      ]
-
   getInitialState: ->
-    session : ModelSession.find()[0]
+    session : Session.instance()
 
+  # -- Lifecycle
   componentDidMount: ->
-    @state.session.observe (state) => @setState session: state.object
+    Session.observe (state) =>
+      @setState session: state.object
+    , ["add", "update"]
 
   # -- Render
   render: ->
+    session = @state.session
+    routes = [
+      icon: "search", label: "Discover", route: "/content/discover"
+    ,
+      icon: "timeline", label: "Timeline", route: "/content/timeline"
+    ]
+    for attr in ["following", "followers"] when session[attr]?.length > 0
+      routes.push icon: attr, label: attr, count: session[attr].length, route: "/content/#{attr}"
+    routes.push icon: "profile", label: "Profile", route: "/content/profile"
+
     <aside id="menu" onClick={@onClick} className={@props.active}>
       <div data-flex="horizontal grow center">
         <a href="/#/content/secrets">
-          <h2>{@state.session.secrets?.length or 0}</h2>
+          <h2>{session.secrets?.length or 0}</h2>
           <small>secrets</small>
         </a>
         <div data-flex="vertical center">
-          <figure style={backgroundImage: "url(#{@state.session.image})"}></figure>
-          <h2>{@state.session.username}</h2>
+          <h2>{session.wallet}</h2>
+          <small>coins</small>
+          <figure style={backgroundImage: "url(#{session.image})"}></figure>
+          <h2>{session.username}</h2>
         </div>
         <a href="/#/content/purchases">
-          <h2>{@state.session.purchases?.length or 0}</h2>
+          <h2>{session.purchases?.length or 0}</h2>
           <small>purchases</small>
         </a>
       </div>
-      <Navigation routes={@props.routes.content} />
+      <Navigation routes={routes} />
     </aside>

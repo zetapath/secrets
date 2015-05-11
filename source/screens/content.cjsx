@@ -31,8 +31,7 @@ module.exports = React.createClass
     following   : []
     loading     : true
     active      : false
-    session     : Session.find()[0]
-    image       : Session.find()[0]?.image
+    session     : Session.instance()
     geoposition : undefined
 
   getDefaultProps: ->
@@ -46,7 +45,9 @@ module.exports = React.createClass
 
   # -- Lifecycle
   componentDidMount: ->
-    @state.session.observe (state) => @setState image: state.object.image
+    Session.observe (state) =>
+      @setState session: state.object
+    , ["add", "update"]
     GeoPosition.get().then (error, position) =>
       @_discover position.coords.latitude, position.coords.longitude unless error
     GeoPosition.observe (state) =>
@@ -69,25 +70,10 @@ module.exports = React.createClass
       update = true
     else if @state.loading is true and next_states.loading is false
       update = true
-    else if @state.image isnt next_states.image
+    else if next_states.session? and @state.session.image isnt next_states.session.image
       update = true
     update
 
-  # -- Render
-  render: ->
-    <article className={@state.active} id="content">
-      <Header title={@props.context} routes={@props.routes.menu} session={@state.session} subroutes={@props.routes.post} />
-      { <Loading /> if @state.loading }
-      {
-        if @props.context in ["secrets", "purchases", "timeline", "discover", "followers", "following"]
-          <ListScroll
-            dataSource={@state[@props.context]}
-            itemHeight={C.LI_HEIGHT}
-            itemFactory={@_getItemRenderer()}/>
-        else if @props.context is "profile"
-          <FormProfile />
-      }
-    </article>
 
   # -- Private events
   _getItemRenderer: ->
@@ -124,3 +110,19 @@ module.exports = React.createClass
     return Secret if context in ["secrets", "purchases"]
     return Purchase if context is "discover"
     return User if context in ["following", "followers"]
+
+  # -- Render
+  render: ->
+    <article className={@state.active} id="content">
+      <Header title={@props.context} routes={@props.routes.menu} session={@state.session} subroutes={@props.routes.post} />
+      { <Loading /> if @state.loading }
+      {
+        if @props.context in ["secrets", "purchases", "timeline", "discover", "followers", "following"]
+          <ListScroll
+            dataSource={@state[@props.context]}
+            itemHeight={C.LI_HEIGHT}
+            itemFactory={@_getItemRenderer()}/>
+        else if @props.context is "profile"
+          <FormProfile />
+      }
+    </article>

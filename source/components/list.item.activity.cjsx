@@ -10,7 +10,7 @@ module.exports = (data) ->
     </figure>
     <div data-flex="vertical" data-flex-grow="max">
       <strong data-flex-grow="max">{data.user.username}</strong>
-      <small>{C.ACTIVITIES[data.type.toString()]}</small>
+      <small>{C.ACTIVITIES[data.type?.toString()]}</small>
     </div>
     <small>{moment(data.created_at).fromNow()}</small>
   </div>
