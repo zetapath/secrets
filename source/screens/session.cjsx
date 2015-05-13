@@ -35,7 +35,7 @@ module.exports = React.createClass
   # -- Render
   render: ->
     <article id="session" className={@state.active} data-flex="vertical center">
-      <h1>Secrets</h1>
+      <h1>Shcret</h1>
       <form data-flex="vertical center">
         <input ref="mail" type="text" placeholder="mail" onKeyUp={@onKeyUp} className="transparent"/>
         <input ref="password" type="password" placeholder="password" onKeyUp={@onKeyUp} className="transparent"/>
