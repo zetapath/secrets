@@ -1,5 +1,3 @@
-"use strict"
-
 module.exports = class Purchase extends Hamsa
 
   @define

@@ -1,5 +1,3 @@
-"use strict"
-
 UploadImage   = require "../components/upload.image"
 Session       = require "../models/session"
 multipart     = require "../modules/multipart"

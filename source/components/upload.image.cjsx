@@ -1,5 +1,3 @@
-"use strict"
-
 Loading   = require "./loading"
 multipart = require "../modules/multipart"
 

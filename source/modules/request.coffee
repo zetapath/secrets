@@ -1,5 +1,3 @@
-"use strict"
-
 storage = require "../modules/storage"
 C       = require "./constants"
 

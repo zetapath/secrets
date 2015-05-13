@@ -1,5 +1,3 @@
-"use strict"
-
 moment  = require "moment"
 C       = require "../modules/constants"
 

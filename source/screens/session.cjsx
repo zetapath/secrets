@@ -1,5 +1,3 @@
-"use strict"
-
 request       = require "../modules/request"
 
 module.exports = React.createClass

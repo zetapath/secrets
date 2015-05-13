@@ -1,5 +1,3 @@
-"use strict"
-
 Navigation  = require "../components/navigation"
 Session     = require "../models/session"
 

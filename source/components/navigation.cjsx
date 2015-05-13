@@ -1,5 +1,3 @@
-"use strict"
-
 module.exports = React.createClass
 
   # -- States & Properties

@@ -1,5 +1,3 @@
-"use strict"
-
 Header      = require "../components/header"
 Map         = require "../components/map"
 FormSecret  = require "../components/form.secret"

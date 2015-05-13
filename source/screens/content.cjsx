@@ -1,5 +1,3 @@
-"use strict"
-
 # -- Components
 Header        = require "../components/header"
 Loading       = require "../components/loading"

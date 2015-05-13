@@ -1,5 +1,3 @@
-"use strict"
-
 Navigation = require './navigation'
 
 module.exports = React.createClass

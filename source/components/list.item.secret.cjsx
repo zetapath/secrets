@@ -1,5 +1,3 @@
-"use strict"
-
 distance    = require "../modules/distance"
 
 module.exports = (data) ->

@@ -1,5 +1,3 @@
-"use strict"
-
 GeoPosition     = require "../models/geoposition"
 request         = require "../modules/request"
 multipart       = require "../modules/multipart"

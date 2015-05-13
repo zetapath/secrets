@@ -1,5 +1,3 @@
-"use strict"
-
 UploadImage = require "./upload.image"
 Session     = require "../models/session"
 request     = require "../modules/request"

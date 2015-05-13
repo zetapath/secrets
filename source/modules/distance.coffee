@@ -1,5 +1,3 @@
-"use strict"
-
 GeoPosition = require "../models/geoposition"
 
 module.exports = (lat1, lon1, lat2, lon2) ->

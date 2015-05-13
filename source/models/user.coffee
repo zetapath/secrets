@@ -1,5 +1,3 @@
-"use strict"
-
 module.exports = class User extends Hamsa
 
   @define

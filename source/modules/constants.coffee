@@ -1,5 +1,3 @@
-"use strict"
-
 module.exports =
   HOST        : "http://178.62.129.192:1338/"
   # -- Literals

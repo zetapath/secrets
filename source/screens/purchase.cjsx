@@ -1,5 +1,3 @@
-"use strict"
-
 Session     = require "../models/session"
 Purchase    = require "../models/purchase"
 distance    = require "../modules/distance"
