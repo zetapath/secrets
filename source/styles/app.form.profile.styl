@@ -1,0 +1,31 @@
+form
+  &#profile
+    margin-top                      : HEADER_HEIGHT
+    padding                         : SPACE
+
+    &, > *
+      text-align                    : center
+    > img
+      height                        : (2 * UNIT)
+      border-radius                 : UNIT
+    > strong
+      opacity                       : 0.5
+      margin-bottom                 : SPACE
+
+    > input, > textarea
+      margin-bottom                 : (SPACE / 4)
+    > textarea
+      font-size                     : FONT_SIZE_SMALL
+    > nav
+      margin-top                    : SPACE
+      > button
+        &:first-child
+          min-width                 : BUTTON_HEIGHT
+        &:last-child
+          margin-left               : SPACE
+        &.loading
+          max-width                 : BUTTON_HEIGHT
+          left                      : 50%
+          margin-left               : -(BUTTON_HEIGHT / 2)
+          & + button
+            transform                 translateX(100vw)

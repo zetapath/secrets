@@ -91,9 +91,8 @@
       transform                         translateY(100vh)
     > .button
       &.loading
-        width                         : auto !important
-        left                          : GAP = (50vw - (BUTTON_HEIGHT * 2.1))
-        right                         : GAP
+        left                          : 50%
+        margin-left                   : -(BUTTON_HEIGHT / 2)
 
   // -- STEPS
   &[data-step="0"]
