@@ -78,7 +78,7 @@ module.exports = React.createClass
       <input type="text" ref="type" value={@state.type} hidden required/>
       <input type="text" ref="title" placeholder="Title" className="white" onKeyUp={@onKeyUp} value={@state.title} required/>
       <textarea ref="text" placeholder="Describe it" className="white" onKeyUp={@onKeyUp} required>{@state.text}</textarea>
-      <button ref="button" className="radius theme lo-ading" onClick={@onSave} disabled={@state.disabled}>
+      <button ref="button" className="radius theme" onClick={@onSave} disabled={@state.disabled}>
         <abbr>Share my secret</abbr>
       </button>
     </form>
