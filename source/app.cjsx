@@ -46,7 +46,7 @@ App = React.createClass
       "/purchase/:id" : (id) => @setState purchase: true, id: id
       "/user/:id"     : (id) => @setState user: true, id: id
       "/"             : @setState.bind @, menu: false, secret: false, user: false, purchase: false
-    router.init window.location.hash or "/"
+    router.init window.location.hash or "/#/"
 
   # -- Events
   onSessionSuccess: (data) ->
