@@ -25,7 +25,7 @@ module.exports = React.createClass
       routes.push icon: attr, label: attr, count: session[attr].length, route: "/content/#{attr}"
     routes.push icon: "profile", label: "Profile", route: "/content/profile"
 
-    <aside id="menu" onClick={@onClick} className={@props.active}>
+    <aside id="menu" className={@props.active}>
       <div data-flex="horizontal grow center">
         <a href="/#/content/secrets">
           <h2>{session.secrets?.length or 0}</h2>

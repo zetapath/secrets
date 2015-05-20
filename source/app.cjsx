@@ -33,13 +33,13 @@ App = React.createClass
     SPArouter.listen
       "/session/:id"  : (param) => @setState session: false, context: param.id
       "/howto/:step"  : (param) => @setState session: @state.session, howto: true, step: param.step
-      "/menu"         : @setState.bind @, menu: true
+      "/menu"         : => @setState menu: true
       "/content/:id"  : (param) => @setState menu: false, context: param.id, howto: false, secret: false, user: false
-      "/secret/new"   : @setState.bind @, secret: true, id: undefined
+      "/secret/new"   : => @setState secret: true, id: undefined
       "/secret/:id"   : (param) => @setState secret: true, id: param.id, user: false
       "/purchase/:id" : (param) => @setState purchase: true, id: param.id
       "/user/:id"     : (param) => @setState user: true, id: param.id
-      "/"             : @setState.bind @, menu: false, secret: false, user: false, purchase: false
+      "/"             : => @setState menu: false, secret: false, user: false, purchase: false
 
     data = storage()
     if data?
@@ -57,7 +57,7 @@ App = React.createClass
   render: ->
     if @state.session and @state.howto is false
       <app>
-        <ScreenMenu active={@state.menu} onClick={@onNavigation}/>
+        <ScreenMenu active={@state.menu}/>
         <ScreenContent context={@state.context}/>
         <ScreenSecret active={@state.secret} id={@state.id}/>
         <ScreenUser active={@state.user} id={@state.id}/>
