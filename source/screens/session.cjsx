@@ -43,9 +43,9 @@ module.exports = React.createClass
       </form>
       {
         if @props.context is "login"
-          <a href="/#/session/signup">Dont have an account? <strong>Sign Up</strong></a>
+          <a href="#/session/signup">Dont have an account? <strong>Sign Up</strong></a>
         else
-          <a href="/#/session/login">You have an account, <strong>Sign In</strong></a>
+          <a href="#/session/login">You have an account, <strong>Sign In</strong></a>
       }
       <small>Copyright 2015, Zetapath ltd.</small>
 

@@ -25,8 +25,7 @@ path =
                     "source/styles/normalize.styl"
                     "source/styles/app.styl"
                     "source/styles/app.*.styl"]
-  dependencies  : [ "bower_components/director/build/director.js"
-                    "bower_components/react/react-with-addons.js"
+  dependencies  : [ "bower_components/react/react-with-addons.js"
                     "bower_components/hamsa/dist/hamsa.js"
                     "bower_components/hope/hope.js"
                     "bower_components/moment/min/moment.min.js"

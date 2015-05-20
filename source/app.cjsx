@@ -1,5 +1,6 @@
 "use strict"
 
+SPArouter       = require "spa-router"
 # -- Models
 Session         = require "./models/session"
 # -- Modules
@@ -29,29 +30,28 @@ App = React.createClass
 
   # -- Lifecycle
   componentWillMount: ->
+    SPArouter.listen
+      "/session/:id"  : (param) => @setState session: false, context: param.id
+      "/howto/:step"  : (param) => @setState session: @state.session, howto: true, step: param.step
+      "/menu"         : @setState.bind @, menu: true
+      "/content/:id"  : (param) => @setState menu: false, context: param.id, howto: false, secret: false, user: false
+      "/secret/new"   : @setState.bind @, secret: true, id: undefined
+      "/secret/:id"   : (param) => @setState secret: true, id: param.id, user: false
+      "/purchase/:id" : (param) => @setState purchase: true, id: param.id
+      "/user/:id"     : (param) => @setState user: true, id: param.id
+      "/"             : @setState.bind @, menu: false, secret: false, user: false, purchase: false
+
     data = storage()
     if data?
       @setState howto: false, session: new Session data
     else
-      window.location = "/#/session/login"
-
-  componentDidMount: ->
-    router = Router
-      "/session/:id"  : (id) => @setState session: false, context: id
-      "/howto/:step"  : (step) => @setState session: @state.session, howto: true, step: step
-      "/menu"         : @setState.bind @, menu: true
-      "/content/:id"  : (id) => @setState menu: false, context: id, howto: false, secret: false, user: false
-      "/secret/new"   : @setState.bind @, secret: true, id: undefined
-      "/secret/:id"   : (id) => @setState secret: true, id: id, user: false
-      "/purchase/:id" : (id) => @setState purchase: true, id: id
-      "/user/:id"     : (id) => @setState user: true, id: id
-      "/"             : @setState.bind @, menu: false, secret: false, user: false, purchase: false
-    router.init window.location.hash or "/#/"
+      SPArouter.path "session/login"
 
   # -- Events
   onSessionSuccess: (data) ->
     storage data
-    @setState howto: true, session: new Session data
+    @setState session: new Session data
+    SPArouter.path "howto/0"
 
   # -- Render
   render: ->

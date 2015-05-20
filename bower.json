@@ -1,8 +1,7 @@
 {
   "name"            : "secrets",
-  "version"         : "0.4.26",
+  "version"         : "0.5.20",
   "dependencies"    : {
-    "director"      : "*",
     "hamsa"         : "*",
     "hope"          : "*",
     "moment"        : "*",

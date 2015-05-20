@@ -1,31 +1,32 @@
 {
-  "name"        : "secrets",
-  "version"     : "0.5.3",
-  "description" : "",
-  "homepage"    : "http://zetapath.com",
-  "author"      : "Zetapath LTD.",
+  "name"                  : "secrets",
+  "version"               : "0.5.20",
+  "description"           : "",
+  "homepage"              : "http://zetapath.com",
+  "author"                : "Zetapath LTD.",
   "dependencies": {
-    "browserify"     : "^10.0.0",
-    "coffee-reactify": "^3.0.0",
-    "coffee-script"  : "*",
-    "moment"         : "^2.10.2",
-    "react"          : "^0.13.2",
-    "vinyl-source-stream": "^1.1.0"
+    "browserify"          : "^10.0.0",
+    "coffee-reactify"     : "^3.0.0",
+    "coffee-script"       : "*",
+    "moment"              : "^2.10.2",
+    "react"               : "^0.13.2",
+    "spa-router"          : "^0.5.20",
+    "vinyl-source-stream" : "^1.1.0"
   },
   "devDependencies": {
-    "gulp"        : "*",
-    "gulp-cjsx"   : "*",
-    "gulp-concat" : "*",
-    "gulp-connect": "*",
-    "gulp-flatten": "*",
-    "gulp-header" : "*",
-    "gulp-stylus" : "*",
-    "gulp-uglify" : "*",
-    "gulp-util"   : "*",
-    "gulp-yml"    : "*"
+    "gulp"                : "*",
+    "gulp-cjsx"           : "*",
+    "gulp-concat"         : "*",
+    "gulp-connect"        : "*",
+    "gulp-flatten"        : "*",
+    "gulp-header"         : "*",
+    "gulp-stylus"         : "*",
+    "gulp-uglify"         : "*",
+    "gulp-util"           : "*",
+    "gulp-yml"            : "*"
   },
   "scripts": {
-    "start"      : "gulp",
-    "postinstall": "bower install"
+    "start"               : "gulp",
+    "postinstall"         : "bower install"
   }
 }
