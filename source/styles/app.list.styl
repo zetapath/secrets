@@ -31,11 +31,13 @@ ul
           overflow                          : hidden
           white-space                       : nowrap
           text-overflow                     : ellipsis
+        > strong
+          color                             : THEME
         > small
           opacity                           : 0.5
       > small
-        color                               : THEME
         text-align                          : right
+        color                               : lighten(COLOR, 50%)
 
       // -- Classes
       &.purchase, &.user, &.activity
