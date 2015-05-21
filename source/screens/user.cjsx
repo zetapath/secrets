@@ -21,11 +21,11 @@ module.exports = React.createClass
   # -- Lifecycle
   componentWillReceiveProps: (next_props) ->
     id = next_props.id or @props.id
-    if id?
-      user = User.findBy("id", id)[0]
-      if user
-        following = Session.instance().following
-        @setState data: user, network: if id in following then "unfollow" else "follow"
+    if id? and user = User.findBy("id", id)[0]
+      following = Session.instance().following
+      @setState data: user, network: if id in following then "unfollow" else "follow"
+      request("GET", "timeline", user: id).then (error, response) ->
+        console.log "GET/timeline", error, response
 
   # -- Events
   onNetwork: (event) ->
