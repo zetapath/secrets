@@ -7,7 +7,6 @@ module.exports = React.createClass
   getDefaultProps: ->
     dataSource  : []
     renderRow   : "App.ItemSecret"
-    search      : false
 
   # -- Events
   onSearch: (event) ->
@@ -18,11 +17,10 @@ module.exports = React.createClass
   # -- Render
   render: ->
     <ul>
-      {
-        if @props.search
-          <input ref="search" type="search" placeholder="search" onSearch={@onSearch} autofocus />
-      }
-      {
-        <App.ItemSecret model={item} onClick={@props.onClick} /> for item, index in @props.dataSource
-      }
+    {
+      for item, index in @props.dataSource
+        <li key={index}>
+          {@props.itemFactory @props.dataSource[index]}
+        </li>
+    }
     </ul>
