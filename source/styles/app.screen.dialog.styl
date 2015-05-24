@@ -24,22 +24,28 @@
 
     > h1
       margin-bottom                   : (SPACE / 2)
+      color                           : THEME
     > img
-      margin                          : (2 * SPACE) 0 SPACE 0
+      margin                          : (2 * SPACE) 0
       max-width                       : 50vw
     > small
       display                         : block
-      opacity                         : 0.5
       padding                         : 0 (2.5 * SPACE)
+      color                           : alpha(WHITE, 50%)
+      > strong
+        color                         : alpha(WHITE, 75%)
     > button
-      margin                          : (2 * SPACE) 0 (SPACE / 2) 0
+      margin-bottom                   : (SPACE / 2)
       width                           : 100%
       &.loading
         margin-left                   : (50vw - (BUTTON_HEIGHT))
 
     > a
       position                        : absolute
+      width                           : HEIGHT = 10vw
+      height                          : HEIGHT
       bottom                          : SPACE
-      left                            : 0
-      width                           : 100%
-      font-size                       : FONT_SIZE_BIG
+      left                            : 50vw - (HEIGHT / 2)
+      line-height                     : (HEIGHT / 1.1)
+      background-color                : alpha(WHITE, 5%)
+      border-radius                   : HEIGHT

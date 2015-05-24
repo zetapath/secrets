@@ -1,7 +1,12 @@
+
+SPArouter   = require "spa-router"
+# -- Models
 Session     = require "../models/session"
 Purchase    = require "../models/purchase"
+# -- Modules
 distance    = require "../modules/distance"
 request     = require "../modules/request"
+C           = require "../modules/constants"
 
 module.exports = React.createClass
 
@@ -26,13 +31,13 @@ module.exports = React.createClass
     button = @refs.btn_purchase.getDOMNode().classList
     button.add "loading"
 
-    Hope.shield([ ->
+    Hope.shield([ =>
       request "POST", "purchase", secret: @state.data.id
     , ->
       Session.update()
     ]).then (error, response) =>
       button.remove "loading"
-      console.log "POST/purchase", error, response
+      SPArouter.back()
 
   # -- Render
   render: ->
@@ -42,10 +47,10 @@ module.exports = React.createClass
         <h1>{kms} km</h1>
         <p>{@state.data.text}</p>
         <img src="./assets/img/pushpin.png" />
-        <small>loelrk</small>
         <button ref="btn_purchase" onClick={@onPurchase} className="radius transparent">
-          <abbr>Purchase 3 coins</abbr>
+          <abbr>Buy secret with 3 coins</abbr>
         </button>
-        <a href="/#/">x</a>
+        <small>Now you have <strong>5 coins</strong> in your purse.</small>
+        <a href="/#/" class="button">x</a>
       </div>
     </div>
