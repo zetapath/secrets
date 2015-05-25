@@ -36,8 +36,8 @@ module.exports = React.createClass
     ]).then (error, response) =>
       button.remove "loading"
       unless error
-        window.location = "/#/howto/#{parseInt(@props.step) + 1}"
-        setTimeout (-> window.location = "/#/content/discover"), 450
+        window.location = "#/howto/#{parseInt(@props.step) + 1}"
+        setTimeout (-> window.location = "#/content/discover"), 450
 
   # -- Render
   render: ->

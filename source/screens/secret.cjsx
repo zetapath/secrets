@@ -32,7 +32,7 @@ module.exports = React.createClass
 
   # -- Events
   onUser: (event) ->
-    window.location = "/#/user/#{@state.data.user.id}"
+    window.location = "#/user/#{@state.data.user.id}"
 
   # -- Render
   render: ->

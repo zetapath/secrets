@@ -50,7 +50,7 @@ module.exports = React.createClass
           console.log "POST/image", error, response
           unless error
             button.classList.remove "loading"
-            window.location = "/#/content/secrets"
+            window.location = "#/content/secrets"
             @setState title: undefined, text: undefined, image: undefined
 
   # -- Render

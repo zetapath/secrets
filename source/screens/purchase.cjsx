@@ -51,6 +51,6 @@ module.exports = React.createClass
           <abbr>Buy secret with 3 coins</abbr>
         </button>
         <small>Now you have <strong>5 coins</strong> in your purse.</small>
-        <a href="/#/" class="button">x</a>
+        <a href="#/" class="button">x</a>
       </div>
     </div>

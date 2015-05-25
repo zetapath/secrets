@@ -27,7 +27,7 @@ module.exports = React.createClass
 
     <aside id="menu" className={@props.active}>
       <div data-flex="horizontal grow center">
-        <a href="/#/content/secrets">
+        <a href="#/content/secrets">
           <h2>{session.secrets?.length or 0}</h2>
           <small>secrets</small>
         </a>
@@ -37,7 +37,7 @@ module.exports = React.createClass
           <figure style={backgroundImage: "url(#{session.image})"}></figure>
           <h2>{session.username}</h2>
         </div>
-        <a href="/#/content/purchases">
+        <a href="#/content/purchases">
           <h2>{session.purchases?.length or 0}</h2>
           <small>purchases</small>
         </a>
