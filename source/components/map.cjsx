@@ -19,22 +19,22 @@ module.exports = React.createClass
     gmap        : undefined
 
   # -- Lifecycle
-  # componentDidMount: ->
-  #   center = @props.center or [43.256963, -2.923441]
-  #   @setState gmap: new google.maps.Map @getDOMNode(),
-  #     center          : new google.maps.LatLng center
-  #     zoom            : if @props.center then @props.zoom else 1
-  #     mobile          : true
-  #     sensor          : false
-  #     disableDefaultUI: true
-  #   @createMarker @props.marker
+  componentDidMount: ->
+    center = @props.center or [43.256963, -2.923441]
+    @setState gmap: new google.maps.Map @getDOMNode(),
+      center          : new google.maps.LatLng center
+      # zoom            : if @props.center then @props.zoom else 1
+      mobile          : true
+      sensor          : false
+      disableDefaultUI: true
+    # @createMarker @props.marker
 
-  # componentWillReceiveProps: (next_props) ->
-  #   center = next_props.center or @props.center
-  #   if center?
-  #     @state.gmap?.setCenter new google.maps.LatLng center[0], center[1]
-  #     @state.gmap?.setZoom @props.zoom
-  #     @createMarker next_props.marker or @props.marker
+  componentWillReceiveProps: (next_props) ->
+    center = next_props.center or @props.center
+    if center?
+      @state.gmap?.setCenter new google.maps.LatLng center[0], center[1]
+      @state.gmap?.setZoom @props.zoom
+      @createMarker next_props.marker or @props.marker
 
   # -- Events
   onExpand: (event) ->
