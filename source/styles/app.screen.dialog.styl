@@ -1,8 +1,9 @@
 [data-dialog]
+  z-index                             : 3
   display-flex()
-  justify-content                     center
-  align-content                       center
-  align-items                         center
+  justify-content                       center
+  align-content                         center
+  align-items                           center
   width                               : 100%
   text-align                          : center
   color                               : WHITE
@@ -28,13 +29,13 @@
     > img
       margin                          : (2 * SPACE) 0
       max-width                       : 50vw
-    > small
+    small
       display                         : block
       padding                         : 0 (2.5 * SPACE)
       color                           : alpha(WHITE, 50%)
       > strong
         color                         : alpha(WHITE, 75%)
-    > button
+    button
       margin-bottom                   : (SPACE / 2)
       width                           : 100%
       &.loading

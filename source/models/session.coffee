@@ -11,7 +11,7 @@ module.exports = class Session extends Hamsa
     name          : type: String
     bio           : type: String
     image         : type: String
-    wallet        : type: Number
+    wallet        : type: Number, default: 0
 
     secrets       : type: Array
     purchases     : type: Array
