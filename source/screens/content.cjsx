@@ -1,3 +1,4 @@
+SPArouter       = require "spa-router"
 # -- Components
 Header        = require "../components/header"
 Loading       = require "../components/loading"
@@ -72,7 +73,6 @@ module.exports = React.createClass
       update = true
     update
 
-
   # -- Private events
   _getItemRenderer: ->
     return ItemPurchase if @props.context is "discover"
@@ -109,9 +109,13 @@ module.exports = React.createClass
     return Purchase if context is "discover"
     return User if context in ["following", "followers"]
 
+  # -- Events
+  onClick: (event) ->
+    SPArouter.back() if SPArouter.path() is "/menu"
+
   # -- Render
   render: ->
-    <article className={@state.active} id="content">
+    <article className={@state.active} id="content" onClick={@onClick}>
       <Header title={@props.context} routes={@props.routes.menu} session={@state.session} subroutes={@props.routes.post} />
       { <Loading /> if @state.loading }
       {
