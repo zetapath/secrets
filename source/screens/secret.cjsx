@@ -51,7 +51,7 @@ module.exports = React.createClass
               <figure className="avatar" style={backgroundImage: "url(#{@state.data.user?.image})"}></figure>
               <div>
                 <strong>{@state.data.user?.username}</strong>
-                <small><strong>{@state.data.user?.secrets.length}</strong> secrets</small>
+                <small><strong>{@state.data.user?.secrets?.length}</strong> secrets</small>
               </div>
             </div>
             <div>

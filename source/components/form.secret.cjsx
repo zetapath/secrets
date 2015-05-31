@@ -70,7 +70,7 @@ module.exports = React.createClass
           <abbr>view</abbr></figure>
       </nav>
       <Map
-        zoom={15}
+        zoom={16}
         {center=@state.geoposition if @state.geoposition}
         {marker=@state.geoposition if @state.geoposition} />
       <input type="text" ref="latitude" value={@state.geoposition?[0]} hidden required/>

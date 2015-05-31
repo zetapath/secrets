@@ -1,3 +1,9 @@
+Leaflet   = require "react-leaflet"
+Map       = Leaflet.Map
+TileLayer = Leaflet.TileLayer
+Marker    = Leaflet.Marker
+Popup     = Leaflet.Popup
+
 module.exports = React.createClass
 
   # -- States & Properties
@@ -7,34 +13,15 @@ module.exports = React.createClass
     zoom        : React.PropTypes.number
     expandable  : React.PropTypes.boolean
 
-
   getDefaultProps: ->
-    zoom        : 10
+    zoom        : 16
     expandable  : false
     center      : undefined
     marker      : undefined
-    sensor      : false
-
-  getInitialState: ->
-    gmap        : undefined
 
   # -- Lifecycle
-  componentDidMount: ->
-    center = @props.center or [43.256963, -2.923441]
-    @setState gmap: new google.maps.Map @getDOMNode(),
-      center          : new google.maps.LatLng center
-      # zoom            : if @props.center then @props.zoom else 1
-      mobile          : true
-      sensor          : false
-      disableDefaultUI: true
-    # @createMarker @props.marker
-
-  componentWillReceiveProps: (next_props) ->
-    center = next_props.center or @props.center
-    if center?
-      @state.gmap?.setCenter new google.maps.LatLng center[0], center[1]
-      @state.gmap?.setZoom @props.zoom
-      @createMarker next_props.marker or @props.marker
+  shouldComponentUpdate: (next_props, next_states) ->
+    if next_props.center and next_props.marker then true else false
 
   # -- Events
   onExpand: (event) ->
@@ -43,13 +30,11 @@ module.exports = React.createClass
 
   # -- Render
   render: ->
-    <map data-map onClick={@onExpand if @props.expandable}>
-      {@props.center}
-    </map>
-
-  # -- Private
-  createMarker: (coords) ->
-    if coords
-      new google.maps.Marker
-        map             : @state.gmap
-        position        : new google.maps.LatLng coords[0], coords[1]
+    <Map center={@props.center} zoom={@props.zoom} onClick={@onExpand if @props.expandable}>
+      <TileLayer
+        url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      />
+      <Marker position={@props.center}>
+      </Marker>
+    </Map>

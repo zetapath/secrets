@@ -25,12 +25,14 @@ path =
                     "source/styles/normalize.styl"
                     "source/styles/app.styl"
                     "source/styles/app.*.styl"]
-  dependencies  : [ "bower_components/react/react-with-addons.js"
+  thirds:
+    js          : [ "bower_components/react/react-with-addons.js"
                     "bower_components/hamsa/dist/hamsa.js"
                     "bower_components/hope/hope.js"
                     "bower_components/moment/min/moment.min.js"
                     "bower_components/quojs/quo.js"
                     "bower_components/quojs/quo.ajax.js"]
+    css         : [ "node_modules/leaflet/dist/leaflet.css"]
 # -- BANNER --------------------------------------------------------------------
 banner = [
   "/**"
@@ -68,14 +70,20 @@ gulp.task "style", ->
     .pipe gulp.dest "#{path.dist}/assets/css"
     .pipe connect.reload()
 
-gulp.task "dependencies", ->
-  gulp.src path.dependencies
-    .pipe concat "#{pkg.name}.dependencies.js"
+gulp.task "thirds", ->
+  gulp.src path.thirds.css
+    .pipe concat "#{pkg.name}.thirds.css"
+    .pipe gulp.dest "#{path.dist}/assets/css"
+    # .pipe uglify mangle: true
+    .pipe connect.reload()
+
+  gulp.src path.thirds.js
+    .pipe concat "#{pkg.name}.thirds.js"
     .pipe gulp.dest "#{path.dist}/assets/js"
     # .pipe uglify mangle: true
     .pipe connect.reload()
 
-gulp.task "init", ["source", "style", "dependencies"]
+gulp.task "init", ["source", "style", "thirds"]
 
 gulp.task "default", ->
   gulp.run ["server"]
