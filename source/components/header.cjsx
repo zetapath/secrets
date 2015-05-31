@@ -15,9 +15,6 @@ module.exports = React.createClass
     session     : undefined
     subroutes   : []
 
-  getInitialState: ->
-    expanded    : @props.expanded
-
   # -- Lifecycle
   componentDidUpdate: (nextProps) ->
     @refs.header.getDOMNode().classList.remove "expanded"

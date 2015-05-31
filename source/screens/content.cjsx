@@ -22,16 +22,16 @@ module.exports = React.createClass
 
   # -- States & Properties
   getInitialState: ->
-    secrets     : []
-    purchases   : []
-    discover    : []
-    timeline    : []
-    followers   : []
-    following   : []
-    loading     : true
-    active      : false
-    session     : Session.instance()
-    geoposition : undefined
+    secrets         : []
+    purchases       : []
+    discover        : []
+    timeline        : []
+    followers       : []
+    following       : []
+    loading         : true
+    active          : false
+    session         : Session.instance()
+    geoposition     : undefined
 
   getDefaultProps: ->
     routes  :
@@ -110,20 +110,28 @@ module.exports = React.createClass
     return User if context in ["following", "followers"]
 
   # -- Events
-  onClick: (event) ->
+  onArticleClick: (event) ->
     SPArouter.back() if SPArouter.path() is "/menu"
+
+  onListClick: (event) ->
+    @refs.header.getDOMNode().classList.remove "expanded"
 
   # -- Render
   render: ->
-    <article className={@state.active} id="content" onClick={@onClick}>
-      <Header title={@props.context} routes={@props.routes.menu} session={@state.session} subroutes={@props.routes.post} />
+    <article className={@state.active} id="content" onClick={@onArticleClick}>
+      <Header ref="header"
+              title={@props.context}
+              routes={@props.routes.menu}
+              session={@state.session}
+              subroutes={@props.routes.post}/>
       { <Loading /> if @state.loading }
       {
         if @props.context in ["secrets", "purchases", "timeline", "discover", "followers", "following"]
           <ListScroll
             dataSource={@state[@props.context]}
             itemHeight={C.LI_HEIGHT}
-            itemFactory={@_getItemRenderer()}/>
+            itemFactory={@_getItemRenderer()}
+            onClick={@onListClick}/>
         else if @props.context is "profile"
           <FormProfile />
       }

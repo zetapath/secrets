@@ -30,7 +30,7 @@ module.exports = React.createClass
 
   # -- Render
   render: ->
-    <section data-list-scroll onScroll={@onScroll}>
+    <section data-list-scroll onScroll={@onScroll} onClick={@props.onClick}>
       <ul style={height: "#{@props.dataSource.length * @props.itemHeight}px"}>
       {
         if @props.dataSource.length > 0
